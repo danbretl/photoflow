@@ -7,6 +7,12 @@
 //
 
 #import "PFAppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
+#import "LocalyticsSession.h"
+
+static NSString * const LOCALYTICS_KEY_DEV = @"7fa4ecae75c27424cf4261a-a91c000e-0679-11e2-5678-00ef75f32667";
+static NSString * const LOCALYTICS_KEY_PROD = @"1e89135222cee8011477498-0b484d56-0679-11e2-5677-00ef75f32667";
+static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a2685";
 
 @implementation PFAppDelegate
 
@@ -16,9 +22,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [[LocalyticsSession sharedLocalyticsSession] startSession:LOCALYTICS_KEY_DEV];
+    
+    [Crashlytics startWithAPIKey:CRASHLYTICS_KEY];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    UIViewController * viewController = [[UIViewController alloc] initWithNibName:@"PFPlaceholder" bundle:[NSBundle mainBundle]];
+    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = navController;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -27,28 +43,38 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [[LocalyticsSession sharedLocalyticsSession] resume];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[LocalyticsSession sharedLocalyticsSession] resume];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+    [[LocalyticsSession sharedLocalyticsSession] close];
+    [[LocalyticsSession sharedLocalyticsSession] upload];
 }
 
 - (void)saveContext
