@@ -27,15 +27,6 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     
     [Crashlytics startWithAPIKey:CRASHLYTICS_KEY];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    
-    UIViewController * viewController = [[UIViewController alloc] initWithNibName:@"PFPlaceholder" bundle:[NSBundle mainBundle]];
-    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-    self.window.rootViewController = navController;
-    
-    [self.window makeKeyAndVisible];
     return YES;
     
 }

@@ -40,7 +40,12 @@
 		326232D31610F2F800440FE4 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 326232C81610F2F800440FE4 /* AFURLConnectionOperation.m */; };
 		326232D41610F2F800440FE4 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 326232CA1610F2F800440FE4 /* AFXMLRequestOperation.m */; };
 		326232D51610F2F800440FE4 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 326232CC1610F2F800440FE4 /* UIImageView+AFNetworking.m */; };
-		326232DC1610F57200440FE4 /* PFPlaceholder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 326232DB1610F57200440FE4 /* PFPlaceholder.xib */; };
+		32B350D316124C720024AFD2 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32B350D216124C720024AFD2 /* MainStoryboard.storyboard */; };
+		32B350D916125C030024AFD2 /* PFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350D816125C030024AFD2 /* PFEventsViewController.m */; };
+		32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */; };
+		32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DE16125E5E0024AFD2 /* PFEventCell.m */; };
+		32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E11612678F0024AFD2 /* FakeContent.rtf */; };
+		32B350E416126B130024AFD2 /* event1-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E316126B130024AFD2 /* event1-1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,7 +100,15 @@
 		326232CA1610F2F800440FE4 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		326232CB1610F2F800440FE4 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		326232CC1610F2F800440FE4 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		326232DB1610F57200440FE4 /* PFPlaceholder.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFPlaceholder.xib; sourceTree = "<group>"; };
+		32B350D216124C720024AFD2 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
+		32B350D716125C030024AFD2 /* PFEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventsViewController.h; sourceTree = "<group>"; };
+		32B350D816125C030024AFD2 /* PFEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventsViewController.m; sourceTree = "<group>"; };
+		32B350DA16125C460024AFD2 /* PFJoinEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFJoinEventViewController.h; sourceTree = "<group>"; };
+		32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFJoinEventViewController.m; sourceTree = "<group>"; };
+		32B350DD16125E5E0024AFD2 /* PFEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventCell.h; sourceTree = "<group>"; };
+		32B350DE16125E5E0024AFD2 /* PFEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventCell.m; sourceTree = "<group>"; };
+		32B350E11612678F0024AFD2 /* FakeContent.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = FakeContent.rtf; sourceTree = "<group>"; };
+		32B350E316126B130024AFD2 /* event1-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "event1-1.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +137,7 @@
 				325D5D8016111736007ECE05 /* Icon-Small@2x.png */,
 				325D5D8116111736007ECE05 /* Icon.png */,
 				325D5D8216111736007ECE05 /* Icon@2x.png */,
+				32B350E016125F690024AFD2 /* Images */,
 			);
 			name = Resources;
 			path = PhotoFlow;
@@ -165,10 +179,9 @@
 		326232811610E17F00440FE4 /* PhotoFlow */ = {
 			isa = PBXGroup;
 			children = (
-				3262328A1610E17F00440FE4 /* PFAppDelegate.h */,
-				3262328B1610E17F00440FE4 /* PFAppDelegate.m */,
-				326232DB1610F57200440FE4 /* PFPlaceholder.xib */,
-				326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */,
+				32B350D0161229C90024AFD2 /* Basic */,
+				32B350CE161229AC0024AFD2 /* View Controllers */,
+				32B350D1161229CB0024AFD2 /* Data */,
 				326232B81610F2D000440FE4 /* 3rd Party */,
 				326232821610E17F00440FE4 /* Supporting Files */,
 			);
@@ -187,6 +200,7 @@
 				326232911610E17F00440FE4 /* Default-568h@2x.png */,
 				326232AE1610E59C00440FE4 /* Resources.rtf */,
 				326232B01610E62B00440FE4 /* Dependencies.rtf */,
+				32B350E11612678F0024AFD2 /* FakeContent.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -238,6 +252,45 @@
 				326232CC1610F2F800440FE4 /* UIImageView+AFNetworking.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		32B350CE161229AC0024AFD2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				32B350D716125C030024AFD2 /* PFEventsViewController.h */,
+				32B350D816125C030024AFD2 /* PFEventsViewController.m */,
+				32B350DD16125E5E0024AFD2 /* PFEventCell.h */,
+				32B350DE16125E5E0024AFD2 /* PFEventCell.m */,
+				32B350DA16125C460024AFD2 /* PFJoinEventViewController.h */,
+				32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		32B350D0161229C90024AFD2 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				3262328A1610E17F00440FE4 /* PFAppDelegate.h */,
+				3262328B1610E17F00440FE4 /* PFAppDelegate.m */,
+				32B350D216124C720024AFD2 /* MainStoryboard.storyboard */,
+			);
+			name = Basic;
+			sourceTree = "<group>";
+		};
+		32B350D1161229CB0024AFD2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		32B350E016125F690024AFD2 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				32B350E316126B130024AFD2 /* event1-1.jpg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,11 +352,13 @@
 				326232921610E17F00440FE4 /* Default-568h@2x.png in Resources */,
 				326232AF1610E59C00440FE4 /* Resources.rtf in Resources */,
 				326232B11610E62B00440FE4 /* Dependencies.rtf in Resources */,
-				326232DC1610F57200440FE4 /* PFPlaceholder.xib in Resources */,
 				325D5D8316111736007ECE05 /* Icon-Small.png in Resources */,
 				325D5D8416111736007ECE05 /* Icon-Small@2x.png in Resources */,
 				325D5D8516111736007ECE05 /* Icon.png in Resources */,
 				325D5D8616111736007ECE05 /* Icon@2x.png in Resources */,
+				32B350D316124C720024AFD2 /* MainStoryboard.storyboard in Resources */,
+				32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */,
+				32B350E416126B130024AFD2 /* event1-1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +400,9 @@
 				326232D31610F2F800440FE4 /* AFURLConnectionOperation.m in Sources */,
 				326232D41610F2F800440FE4 /* AFXMLRequestOperation.m in Sources */,
 				326232D51610F2F800440FE4 /* UIImageView+AFNetworking.m in Sources */,
+				32B350D916125C030024AFD2 /* PFEventsViewController.m in Sources */,
+				32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */,
+				32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
