@@ -9,6 +9,8 @@
 #import "PFAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
 #import "LocalyticsSession.h"
+#import "PFEventsViewController.h"
+#import "NSManagedObjectContext+PhotoFlow.h"
 
 static NSString * const LOCALYTICS_KEY_DEV = @"7fa4ecae75c27424cf4261a-a91c000e-0679-11e2-5678-00ef75f32667";
 static NSString * const LOCALYTICS_KEY_PROD = @"1e89135222cee8011477498-0b484d56-0679-11e2-5677-00ef75f32667";
@@ -26,6 +28,18 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     [[LocalyticsSession sharedLocalyticsSession] startSession:LOCALYTICS_KEY_DEV];
     
     [Crashlytics startWithAPIKey:CRASHLYTICS_KEY];
+    
+    NSArray * events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    NSLog(@"before seed : events(%d) = %@", events.count, events);
+    [self.managedObjectContext devSeedContentAfterForcedFlush:YES];
+    [self.managedObjectContext saveCoreData];
+    events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    NSLog(@"after seed  : events(%d) = %@", events.count, events);
+    
+    // The following seems rather roundabout...
+    UINavigationController * rootNavController = (UINavigationController *)self.window.rootViewController;
+    PFEventsViewController * eventsViewController = (PFEventsViewController *)rootNavController.viewControllers[0];
+    eventsViewController.moc = self.managedObjectContext;
     
     return YES;
     
@@ -125,7 +139,7 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:@{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES} error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          

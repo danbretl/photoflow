@@ -40,6 +40,9 @@
 		326232D31610F2F800440FE4 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 326232C81610F2F800440FE4 /* AFURLConnectionOperation.m */; };
 		326232D41610F2F800440FE4 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 326232CA1610F2F800440FE4 /* AFXMLRequestOperation.m */; };
 		326232D51610F2F800440FE4 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 326232CC1610F2F800440FE4 /* UIImageView+AFNetworking.m */; };
+		32847DEF1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 32847DEE1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m */; };
+		32847DF31614FA7200D4AF91 /* PFPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 32847DF21614FA7200D4AF91 /* PFPhoto.m */; };
+		32847DF61614FA7200D4AF91 /* PFEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 32847DF51614FA7200D4AF91 /* PFEvent.m */; };
 		32B350D316124C720024AFD2 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32B350D216124C720024AFD2 /* MainStoryboard.storyboard */; };
 		32B350D916125C030024AFD2 /* PFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350D816125C030024AFD2 /* PFEventsViewController.m */; };
 		32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */; };
@@ -100,6 +103,12 @@
 		326232CA1610F2F800440FE4 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		326232CB1610F2F800440FE4 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		326232CC1610F2F800440FE4 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		32847DED1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+PhotoFlow.h"; sourceTree = "<group>"; };
+		32847DEE1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+PhotoFlow.m"; sourceTree = "<group>"; };
+		32847DF11614FA7200D4AF91 /* PFPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhoto.h; sourceTree = "<group>"; };
+		32847DF21614FA7200D4AF91 /* PFPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhoto.m; sourceTree = "<group>"; };
+		32847DF41614FA7200D4AF91 /* PFEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEvent.h; sourceTree = "<group>"; };
+		32847DF51614FA7200D4AF91 /* PFEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEvent.m; sourceTree = "<group>"; };
 		32B350D216124C720024AFD2 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		32B350D716125C030024AFD2 /* PFEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventsViewController.h; sourceTree = "<group>"; };
 		32B350D816125C030024AFD2 /* PFEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventsViewController.m; sourceTree = "<group>"; };
@@ -281,6 +290,12 @@
 			isa = PBXGroup;
 			children = (
 				326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */,
+				32847DF41614FA7200D4AF91 /* PFEvent.h */,
+				32847DF51614FA7200D4AF91 /* PFEvent.m */,
+				32847DF11614FA7200D4AF91 /* PFPhoto.h */,
+				32847DF21614FA7200D4AF91 /* PFPhoto.m */,
+				32847DED1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.h */,
+				32847DEE1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -403,6 +418,9 @@
 				32B350D916125C030024AFD2 /* PFEventsViewController.m in Sources */,
 				32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */,
 				32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */,
+				32847DEF1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m in Sources */,
+				32847DF31614FA7200D4AF91 /* PFPhoto.m in Sources */,
+				32847DF61614FA7200D4AF91 /* PFEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

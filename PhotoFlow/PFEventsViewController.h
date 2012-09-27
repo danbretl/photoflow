@@ -11,4 +11,6 @@
 
 @interface PFEventsViewController : UITableViewController<PFJoinEventViewControllerDelegate>
 
+@property (nonatomic, strong) NSManagedObjectContext * moc;
+
 @end
