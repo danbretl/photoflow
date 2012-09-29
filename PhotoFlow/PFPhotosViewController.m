@@ -101,4 +101,12 @@
     [self.collectionView setContentOffset:CGPointZero animated:NO];
 }
 
+//- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//    UICollectionViewFlowLayout * layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+//    if ([self.collectionView.collectionViewLayout isKindOfClass:[PFPhotosBannerFlowLayout class]]) {
+//        layout.itemSize = CGSizeMake(layout.itemSize.height, layout.itemSize.width);
+//        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    }
+//}
+
 @end

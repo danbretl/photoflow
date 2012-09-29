@@ -11,7 +11,7 @@
 #import "PFEvent.h"
 #import "PFPhotosViewConstants.h"
 
-@interface PFPhotosViewController : UICollectionViewController
+@interface PFPhotosViewController : UICollectionViewController <UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;
