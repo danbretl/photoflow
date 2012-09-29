@@ -16,5 +16,6 @@
 @dynamic location;
 @dynamic descriptionShort;
 @dynamic photos;
+@dynamic title;
 
 @end

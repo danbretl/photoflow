@@ -7,14 +7,17 @@
 //
 
 #import "PFEventsViewController.h"
+#import "PFPhotosViewController.h"
 #import "PFEventCell.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface PFEventsViewController ()
-
+@property (nonatomic, strong, readonly) NSDateFormatter * dateFormatter;
 @end
 
 @implementation PFEventsViewController
+
+@synthesize dateFormatter=_dateFormatter;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,6 +37,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+    [self.tableView reloadData];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,6 +58,10 @@
     if ([[segue identifier] isEqualToString:@"JoinEvent"]) {
         PFJoinEventViewController * viewController = segue.destinationViewController;
         viewController.delegate = self;
+    } else if ([[segue identifier] isEqualToString:@"ViewEventPhotos"]) {
+        PFPhotosViewController * viewController = segue.destinationViewController;
+        viewController.moc = self.moc;
+        viewController.event = [self.events objectAtIndex:[self.tableView indexPathForCell:sender].row];
     }
 }
 
@@ -53,12 +69,20 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (NSDateFormatter *)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    }
+    return _dateFormatter;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 1;
+    return self.events.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,10 +91,12 @@
     static NSString * CellIdentifier = @"EventCell";
     PFEventCell * cell = (PFEventCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.dateLabel.text = @"Dec 3, 2012";
-    cell.locationLabel.text = @"Rochester, NY";
-    cell.descriptionLabel.text = @"Lin & Crowe Wedding";
-    [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://dl.dropbox.com/u/7634478/iOS/PhotoFlow/event%d-1.jpg", indexPath.section + 1]]];
+    PFEvent * event = [self.events objectAtIndex:indexPath.row];
+    
+    cell.dateLabel.text = [self.dateFormatter stringFromDate:event.date];
+    cell.locationLabel.text = event.location;
+    cell.descriptionLabel.text = event.descriptionShort;
+    [cell.bannerImageView setImageWithURL:[NSURL URLWithString:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageLocation" ascending:YES]]] objectAtIndex:0]).imageLocation]];
     
     return cell;
 }

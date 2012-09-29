@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PFJoinEventViewController.h"
+#import "NSManagedObjectContext+PhotoFlow.h"
 
 @interface PFEventsViewController : UITableViewController<PFJoinEventViewControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
+@property (nonatomic, strong) NSArray * events;
 
 @end

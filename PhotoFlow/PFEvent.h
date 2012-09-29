@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSString * descriptionShort;
 @property (nonatomic, retain) NSSet *photos;
+@property (nonatomic, retain) NSString * title;
 @end
 
 @interface PFEvent (CoreDataGeneratedAccessors)

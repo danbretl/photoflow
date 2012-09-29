@@ -62,8 +62,8 @@
 // image url like https://dl.dropbox.com/u/7634478/iOS/PhotoFlow/event0-0.jpg
 - (void)devSeedContentAfterForcedFlush:(BOOL)forceFlush {
     
-    NSMutableDictionary * event0 = [NSMutableDictionary dictionaryWithDictionary:@{@"descriptionShort" : @"Jim & Amy's Wedding", @"location" : @"Santa Clara, CA", @"photosCount" : @6}];
-    NSMutableDictionary * event1 = [NSMutableDictionary dictionaryWithDictionary:@{@"descriptionShort" : @"Duane & Linda's Wedding", @"location" : @"Rochester, NY", @"photosCount" : @5}];
+    NSMutableDictionary * event0 = [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Jim & Amy", @"descriptionShort" : @"Jim & Amy's Wedding", @"location" : @"Santa Clara, CA", @"photosCount" : @6}];
+    NSMutableDictionary * event1 = [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Duane & Linda", @"descriptionShort" : @"Duane & Linda's Wedding", @"location" : @"Rochester, NY", @"photosCount" : @5}];
     
     NSTimeInterval secondsInDay = 60 * 60 * 24;
     NSArray * events = @[event0, event1];
@@ -87,6 +87,7 @@
     for (NSDictionary * event in events) {
         PFEvent * eventCoreData = [NSEntityDescription insertNewObjectForEntityForName:@"PFEvent" inManagedObjectContext:self];
         eventCoreData.date = event[@"date"];
+        eventCoreData.title = event[@"title"];
         eventCoreData.descriptionShort = event[@"descriptionShort"];
         eventCoreData.location = event[@"location"];
         for (NSDictionary * photo in event[@"photos"]) {

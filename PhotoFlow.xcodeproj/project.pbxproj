@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		320FD724161671EA00C63957 /* PFPhotoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 320FD723161671EA00C63957 /* PFPhotoScrollView.m */; };
+		322454B516153ADE00EB5269 /* PFPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 322454B416153ADE00EB5269 /* PFPhotoCell.m */; };
+		322454BB16153DFA00EB5269 /* PFPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 322454BA16153DFA00EB5269 /* PFPhotoViewController.m */; };
+		322454BE16154D9400EB5269 /* PFPhotosGridFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 322454BD16154D9400EB5269 /* PFPhotosGridFlowLayout.m */; };
+		322454C116154E1A00EB5269 /* PFPhotosBannerFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 322454C016154E1A00EB5269 /* PFPhotosBannerFlowLayout.m */; };
+		322454C51615523800EB5269 /* DefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 322454C41615523800EB5269 /* DefaultsManager.m */; };
+		322EF73C1616632A00D2F105 /* PFPhotoContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 322EF73B1616632A00D2F105 /* PFPhotoContainerViewController.m */; };
 		325D5D8316111736007ECE05 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D7F16111736007ECE05 /* Icon-Small.png */; };
 		325D5D8416111736007ECE05 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8016111736007ECE05 /* Icon-Small@2x.png */; };
 		325D5D8516111736007ECE05 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8116111736007ECE05 /* Icon.png */; };
@@ -49,9 +56,26 @@
 		32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DE16125E5E0024AFD2 /* PFEventCell.m */; };
 		32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E11612678F0024AFD2 /* FakeContent.rtf */; };
 		32B350E416126B130024AFD2 /* event1-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E316126B130024AFD2 /* event1-1.jpg */; };
+		32E8BB7216153731008AC3B2 /* PFPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		320FD722161671EA00C63957 /* PFPhotoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotoScrollView.h; sourceTree = "<group>"; };
+		320FD723161671EA00C63957 /* PFPhotoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotoScrollView.m; sourceTree = "<group>"; };
+		322454B316153ADE00EB5269 /* PFPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotoCell.h; sourceTree = "<group>"; };
+		322454B416153ADE00EB5269 /* PFPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotoCell.m; sourceTree = "<group>"; };
+		322454B716153CAA00EB5269 /* PhotoFlow 002.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PhotoFlow 002.xcdatamodel"; sourceTree = "<group>"; };
+		322454B916153DFA00EB5269 /* PFPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotoViewController.h; sourceTree = "<group>"; };
+		322454BA16153DFA00EB5269 /* PFPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotoViewController.m; sourceTree = "<group>"; };
+		322454BC16154D9400EB5269 /* PFPhotosGridFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotosGridFlowLayout.h; sourceTree = "<group>"; };
+		322454BD16154D9400EB5269 /* PFPhotosGridFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotosGridFlowLayout.m; sourceTree = "<group>"; };
+		322454BF16154E1A00EB5269 /* PFPhotosBannerFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotosBannerFlowLayout.h; sourceTree = "<group>"; };
+		322454C016154E1A00EB5269 /* PFPhotosBannerFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotosBannerFlowLayout.m; sourceTree = "<group>"; };
+		322454C31615523800EB5269 /* DefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultsManager.h; sourceTree = "<group>"; };
+		322454C41615523800EB5269 /* DefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultsManager.m; sourceTree = "<group>"; };
+		322454C61615528D00EB5269 /* PFPhotosViewConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PFPhotosViewConstants.h; sourceTree = "<group>"; };
+		322EF73A1616632A00D2F105 /* PFPhotoContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotoContainerViewController.h; sourceTree = "<group>"; };
+		322EF73B1616632A00D2F105 /* PFPhotoContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotoContainerViewController.m; sourceTree = "<group>"; };
 		325D5D7F16111736007ECE05 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		325D5D8016111736007ECE05 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		325D5D8116111736007ECE05 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -118,6 +142,8 @@
 		32B350DE16125E5E0024AFD2 /* PFEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventCell.m; sourceTree = "<group>"; };
 		32B350E11612678F0024AFD2 /* FakeContent.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = FakeContent.rtf; sourceTree = "<group>"; };
 		32B350E316126B130024AFD2 /* event1-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "event1-1.jpg"; sourceTree = "<group>"; };
+		32E8BB7016153731008AC3B2 /* PFPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotosViewController.h; sourceTree = "<group>"; };
+		32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotosViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +165,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		320FD7251616861600C63957 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		322454B816153DE900EB5269 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				322EF73A1616632A00D2F105 /* PFPhotoContainerViewController.h */,
+				322EF73B1616632A00D2F105 /* PFPhotoContainerViewController.m */,
+				322454B916153DFA00EB5269 /* PFPhotoViewController.h */,
+				322454BA16153DFA00EB5269 /* PFPhotoViewController.m */,
+				320FD722161671EA00C63957 /* PFPhotoScrollView.h */,
+				320FD723161671EA00C63957 /* PFPhotoScrollView.m */,
+			);
+			name = Photo;
+			sourceTree = "<group>";
+		};
+		322454C21615520D00EB5269 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */,
+				32847DED1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.h */,
+				32847DEE1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m */,
+				32847DF41614FA7200D4AF91 /* PFEvent.h */,
+				32847DF51614FA7200D4AF91 /* PFEvent.m */,
+				32847DF11614FA7200D4AF91 /* PFPhoto.h */,
+				32847DF21614FA7200D4AF91 /* PFPhoto.m */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
 		325D5D7E16111720007ECE05 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,12 +326,11 @@
 		32B350CE161229AC0024AFD2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				32B350D716125C030024AFD2 /* PFEventsViewController.h */,
-				32B350D816125C030024AFD2 /* PFEventsViewController.m */,
-				32B350DD16125E5E0024AFD2 /* PFEventCell.h */,
-				32B350DE16125E5E0024AFD2 /* PFEventCell.m */,
-				32B350DA16125C460024AFD2 /* PFJoinEventViewController.h */,
-				32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */,
+				32E8BB6D161536BA008AC3B2 /* Events */,
+				32E8BB6F161536C9008AC3B2 /* Join Event */,
+				32E8BB6E161536BC008AC3B2 /* Photos */,
+				322454B816153DE900EB5269 /* Photo */,
+				320FD7251616861600C63957 /* Camera */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -289,13 +348,9 @@
 		32B350D1161229CB0024AFD2 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */,
-				32847DF41614FA7200D4AF91 /* PFEvent.h */,
-				32847DF51614FA7200D4AF91 /* PFEvent.m */,
-				32847DF11614FA7200D4AF91 /* PFPhoto.h */,
-				32847DF21614FA7200D4AF91 /* PFPhoto.m */,
-				32847DED1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.h */,
-				32847DEE1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m */,
+				322454C21615520D00EB5269 /* Core Data */,
+				322454C31615523800EB5269 /* DefaultsManager.h */,
+				322454C41615523800EB5269 /* DefaultsManager.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -306,6 +361,42 @@
 				32B350E316126B130024AFD2 /* event1-1.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		32E8BB6D161536BA008AC3B2 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				32B350D716125C030024AFD2 /* PFEventsViewController.h */,
+				32B350D816125C030024AFD2 /* PFEventsViewController.m */,
+				32B350DD16125E5E0024AFD2 /* PFEventCell.h */,
+				32B350DE16125E5E0024AFD2 /* PFEventCell.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		32E8BB6E161536BC008AC3B2 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				32E8BB7016153731008AC3B2 /* PFPhotosViewController.h */,
+				32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */,
+				322454C61615528D00EB5269 /* PFPhotosViewConstants.h */,
+				322454B316153ADE00EB5269 /* PFPhotoCell.h */,
+				322454B416153ADE00EB5269 /* PFPhotoCell.m */,
+				322454BC16154D9400EB5269 /* PFPhotosGridFlowLayout.h */,
+				322454BD16154D9400EB5269 /* PFPhotosGridFlowLayout.m */,
+				322454BF16154E1A00EB5269 /* PFPhotosBannerFlowLayout.h */,
+				322454C016154E1A00EB5269 /* PFPhotosBannerFlowLayout.m */,
+			);
+			name = Photos;
+			sourceTree = "<group>";
+		};
+		32E8BB6F161536C9008AC3B2 /* Join Event */ = {
+			isa = PBXGroup;
+			children = (
+				32B350DA16125C460024AFD2 /* PFJoinEventViewController.h */,
+				32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */,
+			);
+			name = "Join Event";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,6 +512,14 @@
 				32847DEF1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m in Sources */,
 				32847DF31614FA7200D4AF91 /* PFPhoto.m in Sources */,
 				32847DF61614FA7200D4AF91 /* PFEvent.m in Sources */,
+				32E8BB7216153731008AC3B2 /* PFPhotosViewController.m in Sources */,
+				322454B516153ADE00EB5269 /* PFPhotoCell.m in Sources */,
+				322454BB16153DFA00EB5269 /* PFPhotoViewController.m in Sources */,
+				322454BE16154D9400EB5269 /* PFPhotosGridFlowLayout.m in Sources */,
+				322454C116154E1A00EB5269 /* PFPhotosBannerFlowLayout.m in Sources */,
+				322454C51615523800EB5269 /* DefaultsManager.m in Sources */,
+				322EF73C1616632A00D2F105 /* PFPhotoContainerViewController.m in Sources */,
+				320FD724161671EA00C63957 /* PFPhotoScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +688,7 @@
 		326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				322454B716153CAA00EB5269 /* PhotoFlow 002.xcdatamodel */,
 				326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */,
 			);
 			currentVersion = 326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */;
