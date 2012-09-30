@@ -8,12 +8,6 @@
 
 #import "AFNetworking.h"
 
-typedef enum {
-    EmotishClientDateNone = 0,
-    EmotishClientDateCreated = 1,
-    EmotishClientDateUpdated = 2,
-} EmotishClientDateType;
-
 typedef void(^PFCSuccessBlock)(AFHTTPRequestOperation * operation, id responseObject);
 typedef void(^PFCFailureBlock)(AFHTTPRequestOperation * operation, NSError * error);
 

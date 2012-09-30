@@ -1,6 +1,6 @@
 //
 //  WebDevViewController.m
-//  Emotish
+//  PhotoFlow
 //
 //  Created by Dan Bretl on 9/29/12.
 //  Copyright (c) 2012 Dan Bretl. All rights reserved.
@@ -188,7 +188,7 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
 }
 
 - (void) logSuccess:(BOOL)success forURL:(NSURL *)url {
-    [self logString:[NSString stringWithFormat:@"EmotishClient %@ for URL %@", success ? @"success" : @"failure", url.absoluteString] afterClear:YES];
+    [self logString:[NSString stringWithFormat:@"PFHTTPClient %@ for URL %@", success ? @"success" : @"failure", url.absoluteString] afterClear:YES];
 }
 
 - (void) logCountForArray:(NSArray *)array ofObjectsWithNoun:(NSString *)objectPluralNoun {

@@ -1,6 +1,6 @@
 //
 //  WebDevContainerView.m
-//  Emotish
+//  PhotoFlow
 //
 //  Created by Dan Bretl on 9/29/12.
 //  Copyright (c) 2012 Dan Bretl. All rights reserved.
