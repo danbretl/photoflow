@@ -50,12 +50,26 @@
 		32847DEF1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 32847DEE1614F2CF00D4AF91 /* NSManagedObjectContext+PhotoFlow.m */; };
 		32847DF31614FA7200D4AF91 /* PFPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 32847DF21614FA7200D4AF91 /* PFPhoto.m */; };
 		32847DF61614FA7200D4AF91 /* PFEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 32847DF51614FA7200D4AF91 /* PFEvent.m */; };
+		32AF7573161734C0004748A1 /* WebDevContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF756F161734C0004748A1 /* WebDevContainerView.m */; };
+		32AF7574161734C0004748A1 /* WebDevViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF7571161734C0004748A1 /* WebDevViewController.m */; };
+		32AF7575161734C0004748A1 /* WebDevViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32AF7572161734C0004748A1 /* WebDevViewController.xib */; };
+		32AF757D16173981004748A1 /* UIView+GetFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AF757C16173981004748A1 /* UIView+GetFirstResponder.m */; };
+		32AF75891617FA63004748A1 /* upload0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF757E1617FA63004748A1 /* upload0.jpg */; };
+		32AF758A1617FA63004748A1 /* upload1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF757F1617FA63004748A1 /* upload1.jpg */; };
+		32AF758B1617FA63004748A1 /* upload2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75801617FA63004748A1 /* upload2.jpg */; };
+		32AF758C1617FA63004748A1 /* upload3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75811617FA63004748A1 /* upload3.jpg */; };
+		32AF758D1617FA63004748A1 /* upload4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75821617FA63004748A1 /* upload4.jpg */; };
+		32AF758F1617FA63004748A1 /* upload7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75841617FA63004748A1 /* upload7.jpg */; };
+		32AF75901617FA63004748A1 /* upload8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75851617FA63004748A1 /* upload8.jpg */; };
+		32AF75911617FA63004748A1 /* upload9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75861617FA63004748A1 /* upload9.jpg */; };
+		32AF75921617FA63004748A1 /* upload5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75871617FA63004748A1 /* upload5.jpg */; };
+		32AF75931617FA63004748A1 /* upload6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32AF75881617FA63004748A1 /* upload6.jpg */; };
 		32B350D316124C720024AFD2 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32B350D216124C720024AFD2 /* MainStoryboard.storyboard */; };
 		32B350D916125C030024AFD2 /* PFEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350D816125C030024AFD2 /* PFEventsViewController.m */; };
 		32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */; };
 		32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DE16125E5E0024AFD2 /* PFEventCell.m */; };
 		32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E11612678F0024AFD2 /* FakeContent.rtf */; };
-		32B350E416126B130024AFD2 /* event1-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E316126B130024AFD2 /* event1-1.jpg */; };
+		32D953EC161733060014DAC3 /* PFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D953EB161733060014DAC3 /* PFHTTPClient.m */; };
 		32E8BB7216153731008AC3B2 /* PFPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +147,23 @@
 		32847DF21614FA7200D4AF91 /* PFPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhoto.m; sourceTree = "<group>"; };
 		32847DF41614FA7200D4AF91 /* PFEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEvent.h; sourceTree = "<group>"; };
 		32847DF51614FA7200D4AF91 /* PFEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEvent.m; sourceTree = "<group>"; };
+		32AF756E161734C0004748A1 /* WebDevContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDevContainerView.h; sourceTree = "<group>"; };
+		32AF756F161734C0004748A1 /* WebDevContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebDevContainerView.m; sourceTree = "<group>"; };
+		32AF7570161734C0004748A1 /* WebDevViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDevViewController.h; sourceTree = "<group>"; };
+		32AF7571161734C0004748A1 /* WebDevViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebDevViewController.m; sourceTree = "<group>"; };
+		32AF7572161734C0004748A1 /* WebDevViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebDevViewController.xib; sourceTree = "<group>"; };
+		32AF757B16173981004748A1 /* UIView+GetFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GetFirstResponder.h"; sourceTree = "<group>"; };
+		32AF757C16173981004748A1 /* UIView+GetFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GetFirstResponder.m"; sourceTree = "<group>"; };
+		32AF757E1617FA63004748A1 /* upload0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload0.jpg; sourceTree = "<group>"; };
+		32AF757F1617FA63004748A1 /* upload1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload1.jpg; sourceTree = "<group>"; };
+		32AF75801617FA63004748A1 /* upload2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload2.jpg; sourceTree = "<group>"; };
+		32AF75811617FA63004748A1 /* upload3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload3.jpg; sourceTree = "<group>"; };
+		32AF75821617FA63004748A1 /* upload4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload4.jpg; sourceTree = "<group>"; };
+		32AF75841617FA63004748A1 /* upload7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload7.jpg; sourceTree = "<group>"; };
+		32AF75851617FA63004748A1 /* upload8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload8.jpg; sourceTree = "<group>"; };
+		32AF75861617FA63004748A1 /* upload9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload9.jpg; sourceTree = "<group>"; };
+		32AF75871617FA63004748A1 /* upload5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload5.jpg; sourceTree = "<group>"; };
+		32AF75881617FA63004748A1 /* upload6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = upload6.jpg; sourceTree = "<group>"; };
 		32B350D216124C720024AFD2 /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		32B350D716125C030024AFD2 /* PFEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventsViewController.h; sourceTree = "<group>"; };
 		32B350D816125C030024AFD2 /* PFEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventsViewController.m; sourceTree = "<group>"; };
@@ -141,7 +172,8 @@
 		32B350DD16125E5E0024AFD2 /* PFEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventCell.h; sourceTree = "<group>"; };
 		32B350DE16125E5E0024AFD2 /* PFEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventCell.m; sourceTree = "<group>"; };
 		32B350E11612678F0024AFD2 /* FakeContent.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = FakeContent.rtf; sourceTree = "<group>"; };
-		32B350E316126B130024AFD2 /* event1-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "event1-1.jpg"; sourceTree = "<group>"; };
+		32D953EA161733060014DAC3 /* PFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFHTTPClient.h; sourceTree = "<group>"; };
+		32D953EB161733060014DAC3 /* PFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFHTTPClient.m; sourceTree = "<group>"; };
 		32E8BB7016153731008AC3B2 /* PFPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotosViewController.h; sourceTree = "<group>"; };
 		32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotosViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -251,6 +283,8 @@
 				32B350D0161229C90024AFD2 /* Basic */,
 				32B350CE161229AC0024AFD2 /* View Controllers */,
 				32B350D1161229CB0024AFD2 /* Data */,
+				32D953E8161732F20014DAC3 /* Web */,
+				32AF757A16173971004748A1 /* Util */,
 				326232B81610F2D000440FE4 /* 3rd Party */,
 				326232821610E17F00440FE4 /* Supporting Files */,
 			);
@@ -323,6 +357,32 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		32AF757A16173971004748A1 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				32AF757B16173981004748A1 /* UIView+GetFirstResponder.h */,
+				32AF757C16173981004748A1 /* UIView+GetFirstResponder.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		32AF75941617FA66004748A1 /* WebDevUpload */ = {
+			isa = PBXGroup;
+			children = (
+				32AF757E1617FA63004748A1 /* upload0.jpg */,
+				32AF757F1617FA63004748A1 /* upload1.jpg */,
+				32AF75801617FA63004748A1 /* upload2.jpg */,
+				32AF75811617FA63004748A1 /* upload3.jpg */,
+				32AF75821617FA63004748A1 /* upload4.jpg */,
+				32AF75871617FA63004748A1 /* upload5.jpg */,
+				32AF75881617FA63004748A1 /* upload6.jpg */,
+				32AF75841617FA63004748A1 /* upload7.jpg */,
+				32AF75851617FA63004748A1 /* upload8.jpg */,
+				32AF75861617FA63004748A1 /* upload9.jpg */,
+			);
+			name = WebDevUpload;
+			sourceTree = "<group>";
+		};
 		32B350CE161229AC0024AFD2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,9 +418,23 @@
 		32B350E016125F690024AFD2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				32B350E316126B130024AFD2 /* event1-1.jpg */,
+				32AF75941617FA66004748A1 /* WebDevUpload */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		32D953E8161732F20014DAC3 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				32D953EA161733060014DAC3 /* PFHTTPClient.h */,
+				32D953EB161733060014DAC3 /* PFHTTPClient.m */,
+				32AF756E161734C0004748A1 /* WebDevContainerView.h */,
+				32AF756F161734C0004748A1 /* WebDevContainerView.m */,
+				32AF7570161734C0004748A1 /* WebDevViewController.h */,
+				32AF7571161734C0004748A1 /* WebDevViewController.m */,
+				32AF7572161734C0004748A1 /* WebDevViewController.xib */,
+			);
+			name = Web;
 			sourceTree = "<group>";
 		};
 		32E8BB6D161536BA008AC3B2 /* Events */ = {
@@ -464,7 +538,17 @@
 				325D5D8616111736007ECE05 /* Icon@2x.png in Resources */,
 				32B350D316124C720024AFD2 /* MainStoryboard.storyboard in Resources */,
 				32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */,
-				32B350E416126B130024AFD2 /* event1-1.jpg in Resources */,
+				32AF7575161734C0004748A1 /* WebDevViewController.xib in Resources */,
+				32AF75891617FA63004748A1 /* upload0.jpg in Resources */,
+				32AF758A1617FA63004748A1 /* upload1.jpg in Resources */,
+				32AF758B1617FA63004748A1 /* upload2.jpg in Resources */,
+				32AF758C1617FA63004748A1 /* upload3.jpg in Resources */,
+				32AF758D1617FA63004748A1 /* upload4.jpg in Resources */,
+				32AF758F1617FA63004748A1 /* upload7.jpg in Resources */,
+				32AF75901617FA63004748A1 /* upload8.jpg in Resources */,
+				32AF75911617FA63004748A1 /* upload9.jpg in Resources */,
+				32AF75921617FA63004748A1 /* upload5.jpg in Resources */,
+				32AF75931617FA63004748A1 /* upload6.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +604,10 @@
 				322454C51615523800EB5269 /* DefaultsManager.m in Sources */,
 				322EF73C1616632A00D2F105 /* PFPhotoContainerViewController.m in Sources */,
 				320FD724161671EA00C63957 /* PFPhotoScrollView.m in Sources */,
+				32D953EC161733060014DAC3 /* PFHTTPClient.m in Sources */,
+				32AF7573161734C0004748A1 /* WebDevContainerView.m in Sources */,
+				32AF7574161734C0004748A1 /* WebDevViewController.m in Sources */,
+				32AF757D16173981004748A1 /* UIView+GetFirstResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

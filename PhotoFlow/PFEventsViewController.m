@@ -153,4 +153,14 @@
      */
 //}
 
+- (void)devButtonTouched:(UIButton *)devButton {
+    WebDevViewController * viewController = [[WebDevViewController alloc] initWithNibName:@"WebDevViewController" bundle:[NSBundle mainBundle]];
+    viewController.delegate = self;
+    [self presentViewController:viewController animated:YES completion:NULL];
+}
+
+- (void)webDevViewControllerDidFinish:(WebDevViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 @end

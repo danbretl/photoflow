@@ -107,6 +107,11 @@ with second line</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Events" id="Zyh-ow-MRv">
+                        <barButtonItem key="leftBarButtonItem" title="WebDev" id="158-Xs-MCC">
+                            <connections>
+                                <action selector="devButtonTouched:" destination="kDV-iN-oVm" id="wIU-SV-MrW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Join" id="ejq-Ys-12d">
                             <connections>
                                 <segue destination="yql-0Q-lsC" kind="modal" identifier="JoinEvent" modalTransitionStyle="coverVertical" id="ofg-py-qYY"/>
@@ -336,6 +341,9 @@ from your invitation</string>
         </class>
         <class className="PFEventsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFEventsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="devButtonTouched:" candidateClass="UIBarButtonItem"/>
+            </relationships>
         </class>
         <class className="PFJoinEventViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFJoinEventViewController.h"/>

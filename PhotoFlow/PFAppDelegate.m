@@ -25,6 +25,10 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:PFC_BASE_URL_STRING_SAVED_KEY] == nil) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"http://localhost" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
+    }
+    
     [[LocalyticsSession sharedLocalyticsSession] startSession:LOCALYTICS_KEY_DEV];
     
     [Crashlytics startWithAPIKey:CRASHLYTICS_KEY];

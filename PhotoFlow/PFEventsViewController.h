@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "PFJoinEventViewController.h"
 #import "NSManagedObjectContext+PhotoFlow.h"
+#import "WebDevViewController.h"
 
-@interface PFEventsViewController : UITableViewController<PFJoinEventViewControllerDelegate>
+@interface PFEventsViewController : UITableViewController<PFJoinEventViewControllerDelegate, WebDevViewControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) NSArray * events;
+
+- (IBAction)devButtonTouched:(UIBarButtonItem *)devButton;
 
 @end
