@@ -87,12 +87,12 @@
 }
 
 - (void)photoViewControllerDidZoomOutToNormal:(PFPhotoViewController *)viewController {
-    NSLog(@"photoViewControllerDidZoomOutToNormal");
+//    NSLog(@"photoViewControllerDidZoomOutToNormal");
     if (self.navigationController.navigationBarHidden) [self setBarsVisible:YES animated:YES];
 }
 
 - (void)photoViewControllerDidZoomIn:(PFPhotoViewController *)viewController {
-    NSLog(@"photoViewControllerDidZoomIn");
+//    NSLog(@"photoViewControllerDidZoomIn");
     if (!self.navigationController.navigationBarHidden) [self setBarsVisible:NO animated:YES];
 }
 
