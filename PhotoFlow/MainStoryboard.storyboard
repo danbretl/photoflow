@@ -40,18 +40,12 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5h-Pu-Dm1"/>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RrQ-wS-gsI">
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IaH-4t-TgT">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="146" id="ea0-7e-dMM"/>
-                                                    </constraints>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="810" text="Event Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IaH-4t-TgT">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Location" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJM-VJ-Wfw">
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="146" id="NtS-mt-3pe"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,9 +53,10 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="IaH-4t-TgT" firstAttribute="leading" secondItem="RrQ-wS-gsI" secondAttribute="leading" constant="10" id="4D0-hg-S6T"/>
-                                                <constraint firstItem="IaH-4t-TgT" firstAttribute="centerY" secondItem="RrQ-wS-gsI" secondAttribute="centerY" type="default" id="XS1-qK-T6n"/>
-                                                <constraint firstItem="PJM-VJ-Wfw" firstAttribute="leading" secondItem="IaH-4t-TgT" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="bLM-jv-dzk"/>
+                                                <constraint firstItem="IaH-4t-TgT" firstAttribute="leading" secondItem="RrQ-wS-gsI" secondAttribute="leading" constant="10" type="user" id="4D0-hg-S6T"/>
+                                                <constraint firstAttribute="trailing" secondItem="PJM-VJ-Wfw" secondAttribute="trailing" constant="10" type="user" id="DQl-SB-kuR"/>
+                                                <constraint firstItem="PJM-VJ-Wfw" firstAttribute="leading" secondItem="IaH-4t-TgT" secondAttribute="trailing" constant="8" symbolic="YES" type="user" id="bLM-jv-dzk"/>
+                                                <constraint firstItem="IaH-4t-TgT" firstAttribute="centerY" secondItem="RrQ-wS-gsI" secondAttribute="centerY" type="default" id="qi3-ES-UU1"/>
                                                 <constraint firstItem="PJM-VJ-Wfw" firstAttribute="baseline" secondItem="IaH-4t-TgT" secondAttribute="baseline" type="default" id="xep-AJ-lML"/>
                                             </constraints>
                                         </view>
@@ -82,11 +77,11 @@ with second line</string>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="RrQ-wS-gsI" secondAttribute="bottom" constant="169" id="3kE-5q-HPd"/>
                                     <constraint firstItem="aJt-Jj-jtK" firstAttribute="trailing" secondItem="hMl-Cq-6hn" secondAttribute="trailing" type="default" id="AkX-aN-dJl"/>
-                                    <constraint firstItem="RrQ-wS-gsI" firstAttribute="leading" secondItem="hMl-Cq-6hn" secondAttribute="leading" type="default" id="TMZ-jv-D9h"/>
+                                    <constraint firstItem="RrQ-wS-gsI" firstAttribute="leading" secondItem="hMl-Cq-6hn" secondAttribute="leading" type="user" id="TMZ-jv-D9h"/>
                                     <constraint firstItem="S5h-Pu-Dm1" firstAttribute="leading" secondItem="hMl-Cq-6hn" secondAttribute="leading" type="default" id="WE0-4D-ci7"/>
                                     <constraint firstItem="aJt-Jj-jtK" firstAttribute="bottom" secondItem="hMl-Cq-6hn" secondAttribute="bottom" type="default" id="XGf-oL-7pu"/>
                                     <constraint firstItem="S5h-Pu-Dm1" firstAttribute="top" secondItem="hMl-Cq-6hn" secondAttribute="top" type="default" id="Z0n-xL-2g4"/>
-                                    <constraint firstItem="RrQ-wS-gsI" firstAttribute="trailing" secondItem="hMl-Cq-6hn" secondAttribute="trailing" type="default" id="Zwa-aY-hAz"/>
+                                    <constraint firstItem="RrQ-wS-gsI" firstAttribute="trailing" secondItem="hMl-Cq-6hn" secondAttribute="trailing" type="user" id="Zwa-aY-hAz"/>
                                     <constraint firstItem="aJt-Jj-jtK" firstAttribute="leading" secondItem="hMl-Cq-6hn" secondAttribute="leading" type="default" id="av4-rh-XTT"/>
                                     <constraint firstItem="RrQ-wS-gsI" firstAttribute="top" secondItem="hMl-Cq-6hn" secondAttribute="top" type="default" id="jcb-FC-4Aw"/>
                                     <constraint firstItem="S5h-Pu-Dm1" firstAttribute="trailing" secondItem="hMl-Cq-6hn" secondAttribute="trailing" type="default" id="shb-bQ-oWm"/>

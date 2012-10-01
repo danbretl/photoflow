@@ -64,9 +64,10 @@
     
     NSMutableDictionary * event0 = [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Jim & Amy", @"descriptionShort" : @"Jim & Amy's Wedding", @"location" : @"Santa Clara, CA", @"photosCount" : @6}];
     NSMutableDictionary * event1 = [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"Duane & Linda", @"descriptionShort" : @"Duane & Linda's Wedding", @"location" : @"Rochester, NY", @"photosCount" : @5}];
+    NSMutableDictionary * event2 = [NSMutableDictionary dictionaryWithDictionary:@{@"title" : @"NY Giants Game", @"descriptionShort" : @"NY Giants vs MN Vikings\nMonday Night Football", @"location" : @"East Rutherford, NJ", @"photosCount" : @5}];
     
     NSTimeInterval secondsInDay = 60 * 60 * 24;
-    NSArray * events = @[event0, event1];
+    NSArray * events = @[event0, event1, event2];
     for (NSMutableDictionary * event in events) {
         NSUInteger indexEvent = [events indexOfObject:event];
         [event setObject:[NSDate dateWithTimeIntervalSinceNow:secondsInDay * (indexEvent * 5)] forKey:@"date"];
