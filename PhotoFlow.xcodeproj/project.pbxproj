@@ -18,6 +18,7 @@
 		325D5D8416111736007ECE05 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8016111736007ECE05 /* Icon-Small@2x.png */; };
 		325D5D8516111736007ECE05 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8116111736007ECE05 /* Icon.png */; };
 		325D5D8616111736007ECE05 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8216111736007ECE05 /* Icon@2x.png */; };
+		325FEC74161A356600268210 /* PFPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 325FEC73161A356600268210 /* PFPhotoViewController.xib */; };
 		3262327A1610E17F00440FE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326232791610E17F00440FE4 /* UIKit.framework */; };
 		3262327C1610E17F00440FE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3262327B1610E17F00440FE4 /* Foundation.framework */; };
 		3262327E1610E17F00440FE4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3262327D1610E17F00440FE4 /* CoreGraphics.framework */; };
@@ -94,6 +95,7 @@
 		325D5D8016111736007ECE05 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		325D5D8116111736007ECE05 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		325D5D8216111736007ECE05 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		325FEC73161A356600268210 /* PFPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFPhotoViewController.xib; sourceTree = "<group>"; };
 		326232751610E17F00440FE4 /* PhotoFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		326232791610E17F00440FE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3262327B1610E17F00440FE4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -211,6 +213,7 @@
 				322EF73B1616632A00D2F105 /* PFPhotoContainerViewController.m */,
 				322454B916153DFA00EB5269 /* PFPhotoViewController.h */,
 				322454BA16153DFA00EB5269 /* PFPhotoViewController.m */,
+				325FEC73161A356600268210 /* PFPhotoViewController.xib */,
 				320FD722161671EA00C63957 /* PFPhotoScrollView.h */,
 				320FD723161671EA00C63957 /* PFPhotoScrollView.m */,
 			);
@@ -549,6 +552,7 @@
 				32AF75911617FA63004748A1 /* upload9.jpg in Resources */,
 				32AF75921617FA63004748A1 /* upload5.jpg in Resources */,
 				32AF75931617FA63004748A1 /* upload6.jpg in Resources */,
+				325FEC74161A356600268210 /* PFPhotoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

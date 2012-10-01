@@ -47,6 +47,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PFPhotoScrollView : UIScrollView
+@interface PFPhotoScrollView : UIScrollView <UIScrollViewDelegate>
 - (void)displayImage:(UIImage *)image;
+@property (nonatomic, strong, readonly) UIImageView * imageView;
 @end

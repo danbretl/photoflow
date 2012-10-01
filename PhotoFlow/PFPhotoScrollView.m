@@ -54,28 +54,36 @@
     CGPoint _pointToCenterAfterResize;
     CGFloat _scaleToRestoreAfterResize;
 }
-
+- (void) setupFromFrameOrCoder;
 @end
 
 @implementation PFPhotoScrollView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.showsVerticalScrollIndicator = NO;
-        self.showsHorizontalScrollIndicator = NO;
-        self.bouncesZoom = YES;
-        self.decelerationRate = UIScrollViewDecelerationRateFast;
-        self.delegate = self;
+        [self setupFromFrameOrCoder];
     }
     return self;
+}
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setupFromFrameOrCoder];
+    }
+    return self;
+}
+- (void) setupFromFrameOrCoder {
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
+    self.bouncesZoom = YES;
+    self.decelerationRate = UIScrollViewDecelerationRateFast;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    NSLog(@"layoutSubviews");
+//    NSLog(@"layoutSubviews");
     
     // center the zoom view as it becomes smaller than the size of the screen
     CGSize boundsSize = self.bounds.size;
@@ -98,7 +106,7 @@
 
 - (void)setFrame:(CGRect)frame
 {
-    NSLog(@"PFPhotoScrollView setFrame");
+//    NSLog(@"PFPhotoScrollView setFrame");
     BOOL sizeChanging = !CGSizeEqualToSize(frame.size, self.frame.size);
     
     if (sizeChanging) {
@@ -110,13 +118,6 @@
     if (sizeChanging) {
         [self recoverFromResizing];
     }
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return _zoomView;
 }
 
 #pragma mark - Configure scrollView to display new image (tiled or not)
@@ -145,11 +146,7 @@
     NSLog(@"self.contentSize = %@", NSStringFromCGSize(self.contentSize));
     [self setMaxMinZoomScalesForCurrentBounds];
     self.zoomScale = self.minimumZoomScale;
-    NSLog(@"self.minimumZoomScale = %f", self.minimumZoomScale);
     NSLog(@"self.zoomScale = %f", self.zoomScale);
-    [self prepareToResize];
-    [self recoverFromResizing];
-    self.zoomScale = self.minimumZoomScale;
 }
 
 - (void)setMaxMinZoomScalesForCurrentBounds
@@ -159,11 +156,17 @@
     // calculate min/max zoomscale
     CGFloat xScale = boundsSize.width  / _imageSize.width;    // the scale needed to perfectly fit the image width-wise
     CGFloat yScale = boundsSize.height / _imageSize.height;   // the scale needed to perfectly fit the image height-wise
+    NSLog(@"width  = bound:image %f:%f", boundsSize.width,  _imageSize.width);
+    NSLog(@"height = bound:image %f:%f", boundsSize.height, _imageSize.height);
+    NSLog(@"xScale = %f / yScale = %f", xScale, yScale);
     
     // fill width if the image and phone are both portrait or both landscape; otherwise take smaller scale
+    // EDIT: no longer filling width if the image and phone are both portrait or both landscape. i don't know why that would be a desired feature.
     BOOL imagePortrait = _imageSize.height > _imageSize.width;
     BOOL phonePortrait = boundsSize.height > boundsSize.width;
-    CGFloat minScale = imagePortrait == phonePortrait ? xScale : MIN(xScale, yScale);
+    NSLog(@"imagePortrait = %@", imagePortrait ? @"YES" : @"NO");
+    NSLog(@"phonePortrait = %@", phonePortrait ? @"YES" : @"NO");
+    CGFloat minScale = /*imagePortrait == phonePortrait ? xScale : */MIN(xScale, yScale);
     
     // on high resolution screens we have double the pixel density, so we will be seeing every pixel if we limit the maximum zoom scale to 0.5.
     CGFloat maxScale = 1.0 / [[UIScreen mainScreen] scale];
@@ -231,7 +234,6 @@
 
 - (CGPoint)maximumContentOffset
 {
-    NSLog(@"maximumContentOffset");
     CGSize contentSize = self.contentSize;
     CGSize boundsSize = self.bounds.size;
     return CGPointMake(contentSize.width - boundsSize.width, contentSize.height - boundsSize.height);
@@ -239,8 +241,11 @@
 
 - (CGPoint)minimumContentOffset
 {
-    NSLog(@"minimumContentOffset");
     return CGPointZero;
+}
+
+- (UIImageView *)imageView {
+    return _zoomView;
 }
 
 @end

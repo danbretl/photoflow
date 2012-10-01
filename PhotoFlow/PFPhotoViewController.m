@@ -7,11 +7,10 @@
 //
 
 #import "PFPhotoViewController.h"
-#import "UIImageView+AFNetworking.h"
 #import "AFNetworking.h"
 
 @interface PFPhotoViewController ()
-
+@property (nonatomic) float zoomScaleStart;
 @end
 
 @implementation PFPhotoViewController
@@ -29,28 +28,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-//    self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-//    self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    
+        
     NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.photo.imageLocation]];
     AFImageRequestOperation * imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:urlRequest success:^(UIImage *image) {
         NSLog(@"got image of size %@", NSStringFromCGSize(image.size));
-        self.imageView.image = image;
-//        [self.imageView layoutSubviews];
-//        self.scrollView.minimumZoomScale = 0.25;
-//        self.scrollView.maximumZoomScale = 0.5;
-//        self.scrollView.zoomScale = 0.25;
+        [self.scrollView displayImage:image];
     }];
     imageRequest.imageScale = 1.0;
     [imageRequest start];
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.translucent = YES;
-}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -59,7 +48,34 @@
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.imageView;
+    if (scrollView == self.scrollView) {
+        return self.scrollView.imageView;
+    }
+    return nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    if (scrollView == self.scrollView) {
+        self.zoomScaleStart = scrollView.zoomScale;
+    }
+}
+
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    if (scrollView == self.scrollView) {
+        if (self.zoomScaleStart != 0 &&
+            self.zoomScaleStart < scrollView.zoomScale) {
+            [self.delegate photoViewControllerDidZoomIn:self];
+        }
+    }
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
+    if (scrollView == self.scrollView) {
+        if (scale == self.scrollView.minimumZoomScale) {
+            [self.delegate photoViewControllerDidZoomOutToNormal:self];
+        }
+        self.zoomScaleStart = 0;
+    }
 }
 
 @end

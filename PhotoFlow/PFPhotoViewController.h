@@ -8,12 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "PFPhoto.h"
+#import "PFPhotoScrollView.h"
+
+@protocol PFPhotoViewControllerDelegate;
 
 @interface PFPhotoViewController : UIViewController <UIScrollViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UIScrollView * scrollView;
-@property (nonatomic, strong) IBOutlet UIImageView * imageView;
+@property (nonatomic, strong) IBOutlet PFPhotoScrollView * scrollView;
 
 @property (nonatomic, strong) PFPhoto * photo;
 
+@property (nonatomic, readonly) float zoomScaleStart;
+
+@property (nonatomic, weak) id<PFPhotoViewControllerDelegate> delegate;
+
+@end
+
+@protocol PFPhotoViewControllerDelegate <NSObject>
+- (void) photoViewControllerDidZoomOutToNormal:(PFPhotoViewController *)viewController;
+- (void) photoViewControllerDidZoomIn:(PFPhotoViewController *)viewController;
 @end
