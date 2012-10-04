@@ -10,6 +10,8 @@
 
 @interface PFEventCell : UITableViewCell
 
+@property (strong, nonatomic) IBOutlet UIImageView * shadowView;
+@property (strong, nonatomic) IBOutlet UIView * containerView;
 @property (strong, nonatomic) IBOutlet UILabel * dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel * locationLabel;
 @property (strong, nonatomic) IBOutlet UILabel * descriptionLabel;

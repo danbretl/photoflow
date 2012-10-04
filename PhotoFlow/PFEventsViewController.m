@@ -41,6 +41,22 @@
     self.events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
     [self.tableView reloadData];
     
+    UIImage * titleImage = [UIImage imageNamed:@"branding_text.png"];
+    UIImageView * titleImageView = [[UIImageView alloc] initWithImage:titleImage];
+    titleImageView.frame = CGRectMake(0, 3, titleImage.size.width, titleImage.size.height + 3);
+    titleImageView.contentMode = UIViewContentModeBottom;
+    [self.navigationItem setTitleView:titleImageView];
+    
+    UIImage * buttonImage = [UIImage imageNamed:@"btn_add_event.png"];
+    UIButton * normalButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    normalButton.frame = CGRectMake(0, 0, buttonImage.size.width + 10 /* COULD HAVE ALSO DONE THIS WITH A FIXED SPACE UIBARBUTTONITEM */, buttonImage.size.height);
+    [normalButton setImage:buttonImage forState:UIControlStateNormal];
+    [normalButton setImage:[UIImage imageNamed:@"btn_add_event_highlight.png"] forState:UIControlStateHighlighted];
+    [normalButton addTarget:self.addEventButton.target action:self.addEventButton.action forControlEvents:UIControlEventTouchUpInside];
+    [self.addEventButton setCustomView:normalButton];
+    
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,18 +71,16 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"JoinEvent"]) {
-        PFJoinEventViewController * viewController = segue.destinationViewController;
-        viewController.delegate = self;
-    } else if ([[segue identifier] isEqualToString:@"ViewEventPhotos"]) {
+    if ([[segue identifier] isEqualToString:@"ViewEventPhotos"]) {
         PFPhotosViewController * viewController = segue.destinationViewController;
         viewController.moc = self.moc;
         viewController.event = [self.events objectAtIndex:[self.tableView indexPathForCell:sender].row];
     }
 }
 
-- (void)joinEventViewControllerCancelled:(PFJoinEventViewController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (void)addEventButtonTouched:(id)sender {
+    // This is rather non-standard...
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (NSDateFormatter *)dateFormatter {
@@ -93,8 +107,8 @@
     
     PFEvent * event = [self.events objectAtIndex:indexPath.row];
     
-    cell.dateLabel.text = [self.dateFormatter stringFromDate:event.date];
-    cell.locationLabel.text = event.location;
+    cell.dateLabel.text = [self.dateFormatter stringFromDate:event.date].uppercaseString;
+    cell.locationLabel.text = event.location.uppercaseString;
     cell.descriptionLabel.text = event.descriptionShort;
     [cell.bannerImageView setImageWithURL:[NSURL URLWithString:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageLocation" ascending:YES]]] objectAtIndex:0]).imageLocation]];
     

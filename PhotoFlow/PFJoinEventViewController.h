@@ -7,19 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol PFJoinEventViewControllerDelegate;
+#import "NSManagedObjectContext+PhotoFlow.h"
 
 @interface PFJoinEventViewController : UIViewController
 
-- (IBAction)cancelButtonTouched:(UIBarButtonItem *)button;
+@property (nonatomic, strong) NSManagedObjectContext * moc;
 
-@property (weak, nonatomic) id<PFJoinEventViewControllerDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UIImageView * cardBackgroundView;
+@property (nonatomic, strong) IBOutlet UIImageView * welcomeImageView;
+@property (nonatomic, strong) IBOutlet UILabel * promptLabel;
+@property (nonatomic, strong) IBOutlet UITextField * codeTextField;
+@property (nonatomic, strong) IBOutlet UIImageView * codeTextFieldBackgroundView;
+@property (nonatomic, strong) IBOutlet UIButton * cancelButton;
+@property (nonatomic, strong) IBOutlet UIButton * goButton;
+@property (nonatomic, strong) IBOutlet UIImageView * photoflowImageView;
 
-@end
-
-@protocol PFJoinEventViewControllerDelegate <NSObject>
-
-- (void) joinEventViewControllerCancelled:(PFJoinEventViewController *)viewController;
+//- (IBAction)cancelButtonTouched:(UIButton *)button;
+//- (IBAction)goButtonTouched:(UIButton *)button;
 
 @end

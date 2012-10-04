@@ -36,9 +36,18 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>HabanoST.ttf</string>
+		<string>miso-bold.ttf</string>
+		<string>miso-light.ttf</string>
+		<string>miso-regular.ttf</string>
+		<string>Gotham-Book.otf</string>
+		<string>Gotham-Medium.otf</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
 	<key>UIRequiredDeviceCapabilities</key>

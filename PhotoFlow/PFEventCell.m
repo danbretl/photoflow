@@ -7,6 +7,11 @@
 //
 
 #import "PFEventCell.h"
+#import <QuartzCore/QuartzCore.h>
+
+@interface PFEventCell()
+@property (strong, nonatomic) IBOutlet UIImageView * descriptionLabelBackgroundView;
+@end
 
 @implementation PFEventCell
 
@@ -14,9 +19,38 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+        
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    
+    self.shadowView.image = [[UIImage imageNamed:@"shadow_events_and_grid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
+    
+    self.containerView.layer.cornerRadius = 2.0;
+    self.containerView.layer.masksToBounds = YES;
+//    self.containerView.layer.shadowColor = [UIColor colorWithWhite:28.0/255.0 alpha:1.0].CGColor;
+//    self.containerView.layer.shadowOpacity = 0.4;
+//    self.containerView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+//    self.containerView.layer.shadowRadius = 4.0;
+//    self.containerView.layer.shouldRasterize = YES;
+    
+    [self.descriptionLabelBackgroundView setImage:[[UIImage imageNamed:@"event_cell_title_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0, 0, 0, 0)]];
+    
+    UIFont * dateLocationFont    = [UIFont fontWithName:@"Miso" size:20.0];
+    self.dateLabel.font          = dateLocationFont;
+    self.locationLabel.font      = dateLocationFont;
+
+    UIColor * dateLocationColor  = [UIColor colorWithWhite:176.0/255.0 alpha:1.0];
+    self.dateLabel.textColor     = dateLocationColor;
+    self.locationLabel.textColor = dateLocationColor;
+    
+    self.descriptionLabel.font = [UIFont fontWithName:@"HabanoST" size:25.0];
+    self.descriptionLabel.textColor = [UIColor colorWithRed:211.0/255.0 green:80.0/255.0 blue:63.0/255.0 alpha:1.0];// [UIColor colorWithRed:227.0/255.0 green:93.0/255.0 blue:97.0/255.0 alpha:1.0];
+    self.descriptionLabel.shadowColor = [UIColor whiteColor];
+    self.descriptionLabel.shadowOffset = CGSizeMake(0, 2.0);
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

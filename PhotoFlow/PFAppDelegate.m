@@ -9,8 +9,10 @@
 #import "PFAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
 #import "LocalyticsSession.h"
+#import "PFJoinEventViewController.h"
 #import "PFEventsViewController.h"
 #import "NSManagedObjectContext+PhotoFlow.h"
+#import "UIFont+PhotoFlow.h"
 
 static NSString * const LOCALYTICS_KEY_DEV = @"7fa4ecae75c27424cf4261a-a91c000e-0679-11e2-5678-00ef75f32667";
 static NSString * const LOCALYTICS_KEY_PROD = @"1e89135222cee8011477498-0b484d56-0679-11e2-5677-00ef75f32667";
@@ -24,6 +26,28 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    //////////////////////////////////////
+    // UIAPPEARANCE CUSTOMIZATION BELOW //
+    //////////////////////////////////////
+
+    // UINavigationBar
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsLandscapePhone];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    [UIFont logAvailableFonts];
+    
+    //////////////////////////////////////
+    // UIAPPEARANCE CUSTOMIZATION ABOVE //
+    //////////////////////////////////////
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:PFC_BASE_URL_STRING_SAVED_KEY] == nil) {
         [[NSUserDefaults standardUserDefaults] setObject:@"http://localhost" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
@@ -42,8 +66,14 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     
     // The following seems rather roundabout...
     UINavigationController * rootNavController = (UINavigationController *)self.window.rootViewController;
-    PFEventsViewController * eventsViewController = (PFEventsViewController *)rootNavController.viewControllers[0];
-    eventsViewController.moc = self.managedObjectContext;
+    PFJoinEventViewController * joinViewController = (PFJoinEventViewController *)rootNavController.viewControllers[0];
+    joinViewController.moc = self.managedObjectContext;
+    events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    if (events.count > 0) {
+        PFEventsViewController * eventsViewController = [rootNavController.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
+        eventsViewController.moc = self.managedObjectContext;
+        [rootNavController pushViewController:eventsViewController animated:NO];
+    }
     
     return YES;
     
