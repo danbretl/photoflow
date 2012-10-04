@@ -165,7 +165,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PFEventsViewController" id="kDV-iN-oVm" customClass="PFEventsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="210" sectionHeaderHeight="22" sectionFooterHeight="22" id="LZw-Ox-t9x">
-                        <rect key="frame" x="0.0" y="64" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -338,7 +338,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSZ-in-CW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011" y="-217"/>
+            <point key="canvasLocation" x="1033" y="-671"/>
         </scene>
         <!--Photo Container View Controller - Photo-->
         <scene sceneID="gCL-aD-INP">
@@ -400,7 +400,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1483" y="-217"/>
+            <point key="canvasLocation" x="1505" y="-671"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="xUb-z0-WQb">
@@ -408,7 +408,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="xVc-q9-kie" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4NN-HP-jbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1919" y="-163"/>
+            <point key="canvasLocation" x="1945" y="-639"/>
         </scene>
     </scenes>
     <resources>
