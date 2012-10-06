@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Navigation View Controller-->
         <scene sceneID="Vue-j2-QYU">
             <objects>
-                <navigationController definesPresentationContext="YES" id="uEB-vi-Ctl" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="uEB-vi-Ctl" customClass="PFNavigationViewController" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="OQx-cx-CwN">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
@@ -43,7 +43,7 @@
                                             <constraint firstAttribute="width" constant="230" id="wez-7T-em3"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="event123" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8DT-2w-4DM">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="event123" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8DT-2w-4DM">
                                         <color key="backgroundColor" white="0.75" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="5GM-d2-Tf2"/>
@@ -51,7 +51,10 @@
                                         </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Dwd-nV-hRW" id="f1D-Fu-Wsc"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C26-EL-pHJ">
                                         <constraints>
@@ -118,14 +121,14 @@
                                     <constraint firstItem="27S-gS-BL8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Dbn-cq-gbl" secondAttribute="bottom" priority="910" constant="8" symbolic="YES" type="user" id="UWi-2x-I1f"/>
                                     <constraint firstItem="27S-gS-BL8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Zn2-oz-b8S" secondAttribute="top" priority="900" constant="64" type="user" id="UnU-Hy-e6R"/>
                                     <constraint firstAttribute="centerX" secondItem="4k4-pg-WfI" secondAttribute="centerX" type="user" id="XLp-mU-QtJ"/>
-                                    <constraint firstItem="4k4-pg-WfI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="C26-EL-pHJ" secondAttribute="bottom" constant="8" symbolic="YES" type="user" id="Xmu-Mc-s3y"/>
+                                    <constraint firstItem="4k4-pg-WfI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="C26-EL-pHJ" secondAttribute="bottom" constant="14" type="user" id="Xmu-Mc-s3y"/>
                                     <constraint firstItem="27S-gS-BL8" firstAttribute="leading" secondItem="Zn2-oz-b8S" secondAttribute="leading" constant="20" symbolic="YES" type="user" id="b8l-zQ-9o8"/>
                                     <constraint firstItem="4k4-pg-WfI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="C26-EL-pHJ" secondAttribute="bottom" priority="850" constant="113" type="user" id="i2z-64-HLK"/>
                                     <constraint firstAttribute="centerX" secondItem="8DT-2w-4DM" secondAttribute="centerX" type="user" id="iFT-NX-Jdg"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4k4-pg-WfI" secondAttribute="bottom" constant="22" type="user" id="iHA-zI-jKa"/>
                                     <constraint firstItem="C26-EL-pHJ" firstAttribute="top" secondItem="bV7-6r-9yz" secondAttribute="bottom" priority="990" constant="16" type="user" id="qQ9-fD-YD3"/>
                                     <constraint firstItem="bV7-6r-9yz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BgG-Jc-oAq" secondAttribute="bottom" constant="12" type="user" id="r6O-XE-YGT"/>
-                                    <constraint firstItem="BgG-Jc-oAq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="27S-gS-BL8" secondAttribute="bottom" constant="12" type="user" id="sxl-f3-UVC"/>
+                                    <constraint firstItem="BgG-Jc-oAq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="27S-gS-BL8" secondAttribute="bottom" constant="14" type="user" id="sxl-f3-UVC"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4k4-pg-WfI" secondAttribute="bottom" priority="904" constant="58" type="user" id="uWp-B4-xMh"/>
                                     <constraint firstAttribute="trailing" secondItem="BgG-Jc-oAq" secondAttribute="trailing" constant="20" symbolic="YES" type="user" id="w4k-Wj-npx"/>
                                     <constraint firstAttribute="centerX" secondItem="27S-gS-BL8" secondAttribute="centerX" type="user" id="wba-IL-2K0"/>
@@ -139,8 +142,6 @@
                             <constraint firstItem="Zn2-oz-b8S" firstAttribute="top" secondItem="LGg-GV-5Kn" secondAttribute="top" constant="10" type="user" id="0am-4j-xpb"/>
                             <constraint firstAttribute="trailing" secondItem="Zn2-oz-b8S" secondAttribute="trailing" constant="10" type="user" id="1sH-ta-WVj"/>
                             <constraint firstAttribute="bottom" secondItem="Zn2-oz-b8S" secondAttribute="bottom" constant="10" type="user" id="6Uo-iH-ZBX"/>
-                            <constraint firstItem="Zn2-oz-b8S" firstAttribute="centerY" secondItem="LGg-GV-5Kn" secondAttribute="centerY" type="user" id="gkQ-4b-cYa"/>
-                            <constraint firstItem="Zn2-oz-b8S" firstAttribute="centerX" secondItem="LGg-GV-5Kn" secondAttribute="centerX" type="user" id="nx2-g3-Sqt"/>
                             <constraint firstItem="Zn2-oz-b8S" firstAttribute="leading" secondItem="LGg-GV-5Kn" secondAttribute="leading" constant="10" type="user" id="q2L-yK-v3b"/>
                         </constraints>
                     </view>
@@ -148,6 +149,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="Dbn-cq-gbl" id="d9d-aK-ErY"/>
                         <outlet property="cardBackgroundView" destination="Dd0-5D-fvF" id="tc7-tf-CCR"/>
+                        <outlet property="cardContainerViewBottomSpace" destination="6Uo-iH-ZBX" id="pLx-JP-MDC"/>
                         <outlet property="codeTextField" destination="8DT-2w-4DM" id="Gtk-Lv-wkA"/>
                         <outlet property="codeTextFieldBackgroundView" destination="bV7-6r-9yz" id="Jiq-xO-aNQ"/>
                         <outlet property="goButton" destination="C26-EL-pHJ" id="RnP-gQ-0QJ"/>
@@ -335,6 +337,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="toggleViewModeButton" destination="Vwq-AA-1UD" id="9zc-18-pjx"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSZ-in-CW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -448,6 +453,7 @@
             <relationships>
                 <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="cardBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="cardContainerViewBottomSpace" candidateClass="NSLayoutConstraint"/>
                 <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="codeTextFieldBackgroundView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="goButton" candidateClass="UIButton"/>
@@ -455,6 +461,9 @@
                 <relationship kind="outlet" name="promptLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="welcomeImageView" candidateClass="UIImageView"/>
             </relationships>
+        </class>
+        <class className="PFNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFNavigationViewController.h"/>
         </class>
         <class className="PFPhotoCell" superclassName="UICollectionViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotoCell.h"/>
@@ -479,6 +488,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosViewController.h"/>
             <relationships>
                 <relationship kind="action" name="toggleViewModeButtonTouched:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toggleViewModeButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="UICollectionReusableView" superclassName="UIView">
@@ -492,6 +502,9 @@
         </class>
         <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+        <class className="UICollectionViewLayout" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "NSManagedObjectContext+PhotoFlow.h"
 
-@interface PFJoinEventViewController : UIViewController
+@interface PFJoinEventViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 
 @property (nonatomic, strong) IBOutlet UIImageView * cardBackgroundView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint * cardContainerViewBottomSpace;
 @property (nonatomic, strong) IBOutlet UIImageView * welcomeImageView;
 @property (nonatomic, strong) IBOutlet UILabel * promptLabel;
 @property (nonatomic, strong) IBOutlet UITextField * codeTextField;

@@ -98,10 +98,10 @@
 
 - (void)setBarsVisible:(BOOL)visible animated:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:!visible animated:animated];
-    [self.view layoutSubviews];
+    [self.view layoutIfNeeded];
     [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.toolbarBottomConstrant.constant = visible ? 0.0 : self.toolbar.bounds.size.height;
-        [self.view layoutSubviews];
+        [self.view layoutIfNeeded];
     } completion:NULL];
 }
 

@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;
 
+@property (nonatomic, strong) IBOutlet UIBarButtonItem * toggleViewModeButton;
 - (IBAction)toggleViewModeButtonTouched:(UIBarButtonItem *)button;
 
 @end

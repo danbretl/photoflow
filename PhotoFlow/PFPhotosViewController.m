@@ -16,6 +16,8 @@
 
 @interface PFPhotosViewController ()
 @property (nonatomic, strong) NSArray * photos;
+- (void) backButtonTouched:(id)sender;
+- (void)setToggleButtonCustomViewOppositeOfLayout:(UICollectionViewLayout *)layout;
 @end
 
 @implementation PFPhotosViewController
@@ -35,6 +37,18 @@
 	// Do any additional setup after loading the view.
     
     self.title = self.event.title;
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:1.0 forBarMetrics:UIBarMetricsDefault];
+    
+    UIImage * backArrowImage = [UIImage imageNamed:@"btn_back.png"];
+    UIImage * backArrowImageHighlight = [UIImage imageNamed:@"btn_back_highlight.png"];
+    UIButton * normalButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    normalButton.frame = CGRectMake(10, 0, backArrowImage.size.width + 10 /* COULD HAVE ALSO DONE THIS WITH A FIXED SPACE UIBARBUTTONITEM */, backArrowImage.size.height);
+    [normalButton setImage:backArrowImage forState:UIControlStateNormal];
+    [normalButton setImage:backArrowImageHighlight forState:UIControlStateHighlighted];
+    [normalButton addTarget:self action:@selector(backButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:normalButton];
+    self.navigationItem.leftBarButtonItem = backButton;
     
     self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageLocation" ascending:YES]]];
     [self.collectionView reloadData];
@@ -49,6 +63,8 @@
         default: break;
     }
     self.collectionView.collectionViewLayout = layout;
+    
+    [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
     
 }
 
@@ -99,6 +115,7 @@
     [DefaultsManager setPhotosViewLayoutPreference:layoutTypeNew];
     [self.collectionView setCollectionViewLayout:layoutNew animated:YES];
     [self.collectionView setContentOffset:CGPointZero animated:NO];
+    [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
 }
 
 //- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -108,5 +125,24 @@
 //        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 //    }
 //}
+
+- (void)backButtonTouched:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)setToggleButtonCustomViewOppositeOfLayout:(UICollectionViewLayout *)layout {
+    NSString * toggleImageNameNormal = [NSString stringWithFormat:@"btn_photos_mode_%@.png", [layout isKindOfClass:[PFPhotosGridFlowLayout class]] ? @"banner" : @"grid"];
+    UIImage * toggleImage = [UIImage imageNamed:toggleImageNameNormal];
+    UIImage * toggleImageHighlight = [UIImage imageNamed:[toggleImageNameNormal stringByReplacingOccurrencesOfString:@".png" withString:@"_highlight.png"]];
+    UIButton * customView = (UIButton *)self.toggleViewModeButton.customView;
+    if (customView == nil) {
+        customView = [UIButton buttonWithType:UIButtonTypeCustom];
+        customView.frame = CGRectMake(0, 0, toggleImage.size.width + 10 /* COULD HAVE ALSO DONE THIS WITH A FIXED SPACE UIBARBUTTONITEM */, toggleImage.size.height);
+        [customView addTarget:self.toggleViewModeButton.target action:self.toggleViewModeButton.action forControlEvents:UIControlEventTouchUpInside];
+        self.toggleViewModeButton.customView = customView;
+    }
+    [customView setImage:toggleImage forState:UIControlStateNormal];
+    [customView setImage:toggleImageHighlight forState:UIControlStateHighlighted];
+}
 
 @end

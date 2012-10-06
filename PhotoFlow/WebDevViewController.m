@@ -339,10 +339,10 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
 
 
 - (void) setDatetimePickerVisible:(BOOL)visible {
-    [self.view layoutSubviews];
+    [self.view layoutIfNeeded];
     [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.datetimePickerContainerBottomConstraint.constant = visible ? 0 : -self.datetimePickerContainer.bounds.size.height;
-        [self.view layoutSubviews];
+        [self.view layoutIfNeeded];
     } completion:NULL];
 }
 
