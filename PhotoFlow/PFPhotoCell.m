@@ -7,6 +7,7 @@
 //
 
 #import "PFPhotoCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation PFPhotoCell
 
@@ -19,13 +20,13 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)awakeFromNib {
+    
+    self.shadowView.image = [[UIImage imageNamed:@"shadow_events_and_grid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
+    
+    self.imageView.layer.cornerRadius = 2.0;
+    self.imageView.layer.masksToBounds = YES;
+    
 }
-*/
 
 @end

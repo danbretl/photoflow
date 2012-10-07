@@ -72,6 +72,8 @@ const CGFloat CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT = 10.0;
     [super viewWillAppear:animated];
     // Nav bar
     self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsLandscapePhone];
     // Text field
     self.codeTextField.text = EVENT_CODE_PLACEHOLDER;
     // Start responding to keyboard notifications

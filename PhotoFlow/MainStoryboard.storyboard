@@ -171,11 +171,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventCell" id="hMl-Cq-6hn" customClass="PFEventCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventCell" id="hMl-Cq-6hn" customClass="PFEventCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="210"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="209"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="209"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TwK-89-ywG"/>
@@ -263,7 +263,7 @@
                                     <outlet property="descriptionLabelBackgroundView" destination="Niy-2o-pEk" id="eaj-Dq-bq9"/>
                                     <outlet property="locationLabel" destination="PJM-VJ-Wfw" id="SWu-gI-KQc"/>
                                     <outlet property="shadowView" destination="TwK-89-ywG" id="shr-6S-gnc"/>
-                                    <segue destination="CSk-0D-wS5" kind="push" identifier="ViewEventPhotos" id="ofM-Gk-Nx9"/>
+                                    <segue destination="Ap9-MO-z3J" kind="push" identifier="ViewEventPhotos" id="Z7z-RW-5zD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -293,57 +293,95 @@
             </objects>
             <point key="canvasLocation" x="526" y="-681"/>
         </scene>
-        <!--Photos View Controller - Event Photos-->
-        <scene sceneID="Vtc-kX-AwA">
+        <!--Photos View Controller - Photos-->
+        <scene sceneID="zTs-Se-f9n">
             <objects>
-                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="CSk-0D-wS5" customClass="PFPhotosViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="X7y-eo-g55">
+                <viewController id="Ap9-MO-z3J" customClass="PFPhotosViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ftc-QK-oRa">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewLayout key="collectionViewLayout" id="mB5-uY-no8" customClass="PFPhotosGridFlowLayout"/>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="yFD-qg-Y5a" customClass="PFPhotoCell">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWq-VE-zDL"/>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="WWq-VE-zDL" firstAttribute="leading" secondItem="yFD-qg-Y5a" secondAttribute="leading" type="default" id="K6U-V0-6x9"/>
-                                    <constraint firstItem="WWq-VE-zDL" firstAttribute="trailing" secondItem="yFD-qg-Y5a" secondAttribute="trailing" type="default" id="KDV-Qg-1wm"/>
-                                    <constraint firstItem="WWq-VE-zDL" firstAttribute="bottom" secondItem="yFD-qg-Y5a" secondAttribute="bottom" type="default" id="Quc-05-Laq"/>
-                                    <constraint firstItem="WWq-VE-zDL" firstAttribute="top" secondItem="yFD-qg-Y5a" secondAttribute="top" type="default" id="zgd-9Y-jP0"/>
-                                </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-eo-g55">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <collectionViewLayout key="collectionViewLayout" id="geG-s5-S7b" customClass="PFPhotosGridFlowLayout"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="yFD-qg-Y5a" customClass="PFPhotoCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="104" height="105"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="104" height="105"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdh-lw-VlM"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWq-VE-zDL"/>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Qdh-lw-VlM" firstAttribute="trailing" secondItem="yFD-qg-Y5a" secondAttribute="trailing" type="user" id="6cE-u6-9O9"/>
+                                            <constraint firstAttribute="bottom" secondItem="Qdh-lw-VlM" secondAttribute="bottom" constant="1" type="user" id="6e1-FY-AMb"/>
+                                            <constraint firstItem="Qdh-lw-VlM" firstAttribute="leading" secondItem="yFD-qg-Y5a" secondAttribute="leading" type="user" id="6pJ-6R-kFa"/>
+                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="leading" secondItem="yFD-qg-Y5a" secondAttribute="leading" constant="2" type="user" id="9BP-Lw-HEM"/>
+                                            <constraint firstAttribute="bottom" secondItem="WWq-VE-zDL" secondAttribute="bottom" constant="3" type="user" id="9G8-p4-Jqf"/>
+                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="centerX" secondItem="Qdh-lw-VlM" secondAttribute="centerX" type="user" id="AXz-Fo-H4j"/>
+                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="centerY" secondItem="Qdh-lw-VlM" secondAttribute="centerY" type="user" id="HOb-Jf-v55"/>
+                                            <constraint firstItem="Qdh-lw-VlM" firstAttribute="top" secondItem="yFD-qg-Y5a" secondAttribute="top" type="user" id="bW7-ja-4aR"/>
+                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="top" secondItem="yFD-qg-Y5a" secondAttribute="top" constant="2" type="user" id="gBd-nq-WPC"/>
+                                            <constraint firstAttribute="trailing" secondItem="WWq-VE-zDL" secondAttribute="trailing" constant="2" type="user" id="gZQ-cA-ZWY"/>
+                                        </constraints>
+                                        <size key="customSize" width="104" height="105"/>
+                                        <connections>
+                                            <outlet property="imageView" destination="WWq-VE-zDL" id="Yp9-Zb-vFf"/>
+                                            <outlet property="shadowView" destination="Qdh-lw-VlM" id="Xtp-cz-lrn"/>
+                                            <segue destination="apH-Ml-r7e" kind="push" identifier="ViewPhoto" id="6TR-J7-gna"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
-                                    <outlet property="imageView" destination="WWq-VE-zDL" id="Yp9-Zb-vFf"/>
-                                    <segue destination="apH-Ml-r7e" kind="push" identifier="ViewPhoto" id="6TR-J7-gna"/>
+                                    <outlet property="dataSource" destination="Ap9-MO-z3J" id="xZf-G2-zhF"/>
+                                    <outlet property="delegate" destination="Ap9-MO-z3J" id="kGH-Is-mwn"/>
                                 </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="CSk-0D-wS5" id="bnq-Qt-CNg"/>
-                            <outlet property="delegate" destination="CSk-0D-wS5" id="feY-qy-z7s"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="Event Photos" id="gbb-wt-WKL">
-                        <barButtonItem key="rightBarButtonItem" title="Toggle" id="Vwq-AA-1UD">
+                            </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="Uab-pP-Sas">
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="KvQ-VG-3it"/>
+                                    <barButtonItem style="plain" systemItem="add" id="dRS-4W-uN0">
+                                        <connections>
+                                            <action selector="cameraButtonTouched:" destination="Ap9-MO-z3J" id="DrJ-rU-bZU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hpH-x5-0Wi"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="X7y-eo-g55" firstAttribute="top" secondItem="ftc-QK-oRa" secondAttribute="top" type="default" id="2qy-Gh-U8x"/>
+                            <constraint firstAttribute="bottom" secondItem="X7y-eo-g55" secondAttribute="bottom" type="user" id="44N-L3-mHQ"/>
+                            <constraint firstItem="Uab-pP-Sas" firstAttribute="bottom" secondItem="ftc-QK-oRa" secondAttribute="bottom" type="default" id="VCh-2o-qA5"/>
+                            <constraint firstItem="X7y-eo-g55" firstAttribute="trailing" secondItem="ftc-QK-oRa" secondAttribute="trailing" type="default" id="ZfI-cs-zGm"/>
+                            <constraint firstItem="Uab-pP-Sas" firstAttribute="trailing" secondItem="ftc-QK-oRa" secondAttribute="trailing" type="default" id="akD-zi-mvw"/>
+                            <constraint firstItem="X7y-eo-g55" firstAttribute="leading" secondItem="ftc-QK-oRa" secondAttribute="leading" type="default" id="j5J-8o-5jb"/>
+                            <constraint firstItem="Uab-pP-Sas" firstAttribute="leading" secondItem="ftc-QK-oRa" secondAttribute="leading" type="default" id="jCD-fe-5YK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photos" id="3qq-cD-pgV">
+                        <barButtonItem key="rightBarButtonItem" title="Toggle" id="0LY-gr-V0G">
                             <connections>
-                                <action selector="toggleViewModeButtonTouched:" destination="CSk-0D-wS5" id="MPX-aD-yUG"/>
+                                <action selector="toggleViewModeButtonTouched:" destination="Ap9-MO-z3J" id="LKJ-J3-JLv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="toggleViewModeButton" destination="Vwq-AA-1UD" id="9zc-18-pjx"/>
+                        <outlet property="cameraButton" destination="dRS-4W-uN0" id="yax-gA-A6B"/>
+                        <outlet property="collectionView" destination="X7y-eo-g55" id="bNL-Q1-Hkc"/>
+                        <outlet property="toggleViewModeButton" destination="0LY-gr-V0G" id="hJw-C0-cv6"/>
+                        <outlet property="toolbar" destination="Uab-pP-Sas" id="b4h-eS-qVl"/>
                     </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nSZ-in-CW0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pZ7-Qz-bFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="-671"/>
+            <point key="canvasLocation" x="1011" y="-681"/>
         </scene>
         <!--Photo Container View Controller - Photo-->
         <scene sceneID="gCL-aD-INP">
@@ -383,9 +421,7 @@
                             <constraint firstItem="Y41-1D-Wnp" firstAttribute="trailing" secondItem="Z4S-2a-Zld" secondAttribute="trailing" type="default" id="wXI-8r-p44"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Photo" id="vPd-GM-H4P">
-                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="TIi-g9-XPH"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Photo" id="vPd-GM-H4P"/>
                     <connections>
                         <outlet property="tapDoubleGestureRecognizer" destination="FXo-j6-Acv" id="13n-BZ-xAq"/>
                         <outlet property="tapSingleGestureRecognizer" destination="G6m-fK-opS" id="31G-PK-H7r"/>
@@ -405,7 +441,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1505" y="-671"/>
+            <point key="canvasLocation" x="1507" y="-681"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="xUb-z0-WQb">
@@ -413,7 +449,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="xVc-q9-kie" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4NN-HP-jbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1945" y="-639"/>
+            <point key="canvasLocation" x="1941" y="-617"/>
         </scene>
     </scenes>
     <resources>
@@ -469,6 +505,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotoCell.h"/>
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="shadowView" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="PFPhotoContainerViewController" superclassName="UIViewController">
@@ -484,11 +521,15 @@
         <class className="PFPhotosGridFlowLayout" superclassName="UICollectionViewFlowLayout">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosGridFlowLayout.h"/>
         </class>
-        <class className="PFPhotosViewController" superclassName="UICollectionViewController">
+        <class className="PFPhotosViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosViewController.h"/>
             <relationships>
+                <relationship kind="action" name="cameraButtonTouched:"/>
                 <relationship kind="action" name="toggleViewModeButtonTouched:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
                 <relationship kind="outlet" name="toggleViewModeButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="UICollectionReusableView" superclassName="UIView">
@@ -497,14 +538,8 @@
         <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
         </class>
-        <class className="UICollectionViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewController.h"/>
-        </class>
         <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
-        </class>
-        <class className="UICollectionViewLayout" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewLayout.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -49,5 +49,6 @@
 
 @interface PFPhotoScrollView : UIScrollView <UIScrollViewDelegate>
 - (void)displayImage:(UIImage *)image;
+- (float)zoomScaleForOptimalPresentation; // Portrait images look bad when they fill almost the entire height of the image view.
 @property (nonatomic, strong, readonly) UIImageView * imageView;
 @end

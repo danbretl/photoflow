@@ -10,6 +10,7 @@
 
 @interface PFPhotoCell : UICollectionViewCell
 
+@property (strong, nonatomic) IBOutlet UIImageView * shadowView;
 @property (strong, nonatomic) IBOutlet UIImageView * imageView;
 
 @end

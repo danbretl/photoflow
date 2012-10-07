@@ -140,13 +140,24 @@
 
 - (void)configureForImageSize:(CGSize)imageSize
 {
-    NSLog(@"configureForImageSize:%@", NSStringFromCGSize(imageSize));
+//    NSLog(@"configureForImageSize:%@", NSStringFromCGSize(imageSize));
     _imageSize = imageSize;
     self.contentSize = imageSize;
-    NSLog(@"self.contentSize = %@", NSStringFromCGSize(self.contentSize));
+//    NSLog(@"self.contentSize = %@", NSStringFromCGSize(self.contentSize));
     [self setMaxMinZoomScalesForCurrentBounds];
-    self.zoomScale = self.minimumZoomScale;
-    NSLog(@"self.zoomScale = %f", self.zoomScale);
+    // self.zoomScale = self.minimumZoomScale;
+    self.zoomScale = [self zoomScaleForOptimalPresentation]; // CUSTOMIZED
+//    NSLog(@"self.zoomScale = %f", self.zoomScale);
+}
+
+// Portrait images look bad when they fill almost the entire height of the image view.
+- (float)zoomScaleForOptimalPresentation {
+    float zoomScalePresentation = self.minimumZoomScale;
+    BOOL portraitInPortrait = self.imageView.image.size.height > self.imageView.image.size.width && self.bounds.size.height > self.bounds.size.width;
+    if (portraitInPortrait) {
+        zoomScalePresentation = self.bounds.size.height  / self.imageView.image.size.height;
+    }
+    return zoomScalePresentation;
 }
 
 - (void)setMaxMinZoomScalesForCurrentBounds
@@ -156,20 +167,21 @@
     // calculate min/max zoomscale
     CGFloat xScale = boundsSize.width  / _imageSize.width;    // the scale needed to perfectly fit the image width-wise
     CGFloat yScale = boundsSize.height / _imageSize.height;   // the scale needed to perfectly fit the image height-wise
-    NSLog(@"width  = bound:image %f:%f", boundsSize.width,  _imageSize.width);
-    NSLog(@"height = bound:image %f:%f", boundsSize.height, _imageSize.height);
-    NSLog(@"xScale = %f / yScale = %f", xScale, yScale);
+//    NSLog(@"width  = bound:image %f:%f", boundsSize.width,  _imageSize.width);
+//    NSLog(@"height = bound:image %f:%f", boundsSize.height, _imageSize.height);
+//    NSLog(@"xScale = %f / yScale = %f", xScale, yScale);
     
     // fill width if the image and phone are both portrait or both landscape; otherwise take smaller scale
     // EDIT: no longer filling width if the image and phone are both portrait or both landscape. i don't know why that would be a desired feature.
-    BOOL imagePortrait = _imageSize.height > _imageSize.width;
-    BOOL phonePortrait = boundsSize.height > boundsSize.width;
-    NSLog(@"imagePortrait = %@", imagePortrait ? @"YES" : @"NO");
-    NSLog(@"phonePortrait = %@", phonePortrait ? @"YES" : @"NO");
+    // BOOL imagePortrait = _imageSize.height > _imageSize.width;
+    // BOOL phonePortrait = boundsSize.height > boundsSize.width;
+//    NSLog(@"imagePortrait = %@", imagePortrait ? @"YES" : @"NO");
+//    NSLog(@"phonePortrait = %@", phonePortrait ? @"YES" : @"NO");
     CGFloat minScale = /*imagePortrait == phonePortrait ? xScale : */MIN(xScale, yScale);
     
     // on high resolution screens we have double the pixel density, so we will be seeing every pixel if we limit the maximum zoom scale to 0.5.
     CGFloat maxScale = 1.0 / [[UIScreen mainScreen] scale];
+    maxScale = MAX(MAX(maxScale, xScale), yScale); // CUSTOMIZED: Ensure that the maxScale is large enough so that the image can fill the screen (in both x and y).
     
     // don't let minScale exceed maxScale. (If the image is smaller than the screen, we don't want to force it to be zoomed.)
     if (minScale > maxScale) {
@@ -178,8 +190,8 @@
     
     self.maximumZoomScale = maxScale;
     self.minimumZoomScale = minScale;
-    NSLog(@"self.minimumZoomScale = %f", self.minimumZoomScale);
-    NSLog(@"self.maximumZoomScale = %f", self.maximumZoomScale);
+//    NSLog(@"self.minimumZoomScale = %f", self.minimumZoomScale);
+//    NSLog(@"self.maximumZoomScale = %f", self.maximumZoomScale);
 }
 
 #pragma mark -
@@ -189,7 +201,7 @@
 
 - (void)prepareToResize
 {
-    NSLog(@"prepareToResize");
+//    NSLog(@"prepareToResize");
     CGPoint boundsCenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     _pointToCenterAfterResize = [self convertPoint:boundsCenter toView:_zoomView];
     
@@ -203,7 +215,7 @@
 
 - (void)recoverFromResizing
 {
-    NSLog(@"recoverFromResizing");
+//    NSLog(@"recoverFromResizing");
     [self setMaxMinZoomScalesForCurrentBounds];
     
     // Step 1: restore zoom scale, first making sure it is within the allowable range.

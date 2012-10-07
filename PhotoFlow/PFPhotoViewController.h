@@ -15,6 +15,7 @@
 @interface PFPhotoViewController : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, strong) IBOutlet PFPhotoScrollView * scrollView;
+@property (strong, nonatomic) IBOutlet UIImageView *placeholderImageView;
 
 @property (nonatomic, strong) PFPhoto * photo;
 

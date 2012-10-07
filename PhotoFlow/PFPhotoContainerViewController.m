@@ -12,7 +12,9 @@
 @property (nonatomic, strong) UIPageViewController * pageViewController;
 @property (nonatomic) NSUInteger photoIndex;
 @property (nonatomic, strong) NSArray * photos;
+@property (nonatomic, strong) PFEvent * event;
 - (void)setBarsVisible:(BOOL)visible animated:(BOOL)animated;
+- (void) backButtonTouched:(id)sender;
 @end
 
 @implementation PFPhotoContainerViewController
@@ -44,11 +46,35 @@
     
     [self.tapSingleGestureRecognizer requireGestureRecognizerToFail:self.tapDoubleGestureRecognizer];
     
+    self.title = self.event.title;
+    
+    UIImage * backArrowImage = [UIImage imageNamed:@"btn_back_photos.png"];
+    UIImage * backArrowImageHighlight = [UIImage imageNamed:@"btn_back_photos_highlight.png"];
+    UIButton * normalButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    normalButton.frame = CGRectMake(15, 0, backArrowImage.size.width + 15 /* COULD HAVE ALSO DONE THIS WITH A FIXED SPACE UIBARBUTTONITEM */, backArrowImage.size.height);
+    [normalButton setImage:backArrowImage forState:UIControlStateNormal];
+    [normalButton setImage:backArrowImageHighlight forState:UIControlStateHighlighted];
+    [normalButton addTarget:self action:@selector(backButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:normalButton];
+    self.navigationItem.leftBarButtonItem = backButton;
+        
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsLandscapePhone];
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsLandscapePhone];
+//    [self setBarsVisible:NO animated:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsLandscapePhone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,9 +83,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos {
+- (void)setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event {
     self.photoIndex = photoIndex;
     self.photos = photos;
+    self.event = event;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
@@ -112,12 +139,25 @@
         if (photoViewController.scrollView.zoomScale == photoViewController.scrollView.minimumZoomScale) {
             zoomScaleAdj = photoViewController.scrollView.maximumZoomScale;
         } else {
-            zoomScaleAdj = photoViewController.scrollView.minimumZoomScale;
+            // zoomScaleAdj = photoViewController.scrollView.minimumZoomScale;
+            zoomScaleAdj = photoViewController.scrollView.zoomScaleForOptimalPresentation;
+            if (photoViewController.scrollView.zoomScaleForOptimalPresentation == photoViewController.scrollView.maximumZoomScale) {
+                zoomScaleAdj = photoViewController.scrollView.minimumZoomScale;
+            }
         }
         [photoViewController.scrollView setZoomScale:zoomScaleAdj animated:YES];
     } else if (gestureRecognizer == self.tapSingleGestureRecognizer) {
         [self setBarsVisible:self.navigationController.navigationBarHidden animated:YES];
     }
+}
+
+- (void)backButtonTouched:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
 }
 
 @end

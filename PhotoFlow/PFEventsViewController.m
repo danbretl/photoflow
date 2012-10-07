@@ -49,7 +49,7 @@
     
     UIImage * buttonImage = [UIImage imageNamed:@"btn_add_event.png"];
     UIButton * normalButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    normalButton.frame = CGRectMake(0, 0, buttonImage.size.width + 10 /* COULD HAVE ALSO DONE THIS WITH A FIXED SPACE UIBARBUTTONITEM */, buttonImage.size.height);
+    normalButton.frame = CGRectMake(0, 0, buttonImage.size.width + 15 /* COULD HAVE ALSO DONE THIS WITH A FIXED SPACE UIBARBUTTONITEM */, buttonImage.size.height);
     [normalButton setImage:buttonImage forState:UIControlStateNormal];
     [normalButton setImage:[UIImage imageNamed:@"btn_add_event_highlight.png"] forState:UIControlStateHighlighted];
     [normalButton addTarget:self.addEventButton.target action:self.addEventButton.action forControlEvents:UIControlEventTouchUpInside];
@@ -62,6 +62,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsLandscapePhone];
+    [self.tableView reloadData]; // Fixing a weird bug coming from a landscape photos banner view controller (which actually is still oriented as portrait, because landscape banner is not allowed).
 }
 
 - (void)didReceiveMemoryWarning

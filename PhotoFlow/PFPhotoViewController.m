@@ -31,15 +31,21 @@
         
     NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.photo.imageLocation]];
     AFImageRequestOperation * imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:urlRequest success:^(UIImage *image) {
-        NSLog(@"got image of size %@", NSStringFromCGSize(image.size));
-        [self.scrollView displayImage:image];
+        if (image != nil) {
+    //        NSLog(@"got image of size %@", NSStringFromCGSize(image.size));
+            self.placeholderImageView.alpha = 0.0;
+            [self.scrollView displayImage:image];
+        }
     }];
     imageRequest.imageScale = 1.0;
     [imageRequest start];
     
 }
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.scrollView.zoomScale = self.scrollView.zoomScaleForOptimalPresentation;
+}
 
 - (void)didReceiveMemoryWarning
 {
