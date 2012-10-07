@@ -67,6 +67,10 @@
     [self.tableView reloadData]; // Fixing a weird bug coming from a landscape photos banner view controller (which actually is still oriented as portrait, because landscape banner is not allowed).
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
