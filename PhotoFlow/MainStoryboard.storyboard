@@ -192,9 +192,6 @@
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Event Location" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJM-VJ-Wfw" userLabel="Location Label">
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="187" id="YB8-lR-Hba"/>
-                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -209,6 +206,7 @@
                                                         <constraint firstItem="PJM-VJ-Wfw" firstAttribute="leading" secondItem="IaH-4t-TgT" secondAttribute="trailing" constant="8" symbolic="YES" type="user" id="bLM-jv-dzk"/>
                                                         <constraint firstAttribute="height" constant="35" type="user" id="k7C-Fa-6wj"/>
                                                         <constraint firstItem="PJM-VJ-Wfw" firstAttribute="top" secondItem="RrQ-wS-gsI" secondAttribute="top" type="default" id="kuH-zB-AcT"/>
+                                                        <constraint firstAttribute="trailing" secondItem="PJM-VJ-Wfw" secondAttribute="trailing" constant="10" type="user" id="xTz-BG-SNi"/>
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Niy-2o-pEk"/>
@@ -229,10 +227,10 @@
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="trailing" secondItem="Niy-2o-pEk" secondAttribute="trailing" type="user" id="Iaa-sv-o5m"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="user" id="KtT-VA-KpK"/>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="bottom" secondItem="OXe-Td-2PI" secondAttribute="bottom" type="default" id="Ngh-Ta-Oqx"/>
-                                                <constraint firstItem="RrQ-wS-gsI" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="default" id="cFN-lw-cUJ"/>
+                                                <constraint firstItem="RrQ-wS-gsI" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="user" id="cFN-lw-cUJ"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="leading" secondItem="Niy-2o-pEk" secondAttribute="leading" type="user" id="eDP-lo-w5o"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="user" id="iEd-Iu-2Su"/>
-                                                <constraint firstItem="RrQ-wS-gsI" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="default" id="ja5-8F-8bk"/>
+                                                <constraint firstItem="RrQ-wS-gsI" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="user" id="ja5-8F-8bk"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="bottom" secondItem="Niy-2o-pEk" secondAttribute="bottom" type="user" id="pHD-F8-g8e"/>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="default" id="sZ9-VX-9Ow"/>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="default" id="vCm-Yu-ufs"/>
