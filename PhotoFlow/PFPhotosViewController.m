@@ -51,7 +51,7 @@
     UIImage * cameraButtonImage = [UIImage imageNamed:@"btn_camera.png"];
     UIImage * cameraButtonImageHighlight = [UIImage imageNamed:@"btn_camera_highlight.png"];
     UIButton * cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cameraButton.frame = CGRectMake(0, 0, 102.0, UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 32.0 : 44.0); // HARD CODED, VERY BAD HACK.
+    cameraButton.frame = CGRectMake(0, 0, 102.0, /*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 32.0 : */44.0); // HARD CODED, VERY BAD HACK.
     cameraButton.contentMode = UIViewContentModeCenter;
     [cameraButton setBackgroundImage:[[UIImage imageNamed:@"btn_camera_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1.0, 0, 1.0)] forState:UIControlStateNormal];
     [cameraButton setBackgroundImage:[[UIImage imageNamed:@"btn_camera_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1.0, 0, 1.0)] forState:UIControlStateHighlighted];
@@ -66,7 +66,7 @@
     PFPhotosViewLayoutType layoutType = PFPhotosViewLayoutGrid;
     PFPhotosViewLayoutType layoutTypePreference = [DefaultsManager getPhotosViewLayoutPreference];
     if (layoutTypePreference != PFPhotosViewLayoutNone) layoutType = layoutTypePreference;
-    if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) layoutType = PFPhotosViewLayoutGrid;
+    /*if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) layoutType = PFPhotosViewLayoutGrid;*/
     UICollectionViewFlowLayout * layout = nil;
     switch (layoutType) {
         case PFPhotosViewLayoutGrid:
@@ -84,7 +84,7 @@
     self.collectionView.contentOffset = CGPointZero;
     
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
-    if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) self.navigationItem.rightBarButtonItem = nil;
+    /*if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) self.navigationItem.rightBarButtonItem = nil;*/
     
 }
 
@@ -93,11 +93,11 @@
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsLandscapePhone];
-    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:/*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 20.0 : */25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsLandscapePhone];
     CGRect cameraButtonFrame = self.cameraButton.customView.frame;
-    cameraButtonFrame.size.height = UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 32.0 : 44.0; // HARD CODED, VERY BAD HACK.
+    cameraButtonFrame.size.height = /*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 32.0 : */44.0; // HARD CODED, VERY BAD HACK.
     self.cameraButton.customView.frame = cameraButtonFrame;
 }
 
@@ -165,11 +165,13 @@
     //return [self.collectionView.collectionViewLayout isKindOfClass:[PFPhotosBannerFlowLayout class]] ? UIInterfaceOrientationMaskPortrait : UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
+/*
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [self.navigationItem setRightBarButtonItem:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? nil : self.toggleViewModeButton animated:YES];
     self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
 }
+*/
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.toolbar.bounds.size.height, 0.0);
