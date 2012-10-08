@@ -7,12 +7,16 @@
         <!--Navigation View Controller-->
         <scene sceneID="Vue-j2-QYU">
             <objects>
-                <navigationController definesPresentationContext="YES" id="uEB-vi-Ctl" customClass="PFNavigationViewController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" toolbarHidden="NO" id="uEB-vi-Ctl" customClass="PFNavigationViewController" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="OQx-cx-CwN">
                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" id="Rm2-ws-kRu">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="Dwd-nV-hRW" kind="relationship" relationship="rootViewController" id="kqn-xZ-JeI"/>
                     </connections>
@@ -146,6 +150,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="o13-aG-wSN"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="Dbn-cq-gbl" id="d9d-aK-ErY"/>
                         <outlet property="cardBackgroundView" destination="Dd0-5D-fvF" id="tc7-tf-CCR"/>
@@ -283,6 +288,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addEventButton" destination="ejq-Ys-12d" id="aTw-7z-OVf"/>
                     </connections>
@@ -340,29 +346,24 @@
                                     <outlet property="delegate" destination="Ap9-MO-z3J" id="kGH-Is-mwn"/>
                                 </connections>
                             </collectionView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="Uab-pP-Sas">
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="KvQ-VG-3it"/>
-                                    <barButtonItem style="plain" systemItem="add" id="dRS-4W-uN0">
-                                        <connections>
-                                            <action selector="cameraButtonTouched:" destination="Ap9-MO-z3J" id="DrJ-rU-bZU"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hpH-x5-0Wi"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="X7y-eo-g55" firstAttribute="top" secondItem="ftc-QK-oRa" secondAttribute="top" type="default" id="2qy-Gh-U8x"/>
                             <constraint firstAttribute="bottom" secondItem="X7y-eo-g55" secondAttribute="bottom" type="user" id="44N-L3-mHQ"/>
-                            <constraint firstItem="Uab-pP-Sas" firstAttribute="bottom" secondItem="ftc-QK-oRa" secondAttribute="bottom" type="default" id="VCh-2o-qA5"/>
                             <constraint firstItem="X7y-eo-g55" firstAttribute="trailing" secondItem="ftc-QK-oRa" secondAttribute="trailing" type="default" id="ZfI-cs-zGm"/>
-                            <constraint firstItem="Uab-pP-Sas" firstAttribute="trailing" secondItem="ftc-QK-oRa" secondAttribute="trailing" type="default" id="akD-zi-mvw"/>
                             <constraint firstItem="X7y-eo-g55" firstAttribute="leading" secondItem="ftc-QK-oRa" secondAttribute="leading" type="default" id="j5J-8o-5jb"/>
-                            <constraint firstItem="Uab-pP-Sas" firstAttribute="leading" secondItem="ftc-QK-oRa" secondAttribute="leading" type="default" id="jCD-fe-5YK"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="PMX-VQ-87I"/>
+                        <barButtonItem title="Photo" id="Mrc-WU-aRd">
+                            <connections>
+                                <action selector="cameraButtonTouched:" destination="Ap9-MO-z3J" id="9dd-G8-gDP"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="xy3-JS-Mxz"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Photos" id="3qq-cD-pgV">
                         <barButtonItem key="rightBarButtonItem" title="Toggle" id="0LY-gr-V0G">
                             <connections>
@@ -370,11 +371,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackTranslucent"/>
                     <connections>
-                        <outlet property="cameraButton" destination="dRS-4W-uN0" id="yax-gA-A6B"/>
+                        <outlet property="cameraButton" destination="Mrc-WU-aRd" id="b0W-P9-LAJ"/>
                         <outlet property="collectionView" destination="X7y-eo-g55" id="bNL-Q1-Hkc"/>
                         <outlet property="toggleViewModeButton" destination="0LY-gr-V0G" id="hJw-C0-cv6"/>
-                        <outlet property="toolbar" destination="Uab-pP-Sas" id="b4h-eS-qVl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZ7-Qz-bFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -397,34 +398,44 @@
                                     <segue destination="xVc-q9-kie" kind="embed" id="kQ4-iH-bOG"/>
                                 </connections>
                             </containerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="6GP-kc-bjZ">
-                                <items>
-                                    <barButtonItem title="Share" id="gtB-9F-7iz"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XKX-Tb-Jjm"/>
-                                    <barButtonItem systemItem="add" id="B2V-4n-fxD"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VB0-r9-wJD"/>
-                                    <barButtonItem systemItem="trash" id="45w-gf-qoN"/>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Y41-1D-Wnp" firstAttribute="top" secondItem="Z4S-2a-Zld" secondAttribute="top" type="default" id="743-3O-uWA"/>
                             <constraint firstItem="Y41-1D-Wnp" firstAttribute="leading" secondItem="Z4S-2a-Zld" secondAttribute="leading" type="default" id="QJa-jb-Yck"/>
-                            <constraint firstItem="Y41-1D-Wnp" firstAttribute="bottom" secondItem="Z4S-2a-Zld" secondAttribute="bottom" type="default" id="bEY-cP-Ntg"/>
-                            <constraint firstItem="6GP-kc-bjZ" firstAttribute="bottom" secondItem="Z4S-2a-Zld" secondAttribute="bottom" type="user" id="bcA-OX-vnt"/>
-                            <constraint firstItem="6GP-kc-bjZ" firstAttribute="trailing" secondItem="Z4S-2a-Zld" secondAttribute="trailing" type="default" id="fi5-Vj-3E5"/>
-                            <constraint firstItem="6GP-kc-bjZ" firstAttribute="leading" secondItem="Z4S-2a-Zld" secondAttribute="leading" type="default" id="n7v-hE-El0"/>
+                            <constraint firstAttribute="bottom" secondItem="Y41-1D-Wnp" secondAttribute="bottom" type="user" id="VNw-L0-xtt"/>
                             <constraint firstItem="Y41-1D-Wnp" firstAttribute="trailing" secondItem="Z4S-2a-Zld" secondAttribute="trailing" type="default" id="wXI-8r-p44"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Share" id="TTy-3p-mGa">
+                            <connections>
+                                <action selector="toolbarButtonTouched:" destination="apH-Ml-r7e" id="XD7-fX-EaP"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="nAa-44-rLh"/>
+                        <barButtonItem title="Photo" id="AqN-KI-D3L">
+                            <connections>
+                                <action selector="toolbarButtonTouched:" destination="apH-Ml-r7e" id="OJT-4p-JZu"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Yo6-iT-YAK"/>
+                        <barButtonItem title="Delete" id="rHB-S6-LqU">
+                            <connections>
+                                <action selector="toolbarButtonTouched:" destination="apH-Ml-r7e" id="fAg-vb-JnE"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Photo" id="vPd-GM-H4P"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackTranslucent"/>
                     <connections>
+                        <outlet property="cameraButton" destination="AqN-KI-D3L" id="VJq-fR-FyH"/>
+                        <outlet property="deleteButton" destination="rHB-S6-LqU" id="OZU-Do-yhv"/>
+                        <outlet property="shareButton" destination="TTy-3p-mGa" id="WGP-bj-zfn"/>
                         <outlet property="tapDoubleGestureRecognizer" destination="FXo-j6-Acv" id="13n-BZ-xAq"/>
                         <outlet property="tapSingleGestureRecognizer" destination="G6m-fK-opS" id="31G-PK-H7r"/>
-                        <outlet property="toolbar" destination="6GP-kc-bjZ" id="5BC-dp-gN1"/>
-                        <outlet property="toolbarBottomConstrant" destination="bcA-OX-vnt" id="6Xe-9g-KV6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MP2-oF-2ed" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,7 +458,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="xVc-q9-kie" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4NN-HP-jbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1941" y="-617"/>
+            <point key="canvasLocation" x="1932" y="-617"/>
         </scene>
     </scenes>
     <resources>
@@ -459,87 +470,6 @@
         <image name="btn_invite_go_bg_highlight.png" width="41" height="42"/>
         <image name="invite_welcome.png" width="258" height="39"/>
     </resources>
-    <classes>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="PFEventCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFEventCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="bannerImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="containerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabelBackgroundView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shadowView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PFEventsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFEventsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="addEventButtonTouched:"/>
-                <relationship kind="action" name="devButtonTouched:" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="PFJoinEventViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFJoinEventViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="cardBackgroundView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="cardContainerViewBottomSpace" candidateClass="NSLayoutConstraint"/>
-                <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="codeTextFieldBackgroundView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="goButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photoflowImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="promptLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="welcomeImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PFNavigationViewController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFNavigationViewController.h"/>
-        </class>
-        <class className="PFPhotoCell" superclassName="UICollectionViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotoCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="shadowView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="PFPhotoContainerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotoContainerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="tapped:" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="outlet" name="tapDoubleGestureRecognizer" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="outlet" name="tapSingleGestureRecognizer" candidateClass="UITapGestureRecognizer"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="toolbarBottomConstrant" candidateClass="NSLayoutConstraint"/>
-            </relationships>
-        </class>
-        <class className="PFPhotosGridFlowLayout" superclassName="UICollectionViewFlowLayout">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosGridFlowLayout.h"/>
-        </class>
-        <class className="PFPhotosViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cameraButtonTouched:"/>
-                <relationship kind="action" name="toggleViewModeButtonTouched:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
-                <relationship kind="outlet" name="toggleViewModeButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="UICollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
-        </class>
-        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
-        </class>
-        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

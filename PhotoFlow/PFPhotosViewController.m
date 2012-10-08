@@ -13,6 +13,7 @@
 #import "PFPhotosBannerFlowLayout.h"
 #import "DefaultsManager.h"
 #import "PFPhotoContainerViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface PFPhotosViewController ()
 @property (nonatomic, strong) NSArray * photos;
@@ -51,8 +52,9 @@
     UIImage * cameraButtonImage = [UIImage imageNamed:@"btn_camera.png"];
     UIImage * cameraButtonImageHighlight = [UIImage imageNamed:@"btn_camera_highlight.png"];
     UIButton * cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cameraButton.frame = CGRectMake(0, 0, 102.0, /*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 32.0 : */44.0); // HARD CODED, VERY BAD HACK.
     cameraButton.contentMode = UIViewContentModeCenter;
+    cameraButton.frame = CGRectMake(0, 0, 102.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    cameraButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [cameraButton setBackgroundImage:[[UIImage imageNamed:@"btn_camera_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1.0, 0, 1.0)] forState:UIControlStateNormal];
     [cameraButton setBackgroundImage:[[UIImage imageNamed:@"btn_camera_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1.0, 0, 1.0)] forState:UIControlStateHighlighted];
     [cameraButton setImage:cameraButtonImage forState:UIControlStateNormal];
@@ -66,7 +68,7 @@
     PFPhotosViewLayoutType layoutType = PFPhotosViewLayoutGrid;
     PFPhotosViewLayoutType layoutTypePreference = [DefaultsManager getPhotosViewLayoutPreference];
     if (layoutTypePreference != PFPhotosViewLayoutNone) layoutType = layoutTypePreference;
-    /*if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) layoutType = PFPhotosViewLayoutGrid;*/
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) layoutType = PFPhotosViewLayoutGrid;
     UICollectionViewFlowLayout * layout = nil;
     switch (layoutType) {
         case PFPhotosViewLayoutGrid:
@@ -84,7 +86,7 @@
     self.collectionView.contentOffset = CGPointZero;
     
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
-    /*if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation)) self.navigationItem.rightBarButtonItem = nil;*/
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) self.navigationItem.rightBarButtonItem = nil;
     
 }
 
@@ -93,23 +95,16 @@
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0)] forBarMetrics:UIBarMetricsLandscapePhone];
-    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:/*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 20.0 : */25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsLandscapePhone];
-    CGRect cameraButtonFrame = self.cameraButton.customView.frame;
-    cameraButtonFrame.size.height = /*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 32.0 : */44.0; // HARD CODED, VERY BAD HACK.
-    self.cameraButton.customView.frame = cameraButtonFrame;
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsLandscapePhone];
+    self.cameraButton.customView.frame = CGRectMake(0, 0, self.cameraButton.customView.frame.size.width, self.navigationController.toolbar.frame.size.height); // Fixing weird bug that would result in camera button growing in height past the toolbar edge. The way to replicate was switch to banner mode, then rotate horizontal (but this VC won't rotate in banner mode), then push a photo viewer, then rotate a couple times to get the photo viewer truly in horizontal, then come back to this VC.
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.toolbar.bounds.size.height, 0.0);
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -161,20 +156,18 @@
 //}
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-    //return [self.collectionView.collectionViewLayout isKindOfClass:[PFPhotosBannerFlowLayout class]] ? UIInterfaceOrientationMaskPortrait : UIInterfaceOrientationMaskAllButUpsideDown;
+    return [self.collectionView.collectionViewLayout isKindOfClass:[PFPhotosBannerFlowLayout class]] ? UIInterfaceOrientationMaskPortrait : UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-/*
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [self.navigationItem setRightBarButtonItem:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? nil : self.toggleViewModeButton animated:YES];
     self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
 }
-*/
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.toolbar.bounds.size.height, 0.0);
+    self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
+    self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
 }
 
 - (void)backButtonTouched:(id)sender {

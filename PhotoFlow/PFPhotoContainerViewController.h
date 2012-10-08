@@ -18,7 +18,9 @@
 
 - (void) setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event;
 
-@property (strong, nonatomic) IBOutlet UIToolbar * toolbar;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint * toolbarBottomConstrant;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem * cameraButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem * shareButton ;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem * deleteButton;
+- (IBAction)toolbarButtonTouched:(id)sender;
 
 @end

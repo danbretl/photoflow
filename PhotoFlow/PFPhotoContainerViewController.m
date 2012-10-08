@@ -36,7 +36,7 @@
     self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self;
     
-    PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];// [self.storyboard instantiateViewControllerWithIdentifier:@"PFPhotoViewController"];
+    PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
     photoViewController.delegate = self;
     photoViewController.photo = [self.photos objectAtIndex:self.photoIndex];
     [self.pageViewController setViewControllers:@[photoViewController]
@@ -57,6 +57,39 @@
     [normalButton addTarget:self action:@selector(backButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:normalButton];
     self.navigationItem.leftBarButtonItem = backButton;
+    
+    UIImage * cameraButtonImage = [UIImage imageNamed:@"btn_camera_photos.png"];
+    UIImage * cameraButtonImageHighlight = [UIImage imageNamed:@"btn_camera_photos_highlight.png"];
+    UIButton * cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cameraButton.contentMode = UIViewContentModeCenter;
+    cameraButton.frame = CGRectMake(0, 0, 102.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    cameraButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [cameraButton setImage:cameraButtonImage forState:UIControlStateNormal];
+    [cameraButton setImage:cameraButtonImageHighlight forState:UIControlStateHighlighted];
+    [cameraButton addTarget:self.cameraButton.target action:self.cameraButton.action forControlEvents:UIControlEventTouchUpInside];
+    [self.cameraButton setCustomView:cameraButton];
+    
+    UIImage * shareButtonImage = [UIImage imageNamed:@"btn_share_photos.png"];
+    UIImage * shareButtonImageHighlight = [UIImage imageNamed:@"btn_share_photos_highlight.png"];
+    UIButton * shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareButton.contentMode = UIViewContentModeCenter;
+    shareButton.frame = CGRectMake(15.0, 0, shareButtonImage.size.width + 15.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    shareButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [shareButton setImage:shareButtonImage forState:UIControlStateNormal];
+    [shareButton setImage:shareButtonImageHighlight forState:UIControlStateHighlighted];
+    [shareButton addTarget:self.shareButton.target action:self.shareButton.action forControlEvents:UIControlEventTouchUpInside];
+    [self.shareButton setCustomView:shareButton];
+    
+    UIImage * deleteButtonImage = [UIImage imageNamed:@"btn_delete_photos.png"];
+    UIImage * deleteButtonImageHighlight = [UIImage imageNamed:@"btn_delete_photos_highlight.png"];
+    UIButton * deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    deleteButton.contentMode = UIViewContentModeCenter;
+    deleteButton.frame = CGRectMake(0, 0, deleteButtonImage.size.width + 15.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    deleteButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [deleteButton setImage:deleteButtonImage forState:UIControlStateNormal];
+    [deleteButton setImage:deleteButtonImageHighlight forState:UIControlStateHighlighted];
+    [deleteButton addTarget:self.deleteButton.target action:self.deleteButton.action forControlEvents:UIControlEventTouchUpInside];
+    [self.deleteButton setCustomView:deleteButton];
         
 }
 
@@ -65,9 +98,9 @@
     self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsLandscapePhone];
-    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:/*UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation) ? 20.0 : */25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsLandscapePhone];
+    [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsLandscapePhone];
 //    [self setBarsVisible:NO animated:NO];
 }
 
@@ -75,12 +108,6 @@
     [super viewDidAppear:animated];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsLandscapePhone];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event {
@@ -91,7 +118,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if (self.photoIndex > 0) {
-        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];//[self.storyboard instantiateViewControllerWithIdentifier:@"PFPhotoViewController"];
+        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
         photoViewController.delegate = self;
         photoViewController.photo = [self.photos objectAtIndex:self.photoIndex - 1];
         return photoViewController;
@@ -101,7 +128,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     if (self.photoIndex + 1 < self.photos.count) {
-        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];//[self.storyboard instantiateViewControllerWithIdentifier:@"PFPhotoViewController"];
+        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
         photoViewController.delegate = self;
         photoViewController.photo = [self.photos objectAtIndex:self.photoIndex + 1];
         return photoViewController;
@@ -114,22 +141,16 @@
 }
 
 - (void)photoViewControllerDidZoomOutToNormal:(PFPhotoViewController *)viewController {
-//    NSLog(@"photoViewControllerDidZoomOutToNormal");
     if (self.navigationController.navigationBarHidden) [self setBarsVisible:YES animated:YES];
 }
 
 - (void)photoViewControllerDidZoomIn:(PFPhotoViewController *)viewController {
-//    NSLog(@"photoViewControllerDidZoomIn");
     if (!self.navigationController.navigationBarHidden) [self setBarsVisible:NO animated:YES];
 }
 
 - (void)setBarsVisible:(BOOL)visible animated:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:!visible animated:animated];
-    [self.view layoutIfNeeded];
-    [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.toolbarBottomConstrant.constant = visible ? 0.0 : self.toolbar.bounds.size.height;
-        [self.view layoutIfNeeded];
-    } completion:NULL];
+    [self.navigationController setToolbarHidden:!visible animated:animated];
 }
 
 - (void)tapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -157,7 +178,11 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:/*UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : */25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
+}
+
+- (void)toolbarButtonTouched:(id)sender {
+    
 }
 
 @end

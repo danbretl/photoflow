@@ -36,9 +36,6 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     // UINavigationBar - I can't get this stuff to work for me really... Reverting back to changing things more manually per view controller.
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsLandscapePhone];
-    // UIToolbar
-    [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"toolbar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0, 0, 0, 0)] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
-    [[UIToolbar appearance] setBackgroundImage:[[UIImage imageNamed:@"toolbar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0, 0, 0, 0)] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsLandscapePhone];
     
 //    [UIFont logAvailableFonts];
     
@@ -63,6 +60,7 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     
     // The following seems rather roundabout...
     UINavigationController * rootNavController = (UINavigationController *)self.window.rootViewController;
+    rootNavController.delegate = self;
     PFJoinEventViewController * joinViewController = (PFJoinEventViewController *)rootNavController.viewControllers[0];
     joinViewController.moc = self.managedObjectContext;
     events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
@@ -73,6 +71,23 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     }
     
     return YES;
+    
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    // Toolbar visibility
+    if ([viewController isKindOfClass:[PFJoinEventViewController class]] ||
+        [viewController isKindOfClass:[PFEventsViewController    class]]    ) {
+        [navigationController setToolbarHidden:YES animated:animated];
+    } else {
+        [navigationController setToolbarHidden:NO animated:animated];
+        // Toolbar background image
+        NSString * toolbarImageName = @"toolbar.png";
+        if ([viewController isKindOfClass:[PFPhotoContainerViewController class]]) toolbarImageName = [toolbarImageName stringByReplacingOccurrencesOfString:@".png" withString:@"_photos.png"];
+        [navigationController.toolbar setBackgroundImage:[[UIImage imageNamed:toolbarImageName] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0, 0, 0, 0)] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+        [navigationController.toolbar setBackgroundImage:[[UIImage imageNamed:toolbarImageName] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0, 0, 0, 0)] forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsLandscapePhone];
+    }
     
 }
 

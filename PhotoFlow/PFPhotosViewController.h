@@ -21,7 +21,6 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem * toggleViewModeButton;
 - (IBAction)toggleViewModeButtonTouched:(UIBarButtonItem *)button;
 
-@property (nonatomic, strong) IBOutlet UIToolbar * toolbar;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem * cameraButton;
 - (IBAction)cameraButtonTouched:(id)sender;
 
