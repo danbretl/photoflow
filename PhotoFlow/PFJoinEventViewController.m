@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
-const CGFloat CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT = 10.0;
 
 @interface PFJoinEventViewController ()
 - (void) keyboardWillShow:(NSNotification *)notification;
@@ -99,10 +98,6 @@ const CGFloat CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT = 10.0;
     if ([segue.identifier isEqualToString:@"ShowEventsFromCancel"]) {
         PFEventsViewController * viewController = segue.destinationViewController;
         viewController.moc = self.moc;
-    } else if ([segue.identifier isEqualToString:@"ShowEventsFromGo"]) {
-        // IN DEVELOPMENT - CHANGE FOR PRODUCTION
-        PFEventsViewController * viewController = segue.destinationViewController;
-        viewController.moc = self.moc;
     }
 }
 
@@ -125,12 +120,10 @@ const CGFloat CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT = 10.0;
 //    viewController.moc = self.moc;
 //    [self.navigationController pushViewController:viewController animated:YES];
 //}
-//
-//- (void)goButtonTouched:(UIButton *)button {
-//    PFEventsViewController * viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
-//    viewController.moc = self.moc;
-//    [self.navigationController pushViewController:viewController animated:YES];
-//}
+
+- (void)goButtonTouched:(UIButton *)button {
+    [self.codeTextField resignFirstResponder];
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (textField == self.codeTextField) {
@@ -148,9 +141,9 @@ const CGFloat CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT = 10.0;
             text = EVENT_CODE_PLACEHOLDER;
         }
         textField.text = text;
-        if (![textField.text isEqualToString:EVENT_CODE_PLACEHOLDER]) {
-            [self finishedWithCode:textField.text];
-        }
+//        if (![textField.text isEqualToString:EVENT_CODE_PLACEHOLDER]) {
+//            [self finishedWithCode:textField.text];
+//        }
     }
 }
 
@@ -167,25 +160,44 @@ const CGFloat CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT = 10.0;
     double keyboardAnimationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve keyboardAnimationCurve = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
     CGRect keyboardEndFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    [self.view layoutIfNeeded];
-    [UIView animateWithDuration:keyboardAnimationDuration delay:0.0 options:keyboardAnimationCurve animations:^{
-        self.cardContainerViewBottomSpace.constant = CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT + keyboardEndFrame.size.height;
+    if ([UIScreen mainScreen].bounds.size.height >= 568.0) {
         [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        // ...
-    }];
+        [UIView animateWithDuration:keyboardAnimationDuration delay:0.0 options:keyboardAnimationCurve animations:^{
+            self.scrollViewBottomSpace.constant = -keyboardEndFrame.size.height;
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            // ...
+        }];
+    } else {
+        self.scrollView.scrollEnabled = YES;
+        self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, keyboardEndFrame.size.height, 0);
+        [self.scrollView scrollRectToVisible:CGRectInset([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview], 0, -(self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom - self.codeTextField.bounds.size.height) / 2.0) animated:YES];
+//        NSLog(@"codeTextField.frame = %@", NSStringFromCGRect(self.codeTextField.frame));
+//        NSLog(@"codeTextField.frame (in window) = %@", NSStringFromCGRect([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview]));
+//        NSLog(@"self.scrollView.visibleHeight = %f", self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom);
+//        NSLog(@"CGRectInset([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview], 0, (self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom - self.codeTextField.bounds.size.height) / 2.0) = %@", NSStringFromCGRect(CGRectInset([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview], 0, (self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom - self.codeTextField.bounds.size.height) / 2.0)));
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     double keyboardAnimationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve keyboardAnimationCurve = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
-    [self.view layoutIfNeeded];
-    [UIView animateWithDuration:keyboardAnimationDuration delay:0.0 options:keyboardAnimationCurve animations:^{
-        self.cardContainerViewBottomSpace.constant = CARD_CONTAINER_VIEW_BOTTOM_SPACE_DEFAULT;
+    if ([UIScreen mainScreen].bounds.size.height >= 568.0) {
         [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        // ...
-    }];
+        [UIView animateWithDuration:keyboardAnimationDuration delay:0.0 options:keyboardAnimationCurve animations:^{
+            self.scrollViewBottomSpace.constant = 0;
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            // ...
+        }];
+    } else {
+        self.scrollView.scrollEnabled = NO;
+        [self.scrollView setContentOffset:CGPointZero animated:YES];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSLog(@"%@", NSStringFromCGRect(scrollView.bounds));
 }
 
 @end

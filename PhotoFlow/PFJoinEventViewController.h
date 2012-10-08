@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "NSManagedObjectContext+PhotoFlow.h"
 
-@interface PFJoinEventViewController : UIViewController <UITextFieldDelegate>
+@interface PFJoinEventViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 
+@property (nonatomic, strong) IBOutlet UIScrollView * scrollView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint * scrollViewBottomSpace;
 @property (nonatomic, strong) IBOutlet UIImageView * cardBackgroundView;
-@property (nonatomic, strong) IBOutlet NSLayoutConstraint * cardContainerViewBottomSpace;
 @property (nonatomic, strong) IBOutlet UIImageView * welcomeImageView;
 @property (nonatomic, strong) IBOutlet UILabel * promptLabel;
 @property (nonatomic, strong) IBOutlet UITextField * codeTextField;
@@ -24,6 +25,6 @@
 @property (nonatomic, strong) IBOutlet UIImageView * photoflowImageView;
 
 //- (IBAction)cancelButtonTouched:(UIButton *)button;
-//- (IBAction)goButtonTouched:(UIButton *)button;
+- (IBAction)goButtonTouched:(UIButton *)button;
 
 @end
