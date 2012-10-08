@@ -276,7 +276,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Events" id="Zyh-ow-MRv">
-                        <barButtonItem key="leftBarButtonItem" title="WebDev" id="158-Xs-MCC">
+                        <barButtonItem key="leftBarButtonItem" title="Dev" id="158-Xs-MCC">
                             <connections>
                                 <action selector="devButtonTouched:" destination="kDV-iN-oVm" id="wIU-SV-MrW"/>
                             </connections>
@@ -470,6 +470,88 @@
         <image name="btn_invite_go_bg_highlight.png" width="41" height="42"/>
         <image name="invite_welcome.png" width="258" height="39"/>
     </resources>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="PFEventCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFEventCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bannerImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="containerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabelBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shadowView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PFEventsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFEventsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addEventButtonTouched:"/>
+                <relationship kind="action" name="devButtonTouched:" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="PFJoinEventViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFJoinEventViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="cardBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="cardContainerViewBottomSpace" candidateClass="NSLayoutConstraint"/>
+                <relationship kind="outlet" name="codeTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="codeTextFieldBackgroundView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="goButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoflowImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="promptLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="welcomeImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PFNavigationViewController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFNavigationViewController.h"/>
+        </class>
+        <class className="PFPhotoCell" superclassName="UICollectionViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="shadowView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="PFPhotoContainerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotoContainerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="tapped:" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="action" name="toolbarButtonTouched:"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="shareButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tapDoubleGestureRecognizer" candidateClass="UITapGestureRecognizer"/>
+                <relationship kind="outlet" name="tapSingleGestureRecognizer" candidateClass="UITapGestureRecognizer"/>
+            </relationships>
+        </class>
+        <class className="PFPhotosGridFlowLayout" superclassName="UICollectionViewFlowLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosGridFlowLayout.h"/>
+        </class>
+        <class className="PFPhotosViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PFPhotosViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cameraButtonTouched:"/>
+                <relationship kind="action" name="toggleViewModeButtonTouched:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="cameraButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
+                <relationship kind="outlet" name="toggleViewModeButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
