@@ -164,10 +164,17 @@
                             <constraint firstItem="a78-ZQ-HkC" firstAttribute="trailing" secondItem="LGg-GV-5Kn" secondAttribute="trailing" type="user" id="raj-Vo-tBc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="o13-aG-wSN"/>
+                    <navigationItem key="navigationItem" id="o13-aG-wSN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="ugd-gX-p61">
+                            <connections>
+                                <segue destination="kDV-iN-oVm" kind="push" identifier="ShowEventsFromCancelNav" id="1To-Zc-TEq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="Dbn-cq-gbl" id="d9d-aK-ErY"/>
+                        <outlet property="cancelButtonNav" destination="ugd-gX-p61" id="R27-Me-xlR"/>
                         <outlet property="cardBackgroundView" destination="Dd0-5D-fvF" id="tc7-tf-CCR"/>
                         <outlet property="codeTextField" destination="8DT-2w-4DM" id="Gtk-Lv-wkA"/>
                         <outlet property="codeTextFieldBackgroundView" destination="bV7-6r-9yz" id="Jiq-xO-aNQ"/>
@@ -491,4 +498,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="1To-Zc-TEq"/>
+    </inferredMetricsTieBreakers>
 </document>

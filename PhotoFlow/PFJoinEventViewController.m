@@ -42,6 +42,18 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     titleImageView.contentMode = UIViewContentModeBottom;
     [self.navigationItem setTitleView:titleImageView];
     
+    UIImage * cancelButtonImage = [UIImage imageNamed:@"btn_cancel_photos.png"];
+    UIImage * cancelButtonImageHighlight = [UIImage imageNamed:@"btn_cancel_photos_highlight.png"];
+    UIButton * cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.contentMode = UIViewContentModeCenter;
+    cancelButton.frame = CGRectMake(0, 0, cancelButtonImage.size.width + 15.0, cancelButtonImage.size.height);
+    cancelButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [cancelButton setImage:cancelButtonImage forState:UIControlStateNormal];
+    [cancelButton setImage:cancelButtonImageHighlight forState:UIControlStateHighlighted];
+    [cancelButton addTarget:self.cancelButtonNav.target action:self.cancelButtonNav.action forControlEvents:UIControlEventTouchUpInside];
+    [self.cancelButtonNav setCustomView:cancelButton];
+    self.navigationItem.rightBarButtonItem = nil;
+    
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
     
     self.cardBackgroundView.image = [[UIImage imageNamed:@"invite_card_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0)];
@@ -95,7 +107,8 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"ShowEventsFromCancel"]) {
+    if ([segue.identifier isEqualToString:@"ShowEventsFromCancel"] ||
+        [segue.identifier isEqualToString:@"ShowEventsFromCancelNav"]) {
         PFEventsViewController * viewController = segue.destinationViewController;
         viewController.moc = self.moc;
     }
@@ -197,7 +210,11 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%@", NSStringFromCGRect(scrollView.bounds));
+    if (scrollView.contentOffset.y > [self.scrollView convertPoint:CGPointMake(0, CGRectGetMidY(self.cancelButton.frame)) fromView:self.cancelButton.superview].y) {
+        if (self.navigationItem.rightBarButtonItem == nil) [self.navigationItem setRightBarButtonItem:self.cancelButtonNav animated:YES];
+    } else {
+        if (self.navigationItem.rightBarButtonItem != nil) [self.navigationItem setRightBarButtonItem:nil animated:YES];
+    }
 }
 
 @end

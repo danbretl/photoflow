@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UITextField * codeTextField;
 @property (nonatomic, strong) IBOutlet UIImageView * codeTextFieldBackgroundView;
 @property (nonatomic, strong) IBOutlet UIButton * cancelButton;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem * cancelButtonNav;
 @property (nonatomic, strong) IBOutlet UIButton * goButton;
 @property (nonatomic, strong) IBOutlet UIImageView * photoflowImageView;
 
