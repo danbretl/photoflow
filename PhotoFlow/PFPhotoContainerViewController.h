@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "PFPhotoViewController.h"
 #import "PFEvent.h"
+#import "PFCameraViewController.h"
 
-@interface PFPhotoContainerViewController : UIViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource, PFPhotoViewControllerDelegate>
+@interface PFPhotoContainerViewController : UIViewController <UIPageViewControllerDelegate, UIPageViewControllerDataSource, PFPhotoViewControllerDelegate, PFCameraViewControllerDelegate>
+
+@property (nonatomic, strong) NSManagedObjectContext * moc;
 
 @property (nonatomic, strong) IBOutlet UITapGestureRecognizer * tapSingleGestureRecognizer;
 @property (nonatomic, strong) IBOutlet UITapGestureRecognizer * tapDoubleGestureRecognizer;

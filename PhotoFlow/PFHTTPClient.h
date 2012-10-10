@@ -20,7 +20,7 @@ extern NSString * const PFC_BASE_URL_STRING_SAVED_KEY;
 - (void) setAuthorizationHeaderWithUsername:(NSString *)username userServerID:(NSString *)userServerID;
 
 // Get details for given event
-// Response: { event_eid, title, descriptionShort, location, date, coverPhoto }
+// Response: { eid, title, descriptionShort, location, date, coverPhoto }
 - (void) getEventDetails:(NSString *)eventEID successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock;
 
 // Get photos for a given event
@@ -28,7 +28,8 @@ extern NSString * const PFC_BASE_URL_STRING_SAVED_KEY;
 - (void) getPhotosForEvent:(NSString *)eventEID limit:(NSNumber *)limit updatedAfter:(NSDate *)updatedAfter updatedBefore:(NSDate *)updatedBefore successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock;
 
 // Get an image for a given photo
-- (NSString *) imageURLStringForPhoto:(NSString *)photoEID size:(int)size quality:(int)quality;
+- (NSString *) imageURLStringForPhoto:(NSString *)photoEID;
+- (NSString *) imageURLStringForPhoto:(NSString *)photoEID size:(NSUInteger)size quality:(NSUInteger)quality;
 
 // Save image
 // Response: { photo_eid }

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) PFEvent * event;
 - (void)setBarsVisible:(BOOL)visible animated:(BOOL)animated;
 - (void) backButtonTouched:(id)sender;
+- (UIImage *) toolbarButtonImageForBase:(NSString *)base highlight:(BOOL)highlight landscape:(BOOL)landscape;
 @end
 
 @implementation PFPhotoContainerViewController
@@ -58,39 +59,45 @@
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:normalButton];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UIImage * cameraButtonImage = [UIImage imageNamed:@"btn_camera_photos.png"];
-    UIImage * cameraButtonImageHighlight = [UIImage imageNamed:@"btn_camera_photos_highlight.png"];
+    BOOL landscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
+    
+    UIImage * cameraButtonImage = [self toolbarButtonImageForBase:@"camera" highlight:NO landscape:landscape];
+    UIImage * cameraButtonImageHighlight = [self toolbarButtonImageForBase:@"camera" highlight:YES landscape:landscape];
     UIButton * cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraButton.contentMode = UIViewContentModeCenter;
-    cameraButton.frame = CGRectMake(0, 0, 102.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    cameraButton.frame = CGRectMake(0, 0, 102.0, landscape ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
     cameraButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [cameraButton setImage:cameraButtonImage forState:UIControlStateNormal];
     [cameraButton setImage:cameraButtonImageHighlight forState:UIControlStateHighlighted];
     [cameraButton addTarget:self.cameraButton.target action:self.cameraButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.cameraButton setCustomView:cameraButton];
     
-    UIImage * shareButtonImage = [UIImage imageNamed:@"btn_share_photos.png"];
-    UIImage * shareButtonImageHighlight = [UIImage imageNamed:@"btn_share_photos_highlight.png"];
+    UIImage * shareButtonImage = [self toolbarButtonImageForBase:@"share" highlight:NO landscape:landscape];
+    UIImage * shareButtonImageHighlight = [self toolbarButtonImageForBase:@"share" highlight:YES landscape:landscape];
     UIButton * shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButton.contentMode = UIViewContentModeCenter;
-    shareButton.frame = CGRectMake(15.0, 0, shareButtonImage.size.width + 15.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    shareButton.frame = CGRectMake(15.0, 0, shareButtonImage.size.width + 15.0, landscape ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
     shareButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [shareButton setImage:shareButtonImage forState:UIControlStateNormal];
     [shareButton setImage:shareButtonImageHighlight forState:UIControlStateHighlighted];
     [shareButton addTarget:self.shareButton.target action:self.shareButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.shareButton setCustomView:shareButton];
-    
-    UIImage * deleteButtonImage = [UIImage imageNamed:@"btn_delete_photos.png"];
-    UIImage * deleteButtonImageHighlight = [UIImage imageNamed:@"btn_delete_photos_highlight.png"];
+
+    UIImage * deleteButtonImage = [self toolbarButtonImageForBase:@"delete" highlight:NO landscape:landscape];
+    UIImage * deleteButtonImageHighlight = [self toolbarButtonImageForBase:@"delete" highlight:YES landscape:landscape];
     UIButton * deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     deleteButton.contentMode = UIViewContentModeCenter;
-    deleteButton.frame = CGRectMake(0, 0, deleteButtonImage.size.width + 15.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    deleteButton.frame = CGRectMake(0, 0, deleteButtonImage.size.width + 15.0, landscape ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
     deleteButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [deleteButton setImage:deleteButtonImage forState:UIControlStateNormal];
     [deleteButton setImage:deleteButtonImageHighlight forState:UIControlStateHighlighted];
     [deleteButton addTarget:self.deleteButton.target action:self.deleteButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.deleteButton setCustomView:deleteButton];
         
+}
+
+- (UIImage *) toolbarButtonImageForBase:(NSString *)base highlight:(BOOL)highlight landscape:(BOOL)landscape {
+    return [UIImage imageNamed:[NSString stringWithFormat:@"btn_%@_photos%@%@.png", base, highlight ? @"_highlight" : @"", landscape ? @"_landscape" : @""]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -101,6 +108,7 @@
     self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsLandscapePhone];
+    [self updateToolbarButtonImagesForOrientation:self.interfaceOrientation];
 //    [self setBarsVisible:NO animated:NO];
 }
 
@@ -108,6 +116,19 @@
     [super viewDidAppear:animated];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"nav_bar_photos_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5.0, 0, 5.0)] forBarMetrics:UIBarMetricsLandscapePhone];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowCamera"]) {
+        PFCameraViewController * viewController = segue.destinationViewController;
+        viewController.moc = self.moc;
+        viewController.event = self.event;
+        viewController.delegate = self;
+    }
+}
+
+- (void)cameraViewControllerFinished {
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
 - (void)setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event {
@@ -178,7 +199,21 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
+    BOOL toLandscape = UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
+    self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:toLandscape ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithWhite:33.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowColor : [UIColor clearColor]};
+    [self updateToolbarButtonImagesForOrientation:toInterfaceOrientation];
+}
+
+- (void) updateToolbarButtonImagesForOrientation:(UIInterfaceOrientation)orientation {
+    void(^updateToolbarButtonImage)(BOOL, NSString *, UIBarButtonItem *) = ^(BOOL landscape, NSString * toolbarButtonBase, UIBarButtonItem * toolbarButton){
+        UIButton * customViewButton = (UIButton *)toolbarButton.customView;
+        [customViewButton setImage:[self toolbarButtonImageForBase:toolbarButtonBase highlight:NO landscape:landscape] forState:UIControlStateNormal];
+        [customViewButton setImage:[self toolbarButtonImageForBase:toolbarButtonBase highlight:YES landscape:landscape] forState:UIControlStateHighlighted];
+    };
+    BOOL landscape = UIInterfaceOrientationIsLandscape(orientation);
+    updateToolbarButtonImage(landscape, @"camera", self.cameraButton);
+    updateToolbarButtonImage(landscape, @"share" , self.shareButton);
+    updateToolbarButtonImage(landscape, @"delete", self.deleteButton);
 }
 
 - (void)toolbarButtonTouched:(id)sender {

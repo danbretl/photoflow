@@ -10,8 +10,9 @@
 #import "NSManagedObjectContext+PhotoFlow.h"
 #import "PFEvent.h"
 #import "PFPhotosViewConstants.h"
+#import "PFCameraViewController.h"
 
-@interface PFPhotosViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface PFPhotosViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PFCameraViewControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;

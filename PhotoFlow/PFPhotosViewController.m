@@ -49,11 +49,13 @@
     UIBarButtonItem * backButton = [[UIBarButtonItem alloc] initWithCustomView:normalButton];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    UIImage * cameraButtonImage = [UIImage imageNamed:@"btn_camera.png"];
-    UIImage * cameraButtonImageHighlight = [UIImage imageNamed:@"btn_camera_highlight.png"];
+    BOOL landscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation);
+    
+    UIImage * cameraButtonImage = [UIImage imageNamed:landscape ? @"btn_camera_landscape.png" : @"btn_camera.png"];
+    UIImage * cameraButtonImageHighlight = [UIImage imageNamed:landscape ? @"btn_camera_highlight_landscape.png" : @"btn_camera_highlight.png"];
     UIButton * cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraButton.contentMode = UIViewContentModeCenter;
-    cameraButton.frame = CGRectMake(0, 0, 102.0, UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
+    cameraButton.frame = CGRectMake(0, 0, 102.0, landscape ? 32.0 : 44.0); // HACK : HARD CODED TOOLBAR HEIGHTS.
     cameraButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     [cameraButton setBackgroundImage:[[UIImage imageNamed:@"btn_camera_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1.0, 0, 1.0)] forState:UIControlStateNormal];
     [cameraButton setBackgroundImage:[[UIImage imageNamed:@"btn_camera_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 1.0, 0, 1.0)] forState:UIControlStateHighlighted];
@@ -68,7 +70,7 @@
     PFPhotosViewLayoutType layoutType = PFPhotosViewLayoutGrid;
     PFPhotosViewLayoutType layoutTypePreference = [DefaultsManager getPhotosViewLayoutPreference];
     if (layoutTypePreference != PFPhotosViewLayoutNone) layoutType = layoutTypePreference;
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) layoutType = PFPhotosViewLayoutGrid;
+    if (landscape) layoutType = PFPhotosViewLayoutGrid;
     UICollectionViewFlowLayout * layout = nil;
     switch (layoutType) {
         case PFPhotosViewLayoutGrid:
@@ -86,7 +88,7 @@
     self.collectionView.contentOffset = CGPointZero;
     
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
-    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) self.navigationItem.rightBarButtonItem = nil;
+    if (landscape) self.navigationItem.rightBarButtonItem = nil;
     
 }
 
@@ -99,6 +101,9 @@
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsLandscapePhone];
     self.cameraButton.customView.frame = CGRectMake(0, 0, self.cameraButton.customView.frame.size.width, self.navigationController.toolbar.frame.size.height); // Fixing weird bug that would result in camera button growing in height past the toolbar edge. The way to replicate was switch to banner mode, then rotate horizontal (but this VC won't rotate in banner mode), then push a photo viewer, then rotate a couple times to get the photo viewer truly in horizontal, then come back to this VC.
+    UIButton * cameraButtonCustomView = (UIButton *)self.cameraButton.customView;
+    [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? @"btn_camera_landscape.png" : @"btn_camera.png"] forState:UIControlStateNormal];
+    [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? @"btn_camera_highlight_landscape.png" : @"btn_camera_highlight.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -125,8 +130,18 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ViewPhoto"]) {
         PFPhotoContainerViewController * viewController = segue.destinationViewController;
+        viewController.moc = self.moc;
         [viewController setPhotoIndex:[self.collectionView indexPathForCell:sender].row inPhotos:self.photos forEvent:self.event];
+    } else if ([segue.identifier isEqualToString:@"ShowCamera"]) {
+        PFCameraViewController * viewController = segue.destinationViewController;
+        viewController.moc = self.moc;
+        viewController.event = self.event;
+        viewController.delegate = self;
     }
+}
+
+- (void)cameraViewControllerFinished {
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
 - (void)toggleViewModeButtonTouched:(UIBarButtonItem *)button {
@@ -163,6 +178,9 @@
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     [self.navigationItem setRightBarButtonItem:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? nil : self.toggleViewModeButton animated:YES];
     self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
+    UIButton * cameraButtonCustomView = (UIButton *)self.cameraButton.customView;
+    [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? @"btn_camera_landscape.png" : @"btn_camera.png"] forState:UIControlStateNormal];
+    [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(toInterfaceOrientation) ? @"btn_camera_highlight_landscape.png" : @"btn_camera_highlight.png"] forState:UIControlStateHighlighted];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {

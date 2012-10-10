@@ -59,7 +59,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 ////////////////////
 
 - (void)getEventDetails:(NSString *)eventEID successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock {
-    [self getPath:@"/api/v1/events/" parameters:@{@"event_eid" : eventEID} success:successBlock failure:failureBlock];
+    [self getPath:[NSString stringWithFormat:@"/api/v1/events/%@/", eventEID] parameters:nil success:successBlock failure:failureBlock];
 }
 
 ////////////////////
@@ -69,8 +69,6 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 - (void)getPhotosForEvent:(NSString *)eventEID limit:(NSNumber *)limit updatedAfter:(NSDate *)updatedAfter updatedBefore:(NSDate *)updatedBefore successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock {
     
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
-    
-    [parameters setObject:eventEID forKey:@"event_eid"];
     
     if (limit) {
         [parameters setObject:limit forKey:@"limit"];
@@ -83,7 +81,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
         [parameters setObject:[self stringFromDate:updatedBefore] forKey:@"updatedBefore"];
     }
     
-    [self getPath:@"/api/v1/photos" parameters:parameters success:successBlock failure:failureBlock];
+    [self getPath:[NSString stringWithFormat:@"/api/v1/events/%@/photos/", eventEID] parameters:parameters success:successBlock failure:failureBlock];
     
 }
 
@@ -91,8 +89,12 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 // GETTING IMAGES //
 ////////////////////
 
-- (NSString *)imageURLStringForPhoto:(NSString *)photoEID size:(int)size quality:(int)quality {
-    return [NSString stringWithFormat:@"%@/api/v1/images/%d/%d/%@/", self.baseURL.absoluteString, size, quality, photoEID];
+- (NSString *)imageURLStringForPhoto:(NSString *)photoEID {
+    return [NSString stringWithFormat:@"%@/api/v1/images/%@/", self.baseURL.absoluteString, photoEID];
+}
+
+- (NSString *)imageURLStringForPhoto:(NSString *)photoEID size:(NSUInteger)size quality:(NSUInteger)quality {
+    return [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/", size, quality];
 }
 
 ///////////////////
@@ -125,8 +127,8 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 
 
 - (void)savePhoto:(NSString *)photoEID toEvent:(NSString *)eventEID successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock {
-    NSDictionary * parameters = @{@"photo_eid" : photoEID, @"event_eid" : eventEID};
-    [self putPath:[NSString stringWithFormat:@"/api/v1/photos/"] parameters:parameters success:successBlock failure:failureBlock];
+    NSDictionary * parameters = @{@"event_eid" : eventEID};
+    [self putPath:[NSString stringWithFormat:@"/api/v1/photos/%@/", photoEID] parameters:parameters success:successBlock failure:failureBlock];
 }
 
 /////////////////////

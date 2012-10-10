@@ -99,8 +99,11 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
         [self.clientMutable getEventDetails:self.getEventTextField.text successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self logSuccess:YES forURL:operation.response.URL];
             [self logResponseObject:responseObject];
-            self.getPhotosEventTextField.text   = [responseObject objectForKey:@"event_eid"];
-            self.createPhotoEventTextField.text = [responseObject objectForKey:@"event_eid"];
+            if ([responseObject isKindOfClass:[NSArray class]]) {
+                responseObject = [responseObject objectAtIndex:0];
+            }
+            self.getPhotosEventTextField.text   = [responseObject objectForKey:@"eid"];
+            self.createPhotoEventTextField.text = [responseObject objectForKey:@"eid"];
         } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
             [self logSuccess:NO forURL:operation.response.URL];
             [self logError:error fromOperation:operation];
@@ -266,6 +269,7 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
     [[NSUserDefaults standardUserDefaults] synchronize];
     // Recreate client
     self.clientMutable = [[PFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:PFC_BASE_URL_STRING_SAVED_KEY]]];
+    [self.clientMutable setAuthorizationHeaderWithUsername:self.authUsernameTextField.text password:self.authPasswordTextField.text];
     
 }
 
@@ -309,7 +313,6 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    NSLog(@"keyboardWillShow");
     if (self.view.window) {
         [UIView animateWithDuration:0.25 animations:^{
             self.hideKeyboardButton.alpha = 1.0;
@@ -318,7 +321,6 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    NSLog(@"keyboardWillHide");
     if (self.view.window) {
         [UIView animateWithDuration:0.25 animations:^{
             self.hideKeyboardButton.alpha = 0.0;
