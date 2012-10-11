@@ -39,6 +39,8 @@
     [super viewDidLoad];
     
     self.bottomBarBackgroundImageView.image = [[UIImage imageNamed:@"toolbar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(1.0, 0, 0, 0)];
+    self.bottomBarShadowView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"toolbar_shadow.png"]];
+    self.bottomBarShadowView.alpha = 0.5;
     self.bottomBarHeightConstraint.constant = [UIScreen mainScreen].bounds.size.height >= 568.0 ? 96.0 : 53.0;
     
     // Allowing for unclipped unstretched rotation of button images on orientation changes

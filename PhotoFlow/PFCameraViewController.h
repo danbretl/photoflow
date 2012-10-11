@@ -40,6 +40,7 @@
 @property (strong, nonatomic) IBOutlet UIButton * swapCamerasButton;
 @property (strong, nonatomic) IBOutlet UIView   * bottomBar;
 @property (strong, nonatomic) IBOutlet UIImageView * bottomBarBackgroundImageView;
+@property (strong, nonatomic) IBOutlet UIView * bottomBarShadowView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint * bottomBarHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIButton * cancelButton;
 @property (strong, nonatomic) IBOutlet UIButton * photoButton;

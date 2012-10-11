@@ -213,6 +213,8 @@
 		32FA90551626504500658641 /* AVCamCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA90541626504500658641 /* AVCamCaptureManager.m */; };
 		32FA9058162650C800658641 /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA9057162650C800658641 /* AVCamUtilities.m */; };
 		32FA905A16265BAB00658641 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA905916265BAB00658641 /* CoreMedia.framework */; };
+		32FA90611626B23E00658641 /* toolbar_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA905F1626B23E00658641 /* toolbar_shadow.png */; };
+		32FA90621626B23F00658641 /* toolbar_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA90601626B23E00658641 /* toolbar_shadow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -465,6 +467,8 @@
 		32FA9056162650C800658641 /* AVCamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamUtilities.h; sourceTree = "<group>"; };
 		32FA9057162650C800658641 /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamUtilities.m; sourceTree = "<group>"; };
 		32FA905916265BAB00658641 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		32FA905F1626B23E00658641 /* toolbar_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toolbar_shadow.png; sourceTree = "<group>"; };
+		32FA90601626B23E00658641 /* toolbar_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar_shadow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -558,6 +562,8 @@
 			children = (
 				322602E816211F8E00DD9685 /* toolbar.png */,
 				322602E916211F8F00DD9685 /* toolbar@2x.png */,
+				32FA905F1626B23E00658641 /* toolbar_shadow.png */,
+				32FA90601626B23E00658641 /* toolbar_shadow@2x.png */,
 				32B1688C162271D7006A5E40 /* toolbar_photos.png */,
 				32B1688D162271D7006A5E40 /* toolbar_photos@2x.png */,
 			);
@@ -1418,6 +1424,8 @@
 				32FA904F16262D9800658641 /* btn_swap_cameras_highlight@2x.png in Resources */,
 				32FA905016262D9800658641 /* btn_swap_cameras.png in Resources */,
 				32FA905116262D9800658641 /* btn_swap_cameras@2x.png in Resources */,
+				32FA90611626B23E00658641 /* toolbar_shadow.png in Resources */,
+				32FA90621626B23F00658641 /* toolbar_shadow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

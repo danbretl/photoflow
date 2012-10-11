@@ -507,6 +507,12 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="1uq-gA-Xda" userLabel="Image Review">
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-jH-Gd2">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="3" type="user" id="XcC-Tu-uAG"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obC-nC-Fns" userLabel="Bottom Bar">
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5e-2w-gEi"/>
@@ -609,12 +615,15 @@
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="trailing" secondItem="AFQ-Fr-JOs" secondAttribute="trailing" type="user" id="3SV-fo-dCT"/>
                             <constraint firstItem="obC-nC-Fns" firstAttribute="top" secondItem="1uq-gA-Xda" secondAttribute="bottom" type="user" id="8XP-vj-H4K"/>
                             <constraint firstItem="AFQ-Fr-JOs" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="user" id="BP3-Vg-NgE"/>
+                            <constraint firstItem="EBt-jH-Gd2" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="default" id="HVG-gc-DN6"/>
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="centerX" secondItem="AFQ-Fr-JOs" secondAttribute="centerX" type="user" id="K9s-Tm-Dwr"/>
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="leading" secondItem="AFQ-Fr-JOs" secondAttribute="leading" type="user" id="PK7-sX-E5R"/>
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="centerY" secondItem="AFQ-Fr-JOs" secondAttribute="centerY" type="user" id="SmI-v0-XXs"/>
+                            <constraint firstItem="EBt-jH-Gd2" firstAttribute="trailing" secondItem="G2L-fs-Z4Y" secondAttribute="trailing" type="default" id="ZnY-h6-tqN"/>
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="trailing" secondItem="G2L-fs-Z4Y" secondAttribute="trailing" type="user" id="ZqL-l6-UtZ"/>
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="top" secondItem="G2L-fs-Z4Y" secondAttribute="top" type="user" id="eRm-zX-aIJ"/>
                             <constraint firstItem="obC-nC-Fns" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="default" id="fWs-lz-T3o"/>
+                            <constraint firstItem="obC-nC-Fns" firstAttribute="top" secondItem="EBt-jH-Gd2" secondAttribute="bottom" type="user" id="jgy-B5-DCQ"/>
                             <constraint firstItem="1uq-gA-Xda" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="user" id="l22-9c-C60"/>
                             <constraint firstItem="AFQ-Fr-JOs" firstAttribute="trailing" secondItem="G2L-fs-Z4Y" secondAttribute="trailing" type="user" id="mS3-o2-Exm"/>
                             <constraint firstItem="obC-nC-Fns" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="bottom" type="user" id="mxf-5t-yLJ"/>
@@ -628,6 +637,7 @@
                         <outlet property="bottomBar" destination="obC-nC-Fns" id="ZLG-CN-BKZ"/>
                         <outlet property="bottomBarBackgroundImageView" destination="V5e-2w-gEi" id="P4Y-k6-NiT"/>
                         <outlet property="bottomBarHeightConstraint" destination="hQb-4S-Xej" id="f86-6s-EYd"/>
+                        <outlet property="bottomBarShadowView" destination="EBt-jH-Gd2" id="Q1P-ke-A23"/>
                         <outlet property="cancelButton" destination="HdX-sf-Tb3" id="iLD-yv-hU1"/>
                         <outlet property="capturePreviewView" destination="AFQ-Fr-JOs" id="47p-VQ-FZB"/>
                         <outlet property="flashButtonAuto" destination="ASZ-Ez-BCH" id="xJf-Pt-via"/>

@@ -48,7 +48,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@class AVCamRecorder;
 @protocol AVCamCaptureManagerDelegate;
 
 @interface AVCamCaptureManager : NSObject {
@@ -58,7 +57,6 @@
 @property (nonatomic,assign) AVCaptureVideoOrientation orientation;
 @property (nonatomic,retain) AVCaptureDeviceInput *videoInput;
 @property (nonatomic,retain) AVCaptureStillImageOutput *stillImageOutput;
-@property (nonatomic,retain) AVCamRecorder *recorder;
 @property (nonatomic,assign) id deviceConnectedObserver;
 @property (nonatomic,assign) id deviceDisconnectedObserver;
 @property (nonatomic,assign) UIBackgroundTaskIdentifier backgroundRecordingID;
