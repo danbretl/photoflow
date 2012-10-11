@@ -150,13 +150,13 @@
 //    NSLog(@"self.zoomScale = %f", self.zoomScale);
 }
 
-// Portrait images look bad when they fill almost the entire height of the image view.
+// Portrait images look bad when they fill almost the entire height of the image view. // This is true, BUT having the flick-through-photos experience be interrupted each time you get to a portrait in portrait image is insanely annoying (more annoying than its visually worth).
 - (float)zoomScaleForOptimalPresentation {
     float zoomScalePresentation = self.minimumZoomScale;
-    BOOL portraitInPortrait = self.imageView.image.size.height > self.imageView.image.size.width && self.bounds.size.height > self.bounds.size.width;
-    if (portraitInPortrait) {
-        zoomScalePresentation = self.bounds.size.height  / self.imageView.image.size.height;
-    }
+//    BOOL portraitInPortrait = self.imageView.image.size.height > self.imageView.image.size.width && self.bounds.size.height > self.bounds.size.width;
+//    if (portraitInPortrait) {
+//        zoomScalePresentation = self.bounds.size.height  / self.imageView.image.size.height;
+//    }
     return zoomScalePresentation;
 }
 
