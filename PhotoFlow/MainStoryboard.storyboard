@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C54" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uEB-vi-Ctl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2840" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uEB-vi-Ctl">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1926"/>
     </dependencies>
@@ -413,10 +413,248 @@
                     <view key="view" contentMode="scaleToFill" id="G2L-fs-Z4Y">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AFQ-Fr-JOs" userLabel="Camera Preview">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASZ-Ez-BCH" userLabel="Flash Button Left">
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" type="user" id="pFV-M9-aPR"/>
+                                            <constraint firstAttribute="width" constant="46" type="user" id="rGz-9W-cx2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_flash_auto.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_flash_auto_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="pUS-8L-YYe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2T-mF-BIp" userLabel="Flash Button Center">
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" type="user" id="0Js-m6-2Vd"/>
+                                            <constraint firstAttribute="width" constant="46" type="user" id="Qpu-0q-u7Q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_flash_on.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_flash_on_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="jVx-72-EzI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D40-NF-HYA" userLabel="Flash Button Right">
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" type="user" id="HA3-ru-auF"/>
+                                            <constraint firstAttribute="width" constant="46" id="gTt-sN-gci"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" image="btn_flash_off.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_flash_off_highlight.png"/>
+                                        <connections>
+                                            <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="hj5-qb-wmq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvQ-sP-l7U" userLabel="Swap Cameras Button">
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" type="user" id="EEz-PO-ene"/>
+                                            <constraint firstAttribute="width" constant="86" type="user" id="aK0-cD-aej"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_swap_cameras.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_swap_cameras_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="PTh-TY-na0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="wvQ-sP-l7U" firstAttribute="trailing" secondItem="AFQ-Fr-JOs" secondAttribute="trailing" type="default" id="FZX-j9-l0H"/>
+                                    <constraint firstItem="p2T-mF-BIp" firstAttribute="leading" secondItem="ASZ-Ez-BCH" secondAttribute="trailing" type="user" id="FZq-Y0-4nE"/>
+                                    <constraint firstItem="ASZ-Ez-BCH" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="top" constant="12" type="user" id="IIG-xK-t0P"/>
+                                    <constraint firstItem="p2T-mF-BIp" firstAttribute="top" secondItem="ASZ-Ez-BCH" secondAttribute="top" type="user" id="LEp-b2-cfI"/>
+                                    <constraint firstItem="ASZ-Ez-BCH" firstAttribute="leading" secondItem="AFQ-Fr-JOs" secondAttribute="leading" constant="12" type="user" id="dgo-L6-qKX"/>
+                                    <constraint firstItem="D40-NF-HYA" firstAttribute="baseline" secondItem="p2T-mF-BIp" secondAttribute="baseline" type="default" id="s6E-5m-mKK"/>
+                                    <constraint firstItem="D40-NF-HYA" firstAttribute="leading" secondItem="p2T-mF-BIp" secondAttribute="trailing" type="user" id="u4Q-9V-xy2"/>
+                                    <constraint firstItem="wvQ-sP-l7U" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="top" type="user" id="zZc-Ij-NIb"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Vng-RM-jMz" appends="YES" id="3fh-bh-Ef4"/>
+                                    <outletCollection property="gestureRecognizers" destination="3XQ-EJ-Cgv" appends="YES" id="eno-GN-15h"/>
+                                </connections>
+                            </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="1uq-gA-Xda" userLabel="Image Review">
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obC-nC-Fns" userLabel="Bottom Bar">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5e-2w-gEi"/>
+                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HdX-sf-Tb3" userLabel="Cancel Button">
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="83" id="sz7-3U-Laf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_cancel_photos.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_cancel_photos_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraFlowButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="FWA-Lb-59Z"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ud1-dU-yBh" userLabel="Photo Button">
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="VIK-Se-3TO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_camera.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_camera_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="KqH-Hj-upn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnd-HB-eyQ" userLabel="Library Button">
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="83" type="user" id="NwQ-Km-6P8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_library_photos.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraFlowButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="8P8-6B-u54"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwn-Sd-Rzk" userLabel="Save Button">
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="83" type="user" id="9BB-KA-e43"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_save_photos.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_save_photos_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraFlowButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="C8t-G2-bjT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="V5e-2w-gEi" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="user" id="30m-j3-ejO"/>
+                                    <constraint firstItem="V5e-2w-gEi" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="user" id="Hua-Mb-PLK"/>
+                                    <constraint firstAttribute="centerX" secondItem="V5e-2w-gEi" secondAttribute="centerX" type="user" id="L1z-cs-kKp"/>
+                                    <constraint firstItem="HdX-sf-Tb3" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="user" id="SoO-Hn-Fzh"/>
+                                    <constraint firstItem="mwn-Sd-Rzk" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="T2H-eq-cxr"/>
+                                    <constraint firstItem="mwn-Sd-Rzk" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="default" id="Tse-BS-tGM"/>
+                                    <constraint firstAttribute="centerY" secondItem="V5e-2w-gEi" secondAttribute="centerY" type="user" id="aDk-F6-dNO"/>
+                                    <constraint firstItem="HdX-sf-Tb3" firstAttribute="leading" secondItem="obC-nC-Fns" secondAttribute="leading" type="default" id="d0Y-sD-Pa0"/>
+                                    <constraint firstItem="mwn-Sd-Rzk" firstAttribute="trailing" secondItem="obC-nC-Fns" secondAttribute="trailing" type="user" id="eRg-Fc-E2h"/>
+                                    <constraint firstItem="Ud1-dU-yBh" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="default" id="hP3-Pc-i1y"/>
+                                    <constraint firstAttribute="height" constant="96" type="user" id="hQb-4S-Xej"/>
+                                    <constraint firstItem="V5e-2w-gEi" firstAttribute="leading" secondItem="obC-nC-Fns" secondAttribute="leading" type="user" id="hda-tq-Bgq"/>
+                                    <constraint firstItem="HdX-sf-Tb3" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="user" id="mGt-4G-1BP"/>
+                                    <constraint firstItem="tnd-HB-eyQ" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="default" id="mYH-ZF-cUq"/>
+                                    <constraint firstItem="tnd-HB-eyQ" firstAttribute="trailing" secondItem="obC-nC-Fns" secondAttribute="trailing" type="user" id="miU-4v-GW4"/>
+                                    <constraint firstItem="V5e-2w-gEi" firstAttribute="trailing" secondItem="obC-nC-Fns" secondAttribute="trailing" type="user" id="rwj-29-YGn"/>
+                                    <constraint firstItem="Ud1-dU-yBh" firstAttribute="centerX" secondItem="V5e-2w-gEi" secondAttribute="centerX" type="default" id="wCx-3D-1kM"/>
+                                    <constraint firstItem="Ud1-dU-yBh" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="xL1-5X-PjU"/>
+                                    <constraint firstItem="tnd-HB-eyQ" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="y6w-nK-CkU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="obC-nC-Fns" firstAttribute="trailing" secondItem="G2L-fs-Z4Y" secondAttribute="trailing" type="default" id="2Ue-mI-c7G"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="trailing" secondItem="AFQ-Fr-JOs" secondAttribute="trailing" type="user" id="3SV-fo-dCT"/>
+                            <constraint firstItem="obC-nC-Fns" firstAttribute="top" secondItem="1uq-gA-Xda" secondAttribute="bottom" type="user" id="8XP-vj-H4K"/>
+                            <constraint firstItem="AFQ-Fr-JOs" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="user" id="BP3-Vg-NgE"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="centerX" secondItem="AFQ-Fr-JOs" secondAttribute="centerX" type="user" id="K9s-Tm-Dwr"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="leading" secondItem="AFQ-Fr-JOs" secondAttribute="leading" type="user" id="PK7-sX-E5R"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="centerY" secondItem="AFQ-Fr-JOs" secondAttribute="centerY" type="user" id="SmI-v0-XXs"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="trailing" secondItem="G2L-fs-Z4Y" secondAttribute="trailing" type="user" id="ZqL-l6-UtZ"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="top" secondItem="G2L-fs-Z4Y" secondAttribute="top" type="user" id="eRm-zX-aIJ"/>
+                            <constraint firstItem="obC-nC-Fns" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="default" id="fWs-lz-T3o"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="leading" secondItem="G2L-fs-Z4Y" secondAttribute="leading" type="user" id="l22-9c-C60"/>
+                            <constraint firstItem="AFQ-Fr-JOs" firstAttribute="trailing" secondItem="G2L-fs-Z4Y" secondAttribute="trailing" type="user" id="mS3-o2-Exm"/>
+                            <constraint firstItem="obC-nC-Fns" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="bottom" type="user" id="mxf-5t-yLJ"/>
+                            <constraint firstItem="obC-nC-Fns" firstAttribute="bottom" secondItem="G2L-fs-Z4Y" secondAttribute="bottom" type="user" id="oaC-oa-bjB"/>
+                            <constraint firstItem="AFQ-Fr-JOs" firstAttribute="top" secondItem="G2L-fs-Z4Y" secondAttribute="top" type="user" id="sTk-D4-xJ5"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="top" type="user" id="uJt-cl-rNL"/>
+                            <constraint firstItem="1uq-gA-Xda" firstAttribute="bottom" secondItem="AFQ-Fr-JOs" secondAttribute="bottom" type="user" id="xLq-hz-6sr"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bottomBar" destination="obC-nC-Fns" id="ZLG-CN-BKZ"/>
+                        <outlet property="bottomBarBackgroundImageView" destination="V5e-2w-gEi" id="P4Y-k6-NiT"/>
+                        <outlet property="bottomBarHeightConstraint" destination="hQb-4S-Xej" id="f86-6s-EYd"/>
+                        <outlet property="cancelButton" destination="HdX-sf-Tb3" id="iLD-yv-hU1"/>
+                        <outlet property="capturePreviewView" destination="AFQ-Fr-JOs" id="47p-VQ-FZB"/>
+                        <outlet property="flashButtonAuto" destination="ASZ-Ez-BCH" id="xJf-Pt-via"/>
+                        <outlet property="flashButtonOff" destination="D40-NF-HYA" id="wYE-RQ-RJR"/>
+                        <outlet property="flashButtonOn" destination="p2T-mF-BIp" id="wgC-Yk-3aP"/>
+                        <outlet property="flashButtonSpaceCenterRight" destination="u4Q-9V-xy2" id="WIQ-3l-bNq"/>
+                        <outlet property="flashButtonSpaceLeftCenter" destination="FZq-Y0-4nE" id="4Ct-tb-5be"/>
+                        <outlet property="imageOverlay" destination="1uq-gA-Xda" id="bTt-mr-X89"/>
+                        <outlet property="libraryButton" destination="tnd-HB-eyQ" id="W1Z-IE-lR2"/>
+                        <outlet property="photoButton" destination="Ud1-dU-yBh" id="qBE-RO-3nL"/>
+                        <outlet property="saveButton" destination="mwn-Sd-Rzk" id="doR-2t-Duw"/>
+                        <outlet property="swapCamerasButton" destination="wvQ-sP-l7U" id="uYM-Gg-hzd"/>
+                        <outlet property="tapFocusDouble" destination="3XQ-EJ-Cgv" id="wI3-zp-8QF"/>
+                        <outlet property="tapFocusSingle" destination="Vng-RM-jMz" id="qId-YI-mHp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kKD-wR-YbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Vng-RM-jMz">
+                    <connections>
+                        <action selector="tappedToFocus:" destination="Sv9-rW-3o8" id="cHM-YB-mnR"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="3XQ-EJ-Cgv">
+                    <connections>
+                        <action selector="tappedToFocus:" destination="Sv9-rW-3o8" id="AXZ-lL-KHb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1507" y="-1391"/>
         </scene>
@@ -502,11 +740,26 @@
     </scenes>
     <resources>
         <image name="branding_text.png" width="125" height="16"/>
+        <image name="btn_camera.png" width="38" height="30"/>
+        <image name="btn_camera_highlight.png" width="38" height="30"/>
+        <image name="btn_cancel_photos.png" width="18" height="18"/>
+        <image name="btn_cancel_photos_highlight.png" width="18" height="18"/>
+        <image name="btn_flash_auto.png" width="30" height="30"/>
+        <image name="btn_flash_auto_highlight.png" width="30" height="30"/>
+        <image name="btn_flash_off.png" width="30" height="30"/>
+        <image name="btn_flash_off_highlight.png" width="30" height="30"/>
+        <image name="btn_flash_on.png" width="30" height="30"/>
+        <image name="btn_flash_on_highlight.png" width="30" height="30"/>
         <image name="btn_invite_cancel.png" width="16" height="18"/>
         <image name="btn_invite_cancel_highlight.png" width="16" height="18"/>
         <image name="btn_invite_go.png" width="19" height="18"/>
         <image name="btn_invite_go_bg.png" width="41" height="42"/>
         <image name="btn_invite_go_bg_highlight.png" width="41" height="42"/>
+        <image name="btn_library_photos.png" width="22" height="22"/>
+        <image name="btn_save_photos.png" width="22" height="17"/>
+        <image name="btn_save_photos_highlight.png" width="22" height="17"/>
+        <image name="btn_swap_cameras.png" width="46" height="30"/>
+        <image name="btn_swap_cameras_highlight.png" width="46" height="30"/>
         <image name="invite_welcome.png" width="258" height="39"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -516,6 +769,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="1To-Zc-TEq"/>
-        <segue reference="g1E-KV-WLI"/>
+        <segue reference="OUV-z3-61B"/>
     </inferredMetricsTieBreakers>
 </document>

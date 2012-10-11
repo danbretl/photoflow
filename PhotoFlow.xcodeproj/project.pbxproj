@@ -182,7 +182,6 @@
 		32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */; };
 		32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DE16125E5E0024AFD2 /* PFEventCell.m */; };
 		32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E11612678F0024AFD2 /* FakeContent.rtf */; };
-		32B82BC91623D48100A867A6 /* PFCameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B82BC81623D48100A867A6 /* PFCameraOverlayView.m */; };
 		32B82BCE1623DA5C00A867A6 /* btn_library_photos_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B82BCA1623DA5C00A867A6 /* btn_library_photos_highlight.png */; };
 		32B82BCF1623DA5C00A867A6 /* btn_library_photos_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B82BCB1623DA5C00A867A6 /* btn_library_photos_highlight@2x.png */; };
 		32B82BD01623DA5C00A867A6 /* btn_library_photos.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B82BCC1623DA5C00A867A6 /* btn_library_photos.png */; };
@@ -191,6 +190,29 @@
 		32D7EBBC1623F821009DE010 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D7EBBB1623F821009DE010 /* MobileCoreServices.framework */; };
 		32D953EC161733060014DAC3 /* PFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D953EB161733060014DAC3 /* PFHTTPClient.m */; };
 		32E8BB7216153731008AC3B2 /* PFPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */; };
+		32FA90291626282900658641 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA90281626282900658641 /* AVFoundation.framework */; };
+		32FA902B1626283600658641 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902A1626283600658641 /* QuartzCore.framework */; };
+		32FA902D1626284E00658641 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902C1626284E00658641 /* AssetsLibrary.framework */; };
+		32FA902F1626285600658641 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902E1626285600658641 /* ImageIO.framework */; };
+		32FA903E16262D4100658641 /* btn_flash_auto_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903216262D4100658641 /* btn_flash_auto_highlight.png */; };
+		32FA903F16262D4100658641 /* btn_flash_auto_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903316262D4100658641 /* btn_flash_auto_highlight@2x.png */; };
+		32FA904016262D4100658641 /* btn_flash_auto.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903416262D4100658641 /* btn_flash_auto.png */; };
+		32FA904116262D4100658641 /* btn_flash_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903516262D4100658641 /* btn_flash_auto@2x.png */; };
+		32FA904216262D4100658641 /* btn_flash_off_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903616262D4100658641 /* btn_flash_off_highlight.png */; };
+		32FA904316262D4100658641 /* btn_flash_off_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903716262D4100658641 /* btn_flash_off_highlight@2x.png */; };
+		32FA904416262D4100658641 /* btn_flash_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903816262D4100658641 /* btn_flash_off.png */; };
+		32FA904516262D4100658641 /* btn_flash_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903916262D4100658641 /* btn_flash_off@2x.png */; };
+		32FA904616262D4100658641 /* btn_flash_on_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903A16262D4100658641 /* btn_flash_on_highlight.png */; };
+		32FA904716262D4100658641 /* btn_flash_on_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903B16262D4100658641 /* btn_flash_on_highlight@2x.png */; };
+		32FA904816262D4100658641 /* btn_flash_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903C16262D4100658641 /* btn_flash_on.png */; };
+		32FA904916262D4100658641 /* btn_flash_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA903D16262D4100658641 /* btn_flash_on@2x.png */; };
+		32FA904E16262D9800658641 /* btn_swap_cameras_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA904A16262D9800658641 /* btn_swap_cameras_highlight.png */; };
+		32FA904F16262D9800658641 /* btn_swap_cameras_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA904B16262D9800658641 /* btn_swap_cameras_highlight@2x.png */; };
+		32FA905016262D9800658641 /* btn_swap_cameras.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA904C16262D9800658641 /* btn_swap_cameras.png */; };
+		32FA905116262D9800658641 /* btn_swap_cameras@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32FA904D16262D9800658641 /* btn_swap_cameras@2x.png */; };
+		32FA90551626504500658641 /* AVCamCaptureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA90541626504500658641 /* AVCamCaptureManager.m */; };
+		32FA9058162650C800658641 /* AVCamUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 32FA9057162650C800658641 /* AVCamUtilities.m */; };
+		32FA905A16265BAB00658641 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA905916265BAB00658641 /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -407,8 +429,6 @@
 		32B350DD16125E5E0024AFD2 /* PFEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventCell.h; sourceTree = "<group>"; };
 		32B350DE16125E5E0024AFD2 /* PFEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventCell.m; sourceTree = "<group>"; };
 		32B350E11612678F0024AFD2 /* FakeContent.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = FakeContent.rtf; sourceTree = "<group>"; };
-		32B82BC71623D48100A867A6 /* PFCameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCameraOverlayView.h; sourceTree = "<group>"; };
-		32B82BC81623D48100A867A6 /* PFCameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFCameraOverlayView.m; sourceTree = "<group>"; };
 		32B82BCA1623DA5C00A867A6 /* btn_library_photos_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_library_photos_highlight.png; sourceTree = "<group>"; };
 		32B82BCB1623DA5C00A867A6 /* btn_library_photos_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_library_photos_highlight@2x.png"; sourceTree = "<group>"; };
 		32B82BCC1623DA5C00A867A6 /* btn_library_photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_library_photos.png; sourceTree = "<group>"; };
@@ -420,6 +440,31 @@
 		32D953EB161733060014DAC3 /* PFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFHTTPClient.m; sourceTree = "<group>"; };
 		32E8BB7016153731008AC3B2 /* PFPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotosViewController.h; sourceTree = "<group>"; };
 		32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotosViewController.m; sourceTree = "<group>"; };
+		32FA90281626282900658641 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		32FA902A1626283600658641 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		32FA902C1626284E00658641 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		32FA902E1626285600658641 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		32FA903216262D4100658641 /* btn_flash_auto_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_flash_auto_highlight.png; sourceTree = "<group>"; };
+		32FA903316262D4100658641 /* btn_flash_auto_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_flash_auto_highlight@2x.png"; sourceTree = "<group>"; };
+		32FA903416262D4100658641 /* btn_flash_auto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_flash_auto.png; sourceTree = "<group>"; };
+		32FA903516262D4100658641 /* btn_flash_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_flash_auto@2x.png"; sourceTree = "<group>"; };
+		32FA903616262D4100658641 /* btn_flash_off_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_flash_off_highlight.png; sourceTree = "<group>"; };
+		32FA903716262D4100658641 /* btn_flash_off_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_flash_off_highlight@2x.png"; sourceTree = "<group>"; };
+		32FA903816262D4100658641 /* btn_flash_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_flash_off.png; sourceTree = "<group>"; };
+		32FA903916262D4100658641 /* btn_flash_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_flash_off@2x.png"; sourceTree = "<group>"; };
+		32FA903A16262D4100658641 /* btn_flash_on_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_flash_on_highlight.png; sourceTree = "<group>"; };
+		32FA903B16262D4100658641 /* btn_flash_on_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_flash_on_highlight@2x.png"; sourceTree = "<group>"; };
+		32FA903C16262D4100658641 /* btn_flash_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_flash_on.png; sourceTree = "<group>"; };
+		32FA903D16262D4100658641 /* btn_flash_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_flash_on@2x.png"; sourceTree = "<group>"; };
+		32FA904A16262D9800658641 /* btn_swap_cameras_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_swap_cameras_highlight.png; sourceTree = "<group>"; };
+		32FA904B16262D9800658641 /* btn_swap_cameras_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_swap_cameras_highlight@2x.png"; sourceTree = "<group>"; };
+		32FA904C16262D9800658641 /* btn_swap_cameras.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_swap_cameras.png; sourceTree = "<group>"; };
+		32FA904D16262D9800658641 /* btn_swap_cameras@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_swap_cameras@2x.png"; sourceTree = "<group>"; };
+		32FA90531626504500658641 /* AVCamCaptureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamCaptureManager.h; sourceTree = "<group>"; };
+		32FA90541626504500658641 /* AVCamCaptureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamCaptureManager.m; sourceTree = "<group>"; };
+		32FA9056162650C800658641 /* AVCamUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamUtilities.h; sourceTree = "<group>"; };
+		32FA9057162650C800658641 /* AVCamUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamUtilities.m; sourceTree = "<group>"; };
+		32FA905916265BAB00658641 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -427,15 +472,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32D7EBBC1623F821009DE010 /* MobileCoreServices.framework in Frameworks */,
-				326232B71610E68300440FE4 /* AdSupport.framework in Frameworks */,
-				326232B51610E67D00440FE4 /* libz.dylib in Frameworks */,
 				326232B31610E67500440FE4 /* libsqlite3.dylib in Frameworks */,
-				3262327A1610E17F00440FE4 /* UIKit.framework in Frameworks */,
-				3262327C1610E17F00440FE4 /* Foundation.framework in Frameworks */,
-				3262327E1610E17F00440FE4 /* CoreGraphics.framework in Frameworks */,
+				326232B51610E67D00440FE4 /* libz.dylib in Frameworks */,
+				326232B71610E68300440FE4 /* AdSupport.framework in Frameworks */,
+				32FA902D1626284E00658641 /* AssetsLibrary.framework in Frameworks */,
+				32FA90291626282900658641 /* AVFoundation.framework in Frameworks */,
 				326232801610E17F00440FE4 /* CoreData.framework in Frameworks */,
+				3262327E1610E17F00440FE4 /* CoreGraphics.framework in Frameworks */,
+				32FA905A16265BAB00658641 /* CoreMedia.framework in Frameworks */,
 				326232A21610E25900440FE4 /* Crashlytics.framework in Frameworks */,
+				3262327C1610E17F00440FE4 /* Foundation.framework in Frameworks */,
+				32FA902F1626285600658641 /* ImageIO.framework in Frameworks */,
+				32D7EBBC1623F821009DE010 /* MobileCoreServices.framework in Frameworks */,
+				32FA902B1626283600658641 /* QuartzCore.framework in Frameworks */,
+				3262327A1610E17F00440FE4 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,8 +497,10 @@
 			children = (
 				32D7EBB71623E7F8009DE010 /* PFCameraViewController.h */,
 				32D7EBB81623E7F8009DE010 /* PFCameraViewController.m */,
-				32B82BC71623D48100A867A6 /* PFCameraOverlayView.h */,
-				32B82BC81623D48100A867A6 /* PFCameraOverlayView.m */,
+				32FA90531626504500658641 /* AVCamCaptureManager.h */,
+				32FA90541626504500658641 /* AVCamCaptureManager.m */,
+				32FA9056162650C800658641 /* AVCamUtilities.h */,
+				32FA9057162650C800658641 /* AVCamUtilities.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -825,15 +877,20 @@
 		326232781610E17F00440FE4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				326232B61610E68300440FE4 /* AdSupport.framework */,
-				326232B41610E67D00440FE4 /* libz.dylib */,
 				326232B21610E67500440FE4 /* libsqlite3.dylib */,
-				326232A11610E25900440FE4 /* Crashlytics.framework */,
-				326232791610E17F00440FE4 /* UIKit.framework */,
-				3262327B1610E17F00440FE4 /* Foundation.framework */,
-				3262327D1610E17F00440FE4 /* CoreGraphics.framework */,
+				326232B41610E67D00440FE4 /* libz.dylib */,
+				326232B61610E68300440FE4 /* AdSupport.framework */,
+				32FA902C1626284E00658641 /* AssetsLibrary.framework */,
+				32FA90281626282900658641 /* AVFoundation.framework */,
 				3262327F1610E17F00440FE4 /* CoreData.framework */,
+				3262327D1610E17F00440FE4 /* CoreGraphics.framework */,
+				32FA905916265BAB00658641 /* CoreMedia.framework */,
+				326232A11610E25900440FE4 /* Crashlytics.framework */,
+				3262327B1610E17F00440FE4 /* Foundation.framework */,
+				32FA902E1626285600658641 /* ImageIO.framework */,
 				32D7EBBB1623F821009DE010 /* MobileCoreServices.framework */,
+				32FA902A1626283600658641 /* QuartzCore.framework */,
+				326232791610E17F00440FE4 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -926,6 +983,7 @@
 				323EEFE0162514B100FE2796 /* Toolbar */,
 				323EEFDE1625146C00FE2796 /* Add */,
 				324E08EB1625133B0039486C /* Invite Card */,
+				32FA903016262D2F00658641 /* Camera Screen */,
 				324E08E8162512BB0039486C /* Back */,
 				324E08E7162512A50039486C /* Photos Layout */,
 				324E08D6162511800039486C /* Placeholder */,
@@ -1112,6 +1170,45 @@
 				32716C9A161D67A1003B345A /* shadow_events_and_grid@2x.png */,
 			);
 			name = Assorted;
+			sourceTree = "<group>";
+		};
+		32FA903016262D2F00658641 /* Camera Screen */ = {
+			isa = PBXGroup;
+			children = (
+				32FA903116262D3700658641 /* Flash */,
+				32FA905216262D9A00658641 /* Swap Cameras */,
+			);
+			name = "Camera Screen";
+			sourceTree = "<group>";
+		};
+		32FA903116262D3700658641 /* Flash */ = {
+			isa = PBXGroup;
+			children = (
+				32FA903416262D4100658641 /* btn_flash_auto.png */,
+				32FA903516262D4100658641 /* btn_flash_auto@2x.png */,
+				32FA903216262D4100658641 /* btn_flash_auto_highlight.png */,
+				32FA903316262D4100658641 /* btn_flash_auto_highlight@2x.png */,
+				32FA903816262D4100658641 /* btn_flash_off.png */,
+				32FA903916262D4100658641 /* btn_flash_off@2x.png */,
+				32FA903616262D4100658641 /* btn_flash_off_highlight.png */,
+				32FA903716262D4100658641 /* btn_flash_off_highlight@2x.png */,
+				32FA903C16262D4100658641 /* btn_flash_on.png */,
+				32FA903D16262D4100658641 /* btn_flash_on@2x.png */,
+				32FA903A16262D4100658641 /* btn_flash_on_highlight.png */,
+				32FA903B16262D4100658641 /* btn_flash_on_highlight@2x.png */,
+			);
+			name = Flash;
+			sourceTree = "<group>";
+		};
+		32FA905216262D9A00658641 /* Swap Cameras */ = {
+			isa = PBXGroup;
+			children = (
+				32FA904C16262D9800658641 /* btn_swap_cameras.png */,
+				32FA904D16262D9800658641 /* btn_swap_cameras@2x.png */,
+				32FA904A16262D9800658641 /* btn_swap_cameras_highlight.png */,
+				32FA904B16262D9800658641 /* btn_swap_cameras_highlight@2x.png */,
+			);
+			name = "Swap Cameras";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1305,6 +1402,22 @@
 				324E08D11625113B0039486C /* btn_share_photos_highlight_landscape@2x.png in Resources */,
 				324E08D21625113B0039486C /* btn_share_photos_landscape.png in Resources */,
 				324E08D31625113B0039486C /* btn_share_photos_landscape@2x.png in Resources */,
+				32FA903E16262D4100658641 /* btn_flash_auto_highlight.png in Resources */,
+				32FA903F16262D4100658641 /* btn_flash_auto_highlight@2x.png in Resources */,
+				32FA904016262D4100658641 /* btn_flash_auto.png in Resources */,
+				32FA904116262D4100658641 /* btn_flash_auto@2x.png in Resources */,
+				32FA904216262D4100658641 /* btn_flash_off_highlight.png in Resources */,
+				32FA904316262D4100658641 /* btn_flash_off_highlight@2x.png in Resources */,
+				32FA904416262D4100658641 /* btn_flash_off.png in Resources */,
+				32FA904516262D4100658641 /* btn_flash_off@2x.png in Resources */,
+				32FA904616262D4100658641 /* btn_flash_on_highlight.png in Resources */,
+				32FA904716262D4100658641 /* btn_flash_on_highlight@2x.png in Resources */,
+				32FA904816262D4100658641 /* btn_flash_on.png in Resources */,
+				32FA904916262D4100658641 /* btn_flash_on@2x.png in Resources */,
+				32FA904E16262D9800658641 /* btn_swap_cameras_highlight.png in Resources */,
+				32FA904F16262D9800658641 /* btn_swap_cameras_highlight@2x.png in Resources */,
+				32FA905016262D9800658641 /* btn_swap_cameras.png in Resources */,
+				32FA905116262D9800658641 /* btn_swap_cameras@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1366,8 +1479,9 @@
 				32AF757D16173981004748A1 /* UIView+GetFirstResponder.m in Sources */,
 				32716C62161D0B3F003B345A /* UIFont+PhotoFlow.m in Sources */,
 				322602AD1620D9C200DD9685 /* PFNavigationViewController.m in Sources */,
-				32B82BC91623D48100A867A6 /* PFCameraOverlayView.m in Sources */,
 				32D7EBB91623E7F8009DE010 /* PFCameraViewController.m in Sources */,
+				32FA90551626504500658641 /* AVCamCaptureManager.m in Sources */,
+				32FA9058162650C800658641 /* AVCamUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
