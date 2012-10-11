@@ -68,6 +68,7 @@
 - (NSUInteger) cameraCount;
 - (void) autoFocusAtPoint:(CGPoint)point;
 - (void) continuousFocusAtPoint:(CGPoint)point;
+- (BOOL) setFlashMode:(AVCaptureFlashMode)flashMode;
 
 @property (nonatomic, strong) UIImage * imageCaptured;
 

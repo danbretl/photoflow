@@ -142,7 +142,7 @@
 {
     BOOL success = NO;
     
-	// Set torch and flash mode to auto
+	// Set flash mode to auto
 	if ([[self backFacingCamera] hasFlash]) {
 		if ([[self backFacingCamera] lockForConfiguration:nil]) {
 			if ([[self backFacingCamera] isFlashModeSupported:AVCaptureFlashModeAuto]) {
@@ -151,17 +151,11 @@
 			[[self backFacingCamera] unlockForConfiguration];
 		}
 	}
-	if ([[self backFacingCamera] hasTorch]) {
-		if ([[self backFacingCamera] lockForConfiguration:nil]) {
-			if ([[self backFacingCamera] isTorchModeSupported:AVCaptureTorchModeAuto]) {
-				[[self backFacingCamera] setTorchMode:AVCaptureTorchModeAuto];
-			}
-			[[self backFacingCamera] unlockForConfiguration];
-		}
-	}
 	
     // Init the device inputs
-    AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:nil];    
+    AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:nil];
+    
+//    [self setFlashMode:AVCaptureFlashModeAuto];
 	
     // Setup the still image file output
     AVCaptureStillImageOutput *newStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
@@ -241,7 +235,7 @@
             newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:&error];
         else
             goto bail;
-        
+
         if (newVideoInput != nil) {
             [[self session] beginConfiguration];
             [[self session] removeInput:[self videoInput]];
@@ -261,6 +255,21 @@
     }
     
 bail:
+    return success;
+}
+
+- (BOOL)setFlashMode:(AVCaptureFlashMode)flashMode {
+    AVCaptureDevice * device = self.videoInput.device;
+    BOOL success = NO;
+    if (device.hasFlash) {
+        if ([device lockForConfiguration:nil]) {
+            if ([device isFlashModeSupported:flashMode]) {
+                device.flashMode = flashMode;
+            }
+            [device unlockForConfiguration];
+            success = YES;
+        }
+    }
     return success;
 }
 
