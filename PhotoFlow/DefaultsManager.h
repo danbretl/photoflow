@@ -8,10 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "PFPhotosViewConstants.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface DefaultsManager : NSObject
 
 + (void) setPhotosViewLayoutPreference:(PFPhotosViewLayoutType)layoutType;
 + (PFPhotosViewLayoutType) getPhotosViewLayoutPreference;
+
++ (void) setCameraPositionPreference:(AVCaptureDevicePosition)positionPreference;
++ (AVCaptureDevicePosition) getCameraPositionPreference;
+
++ (void) setCameraFlashPreference:(AVCaptureFlashMode)flashPreference;
++ (AVCaptureFlashMode) getCameraFlashPreference;
 
 @end

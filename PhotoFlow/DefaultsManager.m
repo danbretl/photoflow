@@ -11,12 +11,30 @@
 @implementation DefaultsManager
 
 + (void)setPhotosViewLayoutPreference:(PFPhotosViewLayoutType)layoutType {
-    [[NSUserDefaults standardUserDefaults] setInteger:layoutType forKey:@"PhotosViewLayoutPreference"];
+    [[NSUserDefaults standardUserDefaults] setInteger:layoutType forKey:@"DM_PhotosViewLayout"];
 }
 + (PFPhotosViewLayoutType)getPhotosViewLayoutPreference {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:@"PhotosViewLayoutPreference"];
+    NSNumber * object = [[NSUserDefaults standardUserDefaults] objectForKey:@"DM_PhotosViewLayout"];
+    AVCaptureDevicePosition value = object == nil ? PFPhotosViewLayoutGrid : object.integerValue;
+    return value;
 }
 
++ (void) setCameraPositionPreference:(AVCaptureDevicePosition)positionPreference {
+    [[NSUserDefaults standardUserDefaults] setInteger:positionPreference forKey:@"DM_CameraPosition"];
+}
++ (AVCaptureDevicePosition) getCameraPositionPreference {
+    NSNumber * object = [[NSUserDefaults standardUserDefaults] objectForKey:@"DM_CameraPosition"];
+    AVCaptureDevicePosition value = object == nil ? AVCaptureDevicePositionBack : object.integerValue;
+    return value;
+}
 
++ (void) setCameraFlashPreference:(AVCaptureFlashMode)flashPreference {
+    [[NSUserDefaults standardUserDefaults] setInteger:flashPreference forKey:@"DM_CameraFlash"];
+}
++ (AVCaptureFlashMode) getCameraFlashPreference {
+    NSNumber * object = [[NSUserDefaults standardUserDefaults] objectForKey:@"DM_CameraFlash"];
+    AVCaptureFlashMode value = object == nil ? AVCaptureFlashModeAuto : object.integerValue;
+    return value;
+}
 
 @end

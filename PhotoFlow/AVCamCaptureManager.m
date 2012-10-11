@@ -50,6 +50,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <ImageIO/CGImageProperties.h>
+#import "DefaultsManager.h"
 
 @interface AVCamCaptureManager ()
 - (AVCaptureDevice *) cameraWithPosition:(AVCaptureDevicePosition)position;
@@ -135,7 +136,7 @@
 	[notificationCenter removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     
-    [[self session] stopRunning];
+    [self.session stopRunning];
     
 }
 
@@ -148,7 +149,7 @@
     newCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
 	// Init the device inputs
-    AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:nil];
+    AVCaptureDeviceInput *newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self cameraWithPosition:[DefaultsManager getCameraPositionPreference]] error:nil];
 	
     // Setup the still image file output
     AVCaptureStillImageOutput *newStillImageOutput = [[AVCaptureStillImageOutput alloc] init];
@@ -168,7 +169,7 @@
     self.session = newCaptureSession;
     
     // Set flash mode to auto
-    [self setFlashMode:AVCaptureFlashModeAuto];
+    [self setFlashMode:[DefaultsManager getCameraFlashPreference]];
     	
     success = YES;
     
@@ -219,27 +220,29 @@
     if ([self cameraCount] > 1) {
         NSError *error;
         AVCaptureDeviceInput *newVideoInput;
-        AVCaptureDevicePosition position = videoInput.device.position;
+        AVCaptureDevicePosition position = self.videoInput.device.position;
         
-        if (position == AVCaptureDevicePositionBack)
+        if (position == AVCaptureDevicePositionBack) {
             newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self frontFacingCamera] error:&error];
-        else if (position == AVCaptureDevicePositionFront)
+        } else if (position == AVCaptureDevicePositionFront) {
             newVideoInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self backFacingCamera] error:&error];
-        else
-            goto bail; // A goto statement? In Apple sample code? Really?!?
+        } else {
+            return success;
+        }
 
         if (newVideoInput != nil) {
-            [[self session] beginConfiguration];
-            [[self session] removeInput:[self videoInput]];
-            if ([[self session] canAddInput:newVideoInput]) {
-                [[self session] addInput:newVideoInput];
-                [self setVideoInput:newVideoInput];
+            [self.session beginConfiguration];
+            [self.session removeInput:self.videoInput];
+            if ([self.session canAddInput:newVideoInput]) {
+                [self.session addInput:newVideoInput];
+                self.videoInput = newVideoInput;
             } else {
-                [[self session] addInput:[self videoInput]];
+                [self.session addInput:self.videoInput];
             }
             [self setFlashMode:self.flashModePreference];
-            [[self session] commitConfiguration];
+            [self.session commitConfiguration];
             success = YES;
+            [DefaultsManager setCameraPositionPreference:self.videoInput.device.position];
         } else if (error) {
             if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
                 [[self delegate] captureManager:self didFailWithError:error];
@@ -247,31 +250,31 @@
         }
     }
     
-bail:
     return success;
 }
 
 - (BOOL)setFlashMode:(AVCaptureFlashMode)flashMode {
     self.flashModePreference = flashMode;
     [self.session beginConfiguration];
-    NSLog(@"setFlashMode:%d", self.flashModePreference);
+//    NSLog(@"setFlashMode:%d", self.flashModePreference);
     AVCaptureDevice * device = self.videoInput.device;
-    NSLog(@"self.videoInput.device = %@", self.videoInput.device);
+//    NSLog(@"self.videoInput.device = %@", self.videoInput.device);
     BOOL success = NO;
-    NSLog(@"device.hasFlash = %d", device.hasFlash);
+//    NSLog(@"device.hasFlash = %d", device.hasFlash);
     if (device.hasFlash) {
         if ([device lockForConfiguration:nil]) {
-            NSLog(@"device lockForConfiguration...");
-            NSLog(@"device isFlashMode(%d)Supported:%d", self.flashModePreference, [device isFlashModeSupported:self.flashModePreference]);
+//            NSLog(@"device lockForConfiguration...");
+//            NSLog(@"device isFlashMode(%d)Supported:%d", self.flashModePreference, [device isFlashModeSupported:self.flashModePreference]);
             if ([device isFlashModeSupported:self.flashModePreference]) {
                 device.flashMode = self.flashModePreference;
             }
             [device unlockForConfiguration];
             success = YES;
+            [DefaultsManager setCameraFlashPreference:flashMode];
         }
     }
     [self.session commitConfiguration];
-    NSLog(@"setFlashMode success? %d", success);
+//    NSLog(@"setFlashMode success? %d", success);
     return success;
 }
 

@@ -67,9 +67,7 @@
     self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageLocation" ascending:YES]]];
     [self.collectionView reloadData];
     
-    PFPhotosViewLayoutType layoutType = PFPhotosViewLayoutGrid;
-    PFPhotosViewLayoutType layoutTypePreference = [DefaultsManager getPhotosViewLayoutPreference];
-    if (layoutTypePreference != PFPhotosViewLayoutNone) layoutType = layoutTypePreference;
+    PFPhotosViewLayoutType layoutType = [DefaultsManager getPhotosViewLayoutPreference];
     if (landscape) layoutType = PFPhotosViewLayoutGrid;
     UICollectionViewFlowLayout * layout = nil;
     switch (layoutType) {

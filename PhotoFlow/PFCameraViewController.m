@@ -9,6 +9,7 @@
 #import "PFCameraViewController.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <QuartzCore/QuartzCore.h>
+#import "DefaultsManager.h"
 
 @interface PFCameraViewController ()
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
@@ -87,7 +88,12 @@
     
     [self.tapFocusSingle requireGestureRecognizerToFail:self.tapFocusDouble];
 
-    self.flashButtonSelected = self.flashButtonAuto;
+    switch ([DefaultsManager getCameraFlashPreference]) {
+        case AVCaptureFlashModeAuto: self.flashButtonSelected = self.flashButtonAuto; break;
+        case AVCaptureFlashModeOn:   self.flashButtonSelected = self.flashButtonOn;   break;
+        case AVCaptureFlashModeOff:  self.flashButtonSelected = self.flashButtonOff;  break;
+        default: break;
+    }
     [self setFlashOptionsExpanded:NO focusedOnOptionForButton:self.flashButtonSelected animated:NO];
     self.swapCamerasButton.hidden = self.captureManager.cameraCount <= 1;
     
@@ -124,7 +130,7 @@
 }
 
 - (void)cameraFlowButtonTouched:(UIButton *)sender {
-    NSLog(@"cameraFlowButtonTouched");
+//    NSLog(@"cameraFlowButtonTouched");
     
     if (self.flashOptionsExpanded) [self setFlashOptionsExpanded:NO focusedOnOptionForButton:self.flashButtonSelected animated:YES];
     
@@ -146,7 +152,7 @@
 }
 
 - (void)cameraControlButtonTouched:(UIButton *)sender {
-    NSLog(@"cameraControlButtonTouched");
+//    NSLog(@"cameraControlButtonTouched");
     
     if (sender == self.photoButton) {
         
@@ -379,7 +385,7 @@
 }
 
 - (void)deviceOrientationDidChange {
-    NSLog(@"deviceOrientationDidChange");
+//    NSLog(@"deviceOrientationDidChange");
     [self rotateButtonsForOrientation:[UIDevice currentDevice].orientation animated:YES];
 }
 
