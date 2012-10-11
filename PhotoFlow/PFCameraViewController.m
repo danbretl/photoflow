@@ -201,9 +201,13 @@
     } completion:^(BOOL finished) {
         if (!expanded) {
             self.flashButtonSelected = flashButtonFocus;
-            // ...
-            // ...
-            // ...
+            AVCaptureFlashMode flashMode = AVCaptureFlashModeAuto;
+            if (self.flashButtonSelected == self.flashButtonOn) {
+                flashMode = AVCaptureFlashModeOn;
+            } else if (self.flashButtonSelected == self.flashButtonOff) {
+                flashMode = AVCaptureFlashModeOff;
+            }
+            [self.captureManager setFlashMode:flashMode];
         }
     }];
     
