@@ -17,7 +17,6 @@ extern NSString * const PFC_BASE_URL_STRING_SAVED_KEY;
 
 + (PFHTTPClient *) sharedClient;
 + (void) clearCookiesForURL:(NSURL *)url;
-- (void) setAuthorizationHeaderWithUsername:(NSString *)username userServerID:(NSString *)userServerID;
 
 // Get details for given event
 // Response: { eid, title, descriptionShort, location, date, coverPhoto }

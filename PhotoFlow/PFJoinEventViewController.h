@@ -25,7 +25,7 @@
 @property (nonatomic, strong) IBOutlet UIButton * goButton;
 @property (nonatomic, strong) IBOutlet UIImageView * photoflowImageView;
 
-//- (IBAction)cancelButtonTouched:(UIButton *)button;
+- (IBAction)cancelButtonTouched:(id)button;
 - (IBAction)goButtonTouched:(UIButton *)button;
 
 @end

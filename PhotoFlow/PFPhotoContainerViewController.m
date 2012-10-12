@@ -93,7 +93,13 @@
     [deleteButton setImage:deleteButtonImageHighlight forState:UIControlStateHighlighted];
     [deleteButton addTarget:self.deleteButton.target action:self.deleteButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.deleteButton setCustomView:deleteButton];
-        
+    
+    // IN DEVELOPMENT - HIDING SHARE AND DELETE BUTTONS FOR NOW, UNTIL THEIR CORRESPONDING FEATURES GET IMPLEMENTED
+    NSMutableArray * toolbarItemsMutable = self.toolbarItems.mutableCopy;
+    [toolbarItemsMutable removeObject:self.shareButton];
+    [toolbarItemsMutable removeObject:self.deleteButton];
+    self.toolbarItems = toolbarItemsMutable;
+    
 }
 
 - (UIImage *) toolbarButtonImageForBase:(NSString *)base highlight:(BOOL)highlight landscape:(BOOL)landscape {

@@ -14,6 +14,7 @@
 #import "DefaultsManager.h"
 #import "PFPhotoContainerViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PFHTTPClient.h"
 
 @interface PFPhotosViewController ()
 @property (nonatomic, strong) NSArray * photos;
@@ -64,7 +65,7 @@
     [cameraButton addTarget:self.cameraButton.target action:self.cameraButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.cameraButton setCustomView:cameraButton];
     
-    self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageLocation" ascending:YES]]];
+    self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
     [self.collectionView reloadData];
     
     PFPhotosViewLayoutType layoutType = [DefaultsManager getPhotosViewLayoutPreference];
@@ -119,7 +120,7 @@
     PFPhotoCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
     PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
-    [photoCell.imageView setImageWithURL:[NSURL URLWithString:photo.imageLocation] placeholderImage:nil];
+    [photoCell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid]] placeholderImage:nil];
     
     return photoCell;
     

@@ -20,6 +20,9 @@
 
 - (void) deleteAllObjectsForEntityName:(NSString *)entityName;
 
+- (PFEvent *) addOrUpdateEventFromAPI:(NSDictionary *)objectFromAPI;
+- (PFPhoto *) addOrUpdatePhotoFromAPI:(NSDictionary *)objectFromAPI toEvent:(PFEvent *)event;
+
 - (void) devFlushContent;
 - (void) devSeedContentAfterForcedFlush:(BOOL)forceFlush;
 

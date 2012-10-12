@@ -49,7 +49,7 @@
                                                     <constraint firstAttribute="width" constant="230" id="wez-7T-em3"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="event123" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8DT-2w-4DM">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="event123" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8DT-2w-4DM">
                                                 <color key="backgroundColor" white="0.75" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="140" id="5GM-d2-Tf2"/>
@@ -91,7 +91,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="kDV-iN-oVm" kind="push" identifier="ShowEventsFromCancel" id="BBX-et-fLR"/>
+                                                    <action selector="cancelButtonTouched:" destination="Dwd-nV-hRW" eventType="touchUpInside" id="MxD-rE-EgL"/>
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="invite_welcome.png" translatesAutoresizingMaskIntoConstraints="NO" id="27S-gS-BL8">
@@ -167,7 +167,7 @@
                     <navigationItem key="navigationItem" id="o13-aG-wSN">
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="ugd-gX-p61">
                             <connections>
-                                <segue destination="kDV-iN-oVm" kind="push" identifier="ShowEventsFromCancelNav" id="1To-Zc-TEq"/>
+                                <action selector="cancelButtonTouched:" destination="Dwd-nV-hRW" id="oXz-gJ-Oe8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -786,7 +786,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1To-Zc-TEq"/>
-        <segue reference="OUV-z3-61B"/>
+        <segue reference="g1E-KV-WLI"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -38,7 +38,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]]];
+    self.events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
     [self.tableView reloadData];
     
     UIImage * titleImage = [UIImage imageNamed:@"branding_text.png"];
@@ -117,7 +117,7 @@
     cell.dateLabel.text = [self.dateFormatter stringFromDate:event.date].uppercaseString;
     cell.locationLabel.text = event.location.uppercaseString;
     cell.descriptionLabel.text = event.descriptionShort;
-    [cell.bannerImageView setImageWithURL:[NSURL URLWithString:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"imageLocation" ascending:YES]]] objectAtIndex:0]).imageLocation]];
+    [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid]]];
     
     return cell;
 }

@@ -16,10 +16,7 @@
 #import "PFPhotosViewController.h"
 #import "PFPhotoContainerViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
-
-static NSString * const LOCALYTICS_KEY_DEV = @"7fa4ecae75c27424cf4261a-a91c000e-0679-11e2-5678-00ef75f32667";
-static NSString * const LOCALYTICS_KEY_PROD = @"1e89135222cee8011477498-0b484d56-0679-11e2-5677-00ef75f32667";
-static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a2685";
+#import <Parse/Parse.h>
 
 @implementation PFAppDelegate
 
@@ -48,15 +45,21 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
         [[NSUserDefaults standardUserDefaults] setObject:@"http://localhost:8000" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
     }
     
-    [[LocalyticsSession sharedLocalyticsSession] startSession:LOCALYTICS_KEY_DEV];
+    [[LocalyticsSession sharedLocalyticsSession] startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PFLocalyticsKeyDevelopment"]];
     
-    [Crashlytics startWithAPIKey:CRASHLYTICS_KEY];
+    [Crashlytics startWithAPIKey:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PFCrashlyticsKey"]];
     
-    NSArray * events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    [Parse setApplicationId:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PFParseApplicationID"] clientKey:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PFParseClientKey"]];
+    // Enabling automatic anonymous users
+    [PFUser enableAutomaticUser];
+    [[PFUser currentUser] incrementKey:@"appRunCount"];
+    [[PFUser currentUser] saveInBackground];
+    
+//    NSArray * events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
 //    NSLog(@"before seed : events(%d) = %@", events.count, events);
-    [self.managedObjectContext devSeedContentAfterForcedFlush:YES];
-    [self.managedObjectContext saveCoreData];
-    events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+//    [self.managedObjectContext devSeedContentAfterForcedFlush:YES];
+//    [self.managedObjectContext saveCoreData];
+//    events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
 //    NSLog(@"after seed  : events(%d) = %@", events.count, events);
     
     // The following seems rather roundabout...
@@ -64,7 +67,7 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
     rootNavController.delegate = self;
     PFJoinEventViewController * joinViewController = (PFJoinEventViewController *)rootNavController.viewControllers[0];
     joinViewController.moc = self.managedObjectContext;
-    events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    NSArray * events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
     if (events.count > 0) {
         PFEventsViewController * eventsViewController = [rootNavController.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
         eventsViewController.moc = self.managedObjectContext;
@@ -76,6 +79,11 @@ static NSString * const CRASHLYTICS_KEY = @"5c0b12a35d389cba2c53750616eec2cb7c0a
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    // Navbar visibility
+    if (![viewController isKindOfClass:[PFJoinEventViewController class]]) {
+        navigationController.navigationBarHidden = NO;
+    }
     
     // Toolbar visibility
     if ([viewController isKindOfClass:[PFJoinEventViewController class]] ||

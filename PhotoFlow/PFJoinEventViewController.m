@@ -9,12 +9,14 @@
 #import "PFJoinEventViewController.h"
 #import "PFEventsViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PFHTTPClient.h"
 
 NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 
 @interface PFJoinEventViewController ()
 - (void) keyboardWillShow:(NSNotification *)notification;
 - (void) keyboardWillHide:(NSNotification *)notification;
+- (void) finishedWithCode:(NSString *)code;
 @end
 
 @implementation PFJoinEventViewController
@@ -90,6 +92,10 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     // Start responding to keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+    NSArray * events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    self.navigationController.navigationBarHidden = events.count == 0;
+    self.cancelButton.alpha = events.count == 0 ? 0.0 : 1.0;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -115,31 +121,52 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 }
 
 - (void) finishedWithCode:(NSString *)code {
-    PFEventsViewController * viewController = nil;
-    if (code == nil) {
-        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
-        viewController.moc = self.moc;
+    if (code == nil || code.length == 0 || [code isEqualToString:EVENT_CODE_PLACEHOLDER]) {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Enter Event Code" message:@"Please enter a valid event code." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
     } else {
-        // IN DEVELOPMENT - CHANGE FOR PRODUCTION
-        viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
-        viewController.moc = self.moc;
+        [[PFHTTPClient sharedClient] getEventDetails:self.codeTextField.text successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // Update local data
+            PFEvent * event = [self.moc addOrUpdateEventFromAPI:responseObject];
+            if (responseObject[@"coverPhoto"] != nil) [self.moc addOrUpdatePhotoFromAPI:responseObject[@"coverPhoto"] toEvent:event];
+            [self.moc saveCoreData];
+            // Push view controller
+            PFEventsViewController * eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
+            eventsViewController.moc = self.moc;
+            [self.navigationController pushViewController:eventsViewController animated:YES];            
+        } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSString * alertTitle = @"Connection Error";
+            NSString * alertMessage = @"We had some trouble connecting to PhotoFlow. Check your network settings and try again.";
+            if (operation.response.statusCode == 404) {
+                alertTitle = @"Event Not Found";
+                alertMessage = @"We couldn't an event for that code. Check your invitation and try again.";
+            }
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }];
     }
-    [self.navigationController pushViewController:viewController animated:YES];
 }
 
-//- (void)cancelButtonTouched:(UIBarButtonItem *)button {
-//    // This is rather non-standard...
-//    PFEventsViewController * viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
-//    viewController.moc = self.moc;
-//    [self.navigationController pushViewController:viewController animated:YES];
-//}
+- (void)cancelButtonTouched:(UIBarButtonItem *)button {
+    [self.codeTextField resignFirstResponder];
+    NSArray * events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
+    if (events.count > 0) {
+        PFEventsViewController * eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];
+        eventsViewController.moc = self.moc;
+        [self.navigationController pushViewController:eventsViewController animated:YES];
+    }
+}
 
 - (void)goButtonTouched:(UIButton *)button {
     [self.codeTextField resignFirstResponder];
+    [self finishedWithCode:self.codeTextField.text];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (textField == self.codeTextField) {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.cancelButton.alpha = 1.0;
+        }];
         if ([textField.text isEqualToString:EVENT_CODE_PLACEHOLDER]) {
             textField.text = @"";
         }
@@ -148,15 +175,17 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField == self.codeTextField) {
+        if ([self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil].count == 0) {
+            [UIView animateWithDuration:0.25 animations:^{
+                self.cancelButton.alpha = 0.0;
+            }];
+        }
         NSString * text = textField.text;
         text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if (textField.text.length == 0) {
+        if (text.length == 0) {
             text = EVENT_CODE_PLACEHOLDER;
         }
         textField.text = text;
-//        if (![textField.text isEqualToString:EVENT_CODE_PLACEHOLDER]) {
-//            [self finishedWithCode:textField.text];
-//        }
     }
 }
 
@@ -165,6 +194,7 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     if (textField == self.codeTextField) {
         should = NO;
         [textField resignFirstResponder];
+        [self finishedWithCode:textField.text];
     }
     return should;
 }

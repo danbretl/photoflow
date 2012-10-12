@@ -7,6 +7,7 @@
 //
 
 #import "PFHTTPClient.h"
+#import <Parse/Parse.h>
 
 NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 
@@ -37,12 +38,9 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [self setDefaultHeader:@"Accept" value:@"application/json"];
         [self setParameterEncoding:AFJSONParameterEncoding];
+        [self setAuthorizationHeaderWithUsername:[PFUser currentUser].objectId password:@""];
     }
     return self;
-}
-
-- (void) setAuthorizationHeaderWithUsername:(NSString *)username userServerID:(NSString *)userServerID {
-    [self setAuthorizationHeaderWithUsername:username password:userServerID];
 }
 
 + (void)clearCookiesForURL:(NSURL *)url {

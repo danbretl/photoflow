@@ -18,6 +18,8 @@
 @property (nonatomic, retain) NSString * descriptionShort;
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * eid;
+
 @end
 
 @interface PFEvent (CoreDataGeneratedAccessors)

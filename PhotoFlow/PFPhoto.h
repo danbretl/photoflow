@@ -13,7 +13,9 @@
 
 @interface PFPhoto : NSManagedObject
 
-@property (nonatomic, retain) NSString * imageLocation;
 @property (nonatomic, retain) PFEvent *event;
+@property (nonatomic, retain) NSDate * createdAt;
+@property (nonatomic, retain) NSString * eid;
+@property (nonatomic, retain) NSDate * updatedAt;
 
 @end

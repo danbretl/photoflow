@@ -8,6 +8,7 @@
 
 #import "PFPhotoViewController.h"
 #import "AFNetworking.h"
+#import "PFHTTPClient.h"
 
 @interface PFPhotoViewController ()
 @property (nonatomic) float zoomScaleStart;
@@ -29,7 +30,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
         
-    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.photo.imageLocation]];
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:self.photo.eid]]];
     AFImageRequestOperation * imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:urlRequest success:^(UIImage *image) {
         if (image != nil) {
     //        NSLog(@"got image of size %@", NSStringFromCGSize(image.size));

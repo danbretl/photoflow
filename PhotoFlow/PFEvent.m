@@ -17,5 +17,6 @@
 @dynamic descriptionShort;
 @dynamic photos;
 @dynamic title;
+@dynamic eid;
 
 @end

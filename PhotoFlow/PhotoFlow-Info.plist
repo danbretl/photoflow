@@ -60,5 +60,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>PFLocalyticsKeyDevelopment</key>
+	<string>7fa4ecae75c27424cf4261a-a91c000e-0679-11e2-5678-00ef75f32667</string>
+	<key>PFLocalyticsKeyProduction</key>
+	<string>1e89135222cee8011477498-0b484d56-0679-11e2-5677-00ef75f32667</string>
+	<key>PFCrashlyticsKey</key>
+	<string>5c0b12a35d389cba2c53750616eec2cb7c0a2685</string>
+	<key>PFParseApplicationID</key>
+	<string>6CsPVmcsVOe63E3zNqxhbFwzNzpynw7OHaQkQIxM</string>
+	<key>PFParseClientKey</key>
+	<string>ga4Lg7IrEXs90TE1e4oCafoK1EOgxLayZBB8JTUq</string>
 </dict>
 </plist>

@@ -7,6 +7,7 @@
 //
 
 #import "NSManagedObjectContext+PhotoFlow.h"
+#import "PFHTTPClient.h"
 
 @implementation NSManagedObjectContext (PhotoFlow)
 
@@ -52,6 +53,27 @@
     }
 }
 
+- (PFEvent *)addOrUpdateEventFromAPI:(NSDictionary *)objectFromAPI {
+    BOOL newObjectMadeIndicator;
+    PFEvent * object = (PFEvent *)[self getFirstObjectForEntityName:@"PFEvent" matchingPredicate:[NSPredicate predicateWithFormat:@"eid == %@", objectFromAPI[@"eid"]] usingSortDescriptors:nil shouldMakeObjectIfNoMatch:YES newObjectMadeIndicator:&newObjectMadeIndicator];
+    if (newObjectMadeIndicator) object.eid = objectFromAPI[@"eid"];
+    object.title = objectFromAPI[@"title"];
+    object.descriptionShort = objectFromAPI[@"descriptionShort"];
+    object.location = objectFromAPI[@"location"];
+    object.date = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"date"]];
+    return object;
+}
+
+- (PFPhoto *)addOrUpdatePhotoFromAPI:(NSDictionary *)objectFromAPI toEvent:(PFEvent *)event{
+    BOOL newObjectMadeIndicator;
+    PFPhoto * object = (PFPhoto *)[self getFirstObjectForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"eid == %@", objectFromAPI[@"eid"]] usingSortDescriptors:nil shouldMakeObjectIfNoMatch:YES newObjectMadeIndicator:&newObjectMadeIndicator];
+    if (newObjectMadeIndicator) object.eid = objectFromAPI[@"eid"];
+    object.createdAt = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"createdAt"]];
+    object.updatedAt = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"updatedAt"]];
+    object.event = event;
+    return object;
+}
+
 - (void)devFlushContent {
     // Delete all Events. The Photos should be deleted from cascades.
     [self deleteAllObjectsForEntityName:@"PFEvent"];
@@ -93,8 +115,9 @@
         eventCoreData.location = event[@"location"];
         for (NSDictionary * photo in event[@"photos"]) {
             PFPhoto * photoCoreData = [NSEntityDescription insertNewObjectForEntityForName:@"PFPhoto" inManagedObjectContext:self];
-            photoCoreData.imageLocation = photo[@"imageLocation"];
+//            photoCoreData.imageLocation = photo[@"imageLocation"];
             photoCoreData.event = eventCoreData;
+            photoCoreData.eid = @"foo";
         }
     }
     

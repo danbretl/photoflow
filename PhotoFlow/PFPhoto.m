@@ -12,7 +12,9 @@
 
 @implementation PFPhoto
 
-@dynamic imageLocation;
 @dynamic event;
+@dynamic createdAt;
+@dynamic eid;
+@dynamic updatedAt;
 
 @end
