@@ -15,6 +15,7 @@
 #import "UIFont+PhotoFlow.h"
 #import "PFPhotosViewController.h"
 #import "PFPhotoContainerViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 static NSString * const LOCALYTICS_KEY_DEV = @"7fa4ecae75c27424cf4261a-a91c000e-0679-11e2-5678-00ef75f32667";
 static NSString * const LOCALYTICS_KEY_PROD = @"1e89135222cee8011477498-0b484d56-0679-11e2-5677-00ef75f32667";

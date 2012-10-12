@@ -287,39 +287,54 @@
 
 #pragma mark Camera Properties
 // Perform an auto focus at the specified point. The focus mode will automatically change to locked once the auto focus is complete.
-- (void) autoFocusAtPoint:(CGPoint)point
+- (void) autoFocusAtPoint:(CGPoint)point withExposure:(BOOL)shouldAdjustExposure
 {
-    AVCaptureDevice *device = [[self videoInput] device];
-    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+    AVCaptureDevice *device = self.videoInput.device;
+    if (device.isFocusPointOfInterestSupported &&
+        [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
         NSError *error;
+        [self.session beginConfiguration];
         if ([device lockForConfiguration:&error]) {
-            [device setFocusPointOfInterest:point];
-            [device setFocusMode:AVCaptureFocusModeAutoFocus];
+            device.focusPointOfInterest = point;
+            device.focusMode = AVCaptureFocusModeAutoFocus;
+//            NSLog(@"\nshouldAdjustExposure=%d\ndevice.isExposurePointOfInterestSupported=%d", shouldAdjustExposure, device.isExposurePointOfInterestSupported);
+            if (shouldAdjustExposure && device.isExposurePointOfInterestSupported) {
+                device.exposurePointOfInterest = point;
+                device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+            }
             [device unlockForConfiguration];
         } else {
             if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
                 [[self delegate] captureManager:self didFailWithError:error];
             }
-        }        
+        }
+        [self.session commitConfiguration];
     }
 }
 
 // Switch to continuous auto focus mode at the specified point
-- (void) continuousFocusAtPoint:(CGPoint)point
+- (void) continuousFocusAtPoint:(CGPoint)point withExposure:(BOOL)shouldAdjustExposure
 {
-    AVCaptureDevice *device = [[self videoInput] device];
-	
-    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+    AVCaptureDevice *device = self.videoInput.device;
+    if (device.isFocusPointOfInterestSupported &&
+        [device isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
 		NSError *error;
+        [self.session beginConfiguration];
 		if ([device lockForConfiguration:&error]) {
-			[device setFocusPointOfInterest:point];
-			[device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+            device.focusPointOfInterest = point;
+            device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+//            NSLog(@"\nshouldAdjustExposure=%d\ndevice.isExposurePointOfInterestSupported=%d\n[device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]=%d", shouldAdjustExposure, device.isExposurePointOfInterestSupported, [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]);
+            if (shouldAdjustExposure && device.isExposurePointOfInterestSupported && [device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+                device.exposurePointOfInterest = point;
+                device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+            }
 			[device unlockForConfiguration];
 		} else {
 			if ([[self delegate] respondsToSelector:@selector(captureManager:didFailWithError:)]) {
                 [[self delegate] captureManager:self didFailWithError:error];
 			}
 		}
+        [self.session commitConfiguration];
 	}
 }
 

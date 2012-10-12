@@ -10,6 +10,8 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import <QuartzCore/QuartzCore.h>
 #import "DefaultsManager.h"
+#import <CoreMotion/CoreMotion.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface PFCameraViewController ()
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
@@ -22,6 +24,13 @@
 - (void) deviceOrientationDidChange;
 @property (nonatomic, strong) NSArray * buttonsToRotate;
 - (void) rotateButtonsForOrientation:(UIDeviceOrientation)deviceOrientation animated:(BOOL)animated;
+- (void) showFocusBoxCenteredAtPoint:(CGPoint)point fadeAway:(BOOL)shouldFadeAway;
+- (void) hideFocusBox;
+@property (nonatomic, strong) NSTimer * focusBoxTimer;
+- (void) focusBoxTimerFired:(NSTimer *)timer;
+@property (nonatomic, strong) CMMotionManager * focusMotionManager;
+- (void) resetContinuousAutoFocus;
+- (void) takePicture;
 @end
 
 @implementation PFCameraViewController
@@ -62,6 +71,19 @@
     
     self.saveButton.hidden   = YES;
     self.imageOverlay.hidden = YES;
+    
+    self.focusBox.alpha = 0.0;
+    // Camera below
+    AVAudioPlayer* p = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"photoshutter.wav"]] error:NULL];
+    [p prepareToPlay];
+    [p stop];
+    //make MPVolumeView Offscreen
+    CGRect frame = CGRectMake(-1000, -1000, 100, 100);
+    MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:frame];
+    [volumeView sizeToFit];
+    volumeView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.view addSubview:volumeView];
+    // Camera above
     
     //  Init the capture session
     if (self.captureManager == nil) {
@@ -116,13 +138,18 @@
         [self showLibraryPicker];
         self.photoButton.enabled = NO;
         self.capturePreviewView.userInteractionEnabled = NO;
+    } else {
+        [self resetContinuousAutoFocus];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(volumeChanged:) name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self.focusMotionManager stopDeviceMotionUpdates];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AVSystemController_SystemVolumeDidChangeNotification" object:nil];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -156,14 +183,7 @@
     
     if (sender == self.photoButton) {
         
-        if (self.flashOptionsExpanded) [self setFlashOptionsExpanded:NO focusedOnOptionForButton:self.flashButtonSelected animated:YES];
-        
-        [self.captureManager captureStillImage];
-        // Flash the screen white and fade it out to give UI feedback that a still image was taken
-        UIView * flashView = [[UIView alloc] initWithFrame:self.view.frame];
-        [flashView setBackgroundColor:[UIColor whiteColor]];
-        [self.view.window addSubview:flashView];
-        [UIView animateWithDuration:.4 animations:^{ [flashView setAlpha:0.f]; } completion:^(BOOL finished){ [flashView removeFromSuperview]; }];
+        [self takePicture];
         
     } else if (sender == self.flashButtonAuto ||
                sender == self.flashButtonOn ||
@@ -176,10 +196,34 @@
         if (self.flashOptionsExpanded) [self setFlashOptionsExpanded:NO focusedOnOptionForButton:self.flashButtonSelected animated:YES];
         
         [self.captureManager toggleCamera];
-        [self.captureManager continuousFocusAtPoint:CGPointMake(0.5f, 0.5f)];
+        [self.captureManager continuousFocusAtPoint:CGPointMake(0.5f, 0.5f) withExposure:YES];
         
     }
     
+}
+
+- (void) takePicture {
+    
+    if (!(self.captureManager.stillImageOutput.isCapturingStillImage || self.photoButton.hidden || self.photoButton.alpha == 0.0 || (self.imageOverlay.image != nil && (!self.imageOverlay.hidden && self.imageOverlay.alpha != 0.0)))) {
+        
+        if (self.flashOptionsExpanded) [self setFlashOptionsExpanded:NO focusedOnOptionForButton:self.flashButtonSelected animated:YES];
+        
+        [self.captureManager captureStillImage];
+        
+        // Flash the screen white and fade it out to give UI feedback that a still image was taken
+        UIView * flashView = [[UIView alloc] initWithFrame:self.view.frame];
+        [flashView setBackgroundColor:[UIColor whiteColor]];
+        [self.view.window addSubview:flashView];
+        [UIView animateWithDuration:.4 animations:^{ [flashView setAlpha:0.f]; } completion:^(BOOL finished){ [flashView removeFromSuperview]; }];
+        
+        [self.focusMotionManager stopDeviceMotionUpdates];
+        
+    }
+    
+}
+
+- (void)volumeChanged:(NSNotification *)notification {
+    [self takePicture];
 }
 
 - (void)setFlashOptionsExpanded:(BOOL)expanded focusedOnOptionForButton:(UIButton *)flashButtonFocus animated:(BOOL)animated {
@@ -196,7 +240,7 @@
 //        NSLog(@"updateFlashButtonAlpha:%f", flashButton.alpha);
     };
     [self.capturePreviewView layoutIfNeeded];
-    [UIView animateWithDuration:animated ? 0.25 : 0.0 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:animated ? 0.25 : 0.0 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         updateFlashButtonAlpha(self.flashButtonAuto, flashButtonsAlpha);
         updateFlashButtonAlpha(self.flashButtonOn  , flashButtonsAlpha);
         updateFlashButtonAlpha(self.flashButtonOff , flashButtonsAlpha);
@@ -279,6 +323,7 @@
     self.photoButton.hidden = NO;
     self.libraryButton.hidden = NO;
     self.saveButton.hidden = YES;
+    [self resetContinuousAutoFocus];
 }
 
 - (BOOL)inReview {
@@ -373,15 +418,89 @@
     if (self.captureManager.videoInput.device.isFocusPointOfInterestSupported) {
         CGPoint tapPoint = [gestureRecognizer locationInView:self.capturePreviewView];
         CGPoint convertedFocusPoint = [self convertToPointOfInterestFromViewCoordinates:tapPoint];
-        [self.captureManager autoFocusAtPoint:convertedFocusPoint];
+        [self.captureManager autoFocusAtPoint:convertedFocusPoint withExposure:YES];
+        [self showFocusBoxCenteredAtPoint:tapPoint fadeAway:NO];
+        [self.focusMotionManager startDeviceMotionUpdatesToQueue:[[NSOperationQueue alloc] init] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                double accelerationThreshold = 0.03;
+                double rotationThreshold     = 0.15;
+                double ax = fabs(motion.userAcceleration.x);
+                double ay = fabs(motion.userAcceleration.y);
+                double az = fabs(motion.userAcceleration.z);
+                double rx = fabs(motion.rotationRate.x);
+                double ry = fabs(motion.rotationRate.y);
+                double rz = fabs(motion.rotationRate.z);
+//                NSLog(@"\nax %f %@\nay %f %@\naz %f %@", ax, ax > accelerationThreshold ? @"OVER" : @"", ay, ay > accelerationThreshold ? @"OVER" : @"", az, az > accelerationThreshold ? @"OVER" : @"");
+//                NSLog(@"\nrx %f %@\nry %f %@\nrz %f %@", rx, rx > rotationThreshold ? @"OVER" : @"", ry, ry > rotationThreshold ? @"OVER" : @"", rz, rz > rotationThreshold ? @"OVER" : @"");
+                if (ax > accelerationThreshold ||
+                    ay > accelerationThreshold ||
+                    az > accelerationThreshold ||
+                    rx > rotationThreshold     ||
+                    ry > rotationThreshold     ||
+                    rz > rotationThreshold       ) {
+                    [self resetContinuousAutoFocus];
+                    [self.focusMotionManager stopDeviceMotionUpdates];
+                }
+            });
+        }];
     }
 }
 
 // Change to continuous auto focus. The camera will constantly focus at the point choosen.
 - (void)tapToContinouslyAutoFocus:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (self.captureManager.videoInput.device.isFocusPointOfInterestSupported)
-        [self.captureManager continuousFocusAtPoint:CGPointMake(.5f, .5f)];
+    [self resetContinuousAutoFocus];
+}
+
+- (void) resetContinuousAutoFocus {
+    if (self.captureManager.videoInput.device.isFocusPointOfInterestSupported) {
+        [self.captureManager continuousFocusAtPoint:CGPointMake(.5f, .5f) withExposure:YES];
+        [self showFocusBoxCenteredAtPoint:self.capturePreviewView.center fadeAway:YES];
+    }
+}
+
+- (CMMotionManager *)focusMotionManager {
+    if (_focusMotionManager == nil) {
+        _focusMotionManager = [[CMMotionManager alloc] init];
+        _focusMotionManager.deviceMotionUpdateInterval = 0.1; // 10 Hz
+    }
+    return _focusMotionManager;
+}
+
+- (void) showFocusBoxCenteredAtPoint:(CGPoint)point fadeAway:(BOOL)shouldFadeAway {
+//    NSLog(@"showFocusBoxCenteredAtPoint:%@", NSStringFromCGPoint(point));
+    [self.focusBoxTimer invalidate];
+    self.focusBoxTimer = nil;
+    self.focusBox.alpha = 0.0;
+    self.focusBoxX.constant = point.x - self.focusBox.bounds.size.width  / 2.0; // THE BOX DOES NOT SEEM TO BE GOING TO RIGHT POINT EXACTLY
+    self.focusBoxY.constant = point.y - self.focusBox.bounds.size.height / 2.0; // THE BOX DOES NOT SEEM TO BE GOING TO RIGHT POINT EXACTLY
+    [self.focusBox layoutIfNeeded];
+    self.focusBox.transform = CGAffineTransformMakeScale(1.75, 1.75);
+    [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.focusBox.alpha = 1.0;
+        self.focusBox.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        if (shouldFadeAway) {
+            self.focusBoxTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(focusBoxTimerFired:) userInfo:nil repeats:NO];
+        }
+    }];
+}
+
+- (void)focusBoxTimerFired:(NSTimer *)timer {
+    [self hideFocusBox];
+    [self.focusBoxTimer invalidate];
+    self.focusBoxTimer = nil;
+}
+
+- (void) hideFocusBox {
+    [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.focusBox.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        
+        // ...
+        // ...
+        // ...
+    }];
 }
 
 - (void)deviceOrientationDidChange {

@@ -486,6 +486,7 @@
                                             <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="PTh-TY-na0"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="camera_focus.png" highlightedImage="camera_focus_highlight.png" translatesAutoresizingMaskIntoConstraints="NO" id="C5d-co-NiP"/>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
@@ -494,7 +495,9 @@
                                     <constraint firstItem="p2T-mF-BIp" firstAttribute="leading" secondItem="ASZ-Ez-BCH" secondAttribute="trailing" type="user" id="FZq-Y0-4nE"/>
                                     <constraint firstItem="ASZ-Ez-BCH" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="top" constant="12" type="user" id="IIG-xK-t0P"/>
                                     <constraint firstItem="p2T-mF-BIp" firstAttribute="top" secondItem="ASZ-Ez-BCH" secondAttribute="top" type="user" id="LEp-b2-cfI"/>
+                                    <constraint firstItem="C5d-co-NiP" firstAttribute="leading" secondItem="AFQ-Fr-JOs" secondAttribute="leading" constant="133" type="user" id="ZgJ-Da-mKD"/>
                                     <constraint firstItem="ASZ-Ez-BCH" firstAttribute="leading" secondItem="AFQ-Fr-JOs" secondAttribute="leading" constant="12" type="user" id="dgo-L6-qKX"/>
+                                    <constraint firstItem="C5d-co-NiP" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="top" constant="200" type="user" id="h3N-92-n7d"/>
                                     <constraint firstItem="D40-NF-HYA" firstAttribute="baseline" secondItem="p2T-mF-BIp" secondAttribute="baseline" type="default" id="s6E-5m-mKK"/>
                                     <constraint firstItem="D40-NF-HYA" firstAttribute="leading" secondItem="p2T-mF-BIp" secondAttribute="trailing" type="user" id="u4Q-9V-xy2"/>
                                     <constraint firstItem="wvQ-sP-l7U" firstAttribute="top" secondItem="AFQ-Fr-JOs" secondAttribute="top" type="user" id="zZc-Ij-NIb"/>
@@ -645,6 +648,9 @@
                         <outlet property="flashButtonOn" destination="p2T-mF-BIp" id="wgC-Yk-3aP"/>
                         <outlet property="flashButtonSpaceCenterRight" destination="u4Q-9V-xy2" id="WIQ-3l-bNq"/>
                         <outlet property="flashButtonSpaceLeftCenter" destination="FZq-Y0-4nE" id="4Ct-tb-5be"/>
+                        <outlet property="focusBox" destination="C5d-co-NiP" id="d6z-cr-Z10"/>
+                        <outlet property="focusBoxX" destination="ZgJ-Da-mKD" id="t5f-rh-q6e"/>
+                        <outlet property="focusBoxY" destination="h3N-92-n7d" id="s4K-14-pRr"/>
                         <outlet property="imageOverlay" destination="1uq-gA-Xda" id="bTt-mr-X89"/>
                         <outlet property="libraryButton" destination="tnd-HB-eyQ" id="W1Z-IE-lR2"/>
                         <outlet property="photoButton" destination="Ud1-dU-yBh" id="qBE-RO-3nL"/>
@@ -770,6 +776,8 @@
         <image name="btn_save_photos_highlight.png" width="22" height="17"/>
         <image name="btn_swap_cameras.png" width="46" height="30"/>
         <image name="btn_swap_cameras_highlight.png" width="46" height="30"/>
+        <image name="camera_focus.png" width="53" height="53"/>
+        <image name="camera_focus_highlight.png" width="53" height="53"/>
         <image name="invite_welcome.png" width="258" height="39"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

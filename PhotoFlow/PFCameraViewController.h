@@ -46,6 +46,9 @@
 @property (strong, nonatomic) IBOutlet UIButton * photoButton;
 @property (strong, nonatomic) IBOutlet UIButton * libraryButton;
 @property (strong, nonatomic) IBOutlet UIButton * saveButton;
+@property (strong, nonatomic) IBOutlet UIImageView * focusBox;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint * focusBoxX;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint * focusBoxY;
 // Camera review
 @property (strong, nonatomic) IBOutlet UIImageView * imageOverlay;
 - (void) showImageReview:(UIImage *)image;
