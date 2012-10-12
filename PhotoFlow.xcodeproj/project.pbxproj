@@ -48,6 +48,16 @@
 		323A0BED1627BF6000A34879 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BEC1627BF6000A34879 /* CoreMotion.framework */; };
 		323A0BF01627D0B300A34879 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BEF1627D0B300A34879 /* MediaPlayer.framework */; };
 		323A0BF21627D44F00A34879 /* photoshutter.wav in Resources */ = {isa = PBXBuildFile; fileRef = 323A0BF11627D44F00A34879 /* photoshutter.wav */; };
+		323A0BF41627F83B00A34879 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BF31627F83B00A34879 /* Parse.framework */; };
+		323A0BF61627F85600A34879 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BF51627F85600A34879 /* AudioToolbox.framework */; };
+		323A0BF81627F85D00A34879 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BF71627F85D00A34879 /* Accounts.framework */; };
+		323A0BFA1627F86C00A34879 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BF91627F86C00A34879 /* CFNetwork.framework */; };
+		323A0BFC1627F87600A34879 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BFB1627F87600A34879 /* CoreLocation.framework */; };
+		323A0BFE1627F88000A34879 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BFD1627F88000A34879 /* libz.1.1.3.dylib */; };
+		323A0C001627F89000A34879 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0BFF1627F89000A34879 /* Security.framework */; };
+		323A0C021627F89500A34879 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0C011627F89500A34879 /* StoreKit.framework */; };
+		323A0C041627F89A00A34879 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0C031627F89A00A34879 /* SystemConfiguration.framework */; };
+		323A0C061627F93A00A34879 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323A0C051627F93900A34879 /* Social.framework */; };
 		324E08C01625113B0039486C /* btn_camera_highlight_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 324E08AC1625113B0039486C /* btn_camera_highlight_landscape.png */; };
 		324E08C11625113B0039486C /* btn_camera_highlight_landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 324E08AD1625113B0039486C /* btn_camera_highlight_landscape@2x.png */; };
 		324E08C21625113B0039486C /* btn_camera_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 324E08AE1625113B0039486C /* btn_camera_landscape.png */; };
@@ -276,6 +286,17 @@
 		323A0BEC1627BF6000A34879 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		323A0BEF1627D0B300A34879 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		323A0BF11627D44F00A34879 /* photoshutter.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = photoshutter.wav; sourceTree = "<group>"; };
+		323A0BF31627F83B00A34879 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		323A0BF51627F85600A34879 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		323A0BF71627F85D00A34879 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		323A0BF91627F86C00A34879 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		323A0BFB1627F87600A34879 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		323A0BFD1627F88000A34879 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		323A0BFF1627F89000A34879 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		323A0C011627F89500A34879 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		323A0C031627F89A00A34879 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		323A0C051627F93900A34879 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PhotoFlow 003.xcdatamodel"; sourceTree = "<group>"; };
 		324E08AC1625113B0039486C /* btn_camera_highlight_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_camera_highlight_landscape.png; sourceTree = "<group>"; };
 		324E08AD1625113B0039486C /* btn_camera_highlight_landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_camera_highlight_landscape@2x.png"; sourceTree = "<group>"; };
 		324E08AE1625113B0039486C /* btn_camera_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_camera_landscape.png; sourceTree = "<group>"; };
@@ -492,11 +513,16 @@
 			files = (
 				326232B31610E67500440FE4 /* libsqlite3.dylib in Frameworks */,
 				326232B51610E67D00440FE4 /* libz.dylib in Frameworks */,
+				323A0BFE1627F88000A34879 /* libz.1.1.3.dylib in Frameworks */,
+				323A0BF81627F85D00A34879 /* Accounts.framework in Frameworks */,
 				326232B71610E68300440FE4 /* AdSupport.framework in Frameworks */,
 				32FA902D1626284E00658641 /* AssetsLibrary.framework in Frameworks */,
 				32FA90291626282900658641 /* AVFoundation.framework in Frameworks */,
+				323A0BF61627F85600A34879 /* AudioToolbox.framework in Frameworks */,
+				323A0BFA1627F86C00A34879 /* CFNetwork.framework in Frameworks */,
 				326232801610E17F00440FE4 /* CoreData.framework in Frameworks */,
 				3262327E1610E17F00440FE4 /* CoreGraphics.framework in Frameworks */,
+				323A0BFC1627F87600A34879 /* CoreLocation.framework in Frameworks */,
 				32FA905A16265BAB00658641 /* CoreMedia.framework in Frameworks */,
 				323A0BED1627BF6000A34879 /* CoreMotion.framework in Frameworks */,
 				326232A21610E25900440FE4 /* Crashlytics.framework in Frameworks */,
@@ -504,8 +530,13 @@
 				32FA902F1626285600658641 /* ImageIO.framework in Frameworks */,
 				323A0BF01627D0B300A34879 /* MediaPlayer.framework in Frameworks */,
 				32D7EBBC1623F821009DE010 /* MobileCoreServices.framework in Frameworks */,
+				323A0C001627F89000A34879 /* Security.framework in Frameworks */,
+				323A0C061627F93A00A34879 /* Social.framework in Frameworks */,
+				323A0C021627F89500A34879 /* StoreKit.framework in Frameworks */,
+				323A0C041627F89A00A34879 /* SystemConfiguration.framework in Frameworks */,
 				32FA902B1626283600658641 /* QuartzCore.framework in Frameworks */,
 				3262327A1610E17F00440FE4 /* UIKit.framework in Frameworks */,
+				323A0BF41627F83B00A34879 /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,11 +933,16 @@
 			children = (
 				326232B21610E67500440FE4 /* libsqlite3.dylib */,
 				326232B41610E67D00440FE4 /* libz.dylib */,
+				323A0BFD1627F88000A34879 /* libz.1.1.3.dylib */,
+				323A0BF71627F85D00A34879 /* Accounts.framework */,
 				326232B61610E68300440FE4 /* AdSupport.framework */,
 				32FA902C1626284E00658641 /* AssetsLibrary.framework */,
 				32FA90281626282900658641 /* AVFoundation.framework */,
+				323A0BF51627F85600A34879 /* AudioToolbox.framework */,
+				323A0BF91627F86C00A34879 /* CFNetwork.framework */,
 				3262327F1610E17F00440FE4 /* CoreData.framework */,
 				3262327D1610E17F00440FE4 /* CoreGraphics.framework */,
+				323A0BFB1627F87600A34879 /* CoreLocation.framework */,
 				32FA905916265BAB00658641 /* CoreMedia.framework */,
 				323A0BEC1627BF6000A34879 /* CoreMotion.framework */,
 				326232A11610E25900440FE4 /* Crashlytics.framework */,
@@ -914,6 +950,11 @@
 				32FA902E1626285600658641 /* ImageIO.framework */,
 				323A0BEF1627D0B300A34879 /* MediaPlayer.framework */,
 				32D7EBBB1623F821009DE010 /* MobileCoreServices.framework */,
+				323A0BF31627F83B00A34879 /* Parse.framework */,
+				323A0BFF1627F89000A34879 /* Security.framework */,
+				323A0C051627F93900A34879 /* Social.framework */,
+				323A0C011627F89500A34879 /* StoreKit.framework */,
+				323A0C031627F89A00A34879 /* SystemConfiguration.framework */,
 				32FA902A1626283600658641 /* QuartzCore.framework */,
 				326232791610E17F00440FE4 /* UIKit.framework */,
 			);
@@ -1694,10 +1735,11 @@
 		326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */,
 				322454B716153CAA00EB5269 /* PhotoFlow 002.xcdatamodel */,
 				326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */,
 			);
-			currentVersion = 326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */;
+			currentVersion = 323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */;
 			path = PhotoFlow.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
