@@ -73,17 +73,17 @@
     self.imageOverlay.hidden = YES;
     
     self.focusBox.alpha = 0.0;
-    // Camera below
+
+    // Set up for volume shutter functionality
     AVAudioPlayer* p = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"photoshutter.wav"]] error:NULL];
     [p prepareToPlay];
     [p stop];
-    //make MPVolumeView Offscreen
+    // Hide normal volume indicator
     CGRect frame = CGRectMake(-1000, -1000, 100, 100);
     MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:frame];
     [volumeView sizeToFit];
     volumeView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.view addSubview:volumeView];
-    // Camera above
     
     //  Init the capture session
     if (self.captureManager == nil) {
