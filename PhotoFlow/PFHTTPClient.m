@@ -127,7 +127,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 
 
 - (void)savePhoto:(NSString *)photoEID toEvent:(NSString *)eventEID successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock {
-    NSDictionary * parameters = @{@"event_eid" : eventEID};
+    NSDictionary * parameters = @{@"event_id" : eventEID};
     [self putPath:[NSString stringWithFormat:@"/api/v1/photos/%@/", photoEID] parameters:parameters success:successBlock failure:failureBlock];
 }
 
