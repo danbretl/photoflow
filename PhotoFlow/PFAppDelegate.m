@@ -57,13 +57,6 @@
     [[PFUser currentUser] incrementKey:@"appRunCount"];
     [[PFUser currentUser] saveInBackground];
     
-//    NSArray * events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
-//    NSLog(@"before seed : events(%d) = %@", events.count, events);
-//    [self.managedObjectContext devSeedContentAfterForcedFlush:YES];
-//    [self.managedObjectContext saveCoreData];
-//    events = [self.managedObjectContext getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
-//    NSLog(@"after seed  : events(%d) = %@", events.count, events);
-    
     // The following seems rather roundabout...
     UINavigationController * rootNavController = (UINavigationController *)self.window.rootViewController;
     rootNavController.delegate = self;
