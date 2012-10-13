@@ -301,7 +301,7 @@
         self.isLoadingRecent = YES;
         [self.refreshControl beginRefreshing];
         [self loadMorePhotosAfter:((PFPhoto *)[self.photos objectAtIndex:0]).updatedAt before:nil limit:nil successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.collectionView setContentOffset:CGPointZero animated:YES];
+            //[self.collectionView setContentOffset:CGPointZero animated:YES];
         }];
     }
 }

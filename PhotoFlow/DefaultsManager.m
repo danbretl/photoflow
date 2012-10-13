@@ -15,7 +15,7 @@
 }
 + (PFPhotosViewLayoutType)getPhotosViewLayoutPreference {
     NSNumber * object = [[NSUserDefaults standardUserDefaults] objectForKey:@"DM_PhotosViewLayout"];
-    AVCaptureDevicePosition value = object == nil ? PFPhotosViewLayoutGrid : object.integerValue;
+    PFPhotosViewLayoutType value = object == nil ? PFPhotosViewLayoutGrid : object.integerValue;
     return value;
 }
 

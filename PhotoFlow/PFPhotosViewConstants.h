@@ -7,8 +7,8 @@
 //
 
 typedef enum {
-    PFPhotosViewLayoutNone = 0,
-    PFPhotosViewLayoutGrid = 1,
+    PFPhotosViewLayoutNone   = 0,
+    PFPhotosViewLayoutGrid   = 1,
     PFPhotosViewLayoutBanner = 2,
 } PFPhotosViewLayoutType;
 
