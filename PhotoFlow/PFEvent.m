@@ -18,7 +18,6 @@
 @dynamic photos;
 @dynamic title;
 @dynamic eid;
-@dynamic dateGetOld;
-@dynamic dateGetRecent;
+@dynamic dateReload;
 
 @end

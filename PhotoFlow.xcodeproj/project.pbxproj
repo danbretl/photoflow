@@ -419,6 +419,7 @@
 		32847DF21614FA7200D4AF91 /* PFPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhoto.m; sourceTree = "<group>"; };
 		32847DF41614FA7200D4AF91 /* PFEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEvent.h; sourceTree = "<group>"; };
 		32847DF51614FA7200D4AF91 /* PFEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEvent.m; sourceTree = "<group>"; };
+		32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PhotoFlow 005.xcdatamodel"; sourceTree = "<group>"; };
 		32AF756E161734C0004748A1 /* WebDevContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDevContainerView.h; sourceTree = "<group>"; };
 		32AF756F161734C0004748A1 /* WebDevContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebDevContainerView.m; sourceTree = "<group>"; };
 		32AF7570161734C0004748A1 /* WebDevViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebDevViewController.h; sourceTree = "<group>"; };
@@ -1742,12 +1743,13 @@
 		326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */,
 				325E089B162883830023713B /* PhotoFlow 004.xcdatamodel */,
 				323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */,
 				322454B716153CAA00EB5269 /* PhotoFlow 002.xcdatamodel */,
 				326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */,
 			);
-			currentVersion = 325E089B162883830023713B /* PhotoFlow 004.xcdatamodel */;
+			currentVersion = 32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */;
 			path = PhotoFlow.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

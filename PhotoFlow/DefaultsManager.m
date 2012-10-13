@@ -37,4 +37,13 @@
     return value;
 }
 
++ (void)setAppDidEnterBackgroundSinceEventReload:(BOOL)didEnterBackground {
+    [[NSUserDefaults standardUserDefaults] setBool:didEnterBackground forKey:@"DM_AppDidEnterBGSinceEventReload"];
+}
++ (BOOL)getAppDidEnterBackgroundSinceEventReload {
+    NSNumber * object = [[NSUserDefaults standardUserDefaults] objectForKey:@"DM_AppDidEnterBGSinceEventReload"];
+    BOOL value = object == nil ? YES : object.boolValue;
+    return value;
+}
+
 @end

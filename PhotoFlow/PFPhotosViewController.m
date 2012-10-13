@@ -125,6 +125,11 @@
     [super viewDidAppear:animated];
     self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
+    if (self.event.dateReload == nil ||
+        ([DefaultsManager getAppDidEnterBackgroundSinceEventReload] &&
+         abs([self.event.dateReload timeIntervalSinceNow]) > 60 * 30)) {
+            [self reloadRecentPhotos];
+        }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -277,9 +282,12 @@
 
 - (void)reloadRecentPhotos {
     if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+        NSLog(@"%@", NSStringFromSelector(_cmd));
         self.isLoadingRecent = YES;
         [self.refreshControl beginRefreshing];
         [self loadMorePhotosAfter:nil before:nil limit:@50 successBlockPre:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.event.dateReload = [NSDate date];
+            [DefaultsManager setAppDidEnterBackgroundSinceEventReload:NO];
             [self.moc deleteAllObjectsForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"event == %@", self.event]];
         } successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.collectionView setContentOffset:CGPointZero animated:NO];
@@ -289,6 +297,7 @@
 
 - (void)loadMoreRecentPhotos {
     if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+        NSLog(@"%@", NSStringFromSelector(_cmd));
         self.isLoadingRecent = YES;
         [self.refreshControl beginRefreshing];
         [self loadMorePhotosAfter:((PFPhoto *)[self.photos objectAtIndex:0]).updatedAt before:nil limit:nil successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -299,6 +308,7 @@
 
 - (void)loadMoreOldPhotos {
     if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+        NSLog(@"%@", NSStringFromSelector(_cmd));
         self.isLoadingOld = YES;
         [self updateLoadMoreCell];
         [self loadMorePhotosAfter:nil before:((PFPhoto *)self.photos.lastObject).updatedAt limit:@20 successBlockPre:NULL successBlockPost:NULL];

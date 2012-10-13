@@ -21,4 +21,7 @@
 + (void) setCameraFlashPreference:(AVCaptureFlashMode)flashPreference;
 + (AVCaptureFlashMode) getCameraFlashPreference;
 
++ (void) setAppDidEnterBackgroundSinceEventReload:(BOOL)didEnterBackground;
++ (BOOL) getAppDidEnterBackgroundSinceEventReload;
+
 @end

@@ -17,6 +17,7 @@
 #import "PFPhotoContainerViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <Parse/Parse.h>
+#import "DefaultsManager.h"
 
 @implementation PFAppDelegate
 
@@ -103,6 +104,7 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     [[LocalyticsSession sharedLocalyticsSession] close];
@@ -111,6 +113,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     [[LocalyticsSession sharedLocalyticsSession] close];
@@ -119,6 +122,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [[LocalyticsSession sharedLocalyticsSession] resume];
     [[LocalyticsSession sharedLocalyticsSession] upload];
@@ -126,13 +130,16 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [[LocalyticsSession sharedLocalyticsSession] resume];
     [[LocalyticsSession sharedLocalyticsSession] upload];
+    [DefaultsManager setAppDidEnterBackgroundSinceEventReload:YES];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
     [[LocalyticsSession sharedLocalyticsSession] close];
