@@ -43,8 +43,8 @@
     //////////////////////////////////////
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:PFC_BASE_URL_STRING_SAVED_KEY] == nil) {
-//        [[NSUserDefaults standardUserDefaults] setObject:@"http://localhost:8000" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
-        [[NSUserDefaults standardUserDefaults] setObject:@"http://ec2-23-23-24-116.compute-1.amazonaws.com" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
+        [[NSUserDefaults standardUserDefaults] setObject:@"http://localhost:8000" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
+//        [[NSUserDefaults standardUserDefaults] setObject:@"http://ec2-23-23-24-116.compute-1.amazonaws.com" forKey:PFC_BASE_URL_STRING_SAVED_KEY];
     }
     
     [[LocalyticsSession sharedLocalyticsSession] startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"PFLocalyticsKeyDevelopment"]];

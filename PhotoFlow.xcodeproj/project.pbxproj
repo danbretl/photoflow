@@ -213,6 +213,9 @@
 		32D7EBBC1623F821009DE010 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32D7EBBB1623F821009DE010 /* MobileCoreServices.framework */; };
 		32D953EC161733060014DAC3 /* PFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D953EB161733060014DAC3 /* PFHTTPClient.m */; };
 		32E8BB7216153731008AC3B2 /* PFPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */; };
+		32EF04FD162949590066B852 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF04FC162949590066B852 /* UIImage+Resize.m */; };
+		32EF0502162949E70066B852 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF04FF162949E70066B852 /* UIImage+Alpha.m */; };
+		32EF0503162949E70066B852 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF0501162949E70066B852 /* UIImage+RoundedCorner.m */; };
 		32FA90291626282900658641 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA90281626282900658641 /* AVFoundation.framework */; };
 		32FA902B1626283600658641 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902A1626283600658641 /* QuartzCore.framework */; };
 		32FA902D1626284E00658641 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902C1626284E00658641 /* AssetsLibrary.framework */; };
@@ -424,7 +427,7 @@
 		32847DF21614FA7200D4AF91 /* PFPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhoto.m; sourceTree = "<group>"; };
 		32847DF41614FA7200D4AF91 /* PFEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEvent.h; sourceTree = "<group>"; };
 		32847DF51614FA7200D4AF91 /* PFEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEvent.m; sourceTree = "<group>"; };
-		32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PhotoFlow 005.xcdatamodel"; sourceTree = "<group>"; };
+		32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PhotoFlow 005.xcdatamodel"; sourceTree = "<group>"; };
 		32A94AFF162945450037041F /* AFPhotoEditorContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoEditorContext.h; sourceTree = "<group>"; };
 		32A94B00162945450037041F /* AFPhotoEditorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoEditorController.h; sourceTree = "<group>"; };
 		32A94B01162945450037041F /* AFPhotoEditorControllerOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPhotoEditorControllerOptions.h; sourceTree = "<group>"; };
@@ -497,6 +500,12 @@
 		32D953EB161733060014DAC3 /* PFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFHTTPClient.m; sourceTree = "<group>"; };
 		32E8BB7016153731008AC3B2 /* PFPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotosViewController.h; sourceTree = "<group>"; };
 		32E8BB7116153731008AC3B2 /* PFPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotosViewController.m; sourceTree = "<group>"; };
+		32EF04FB162949590066B852 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		32EF04FC162949590066B852 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		32EF04FE162949E70066B852 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		32EF04FF162949E70066B852 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		32EF0500162949E70066B852 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		32EF0501162949E70066B852 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		32FA90281626282900658641 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		32FA902A1626283600658641 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		32FA902C1626284E00658641 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -1036,6 +1045,7 @@
 		326232B81610F2D000440FE4 /* 3rd Party */ = {
 			isa = PBXGroup;
 			children = (
+				32EF04F91629494A0066B852 /* UIImage */,
 				326232B91610F2F800440FE4 /* AFNetworking */,
 				326232A31610E41500440FE4 /* Localytics */,
 				32A94AFD162945450037041F /* AviarySDK */,
@@ -1266,6 +1276,19 @@
 				32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */,
 			);
 			name = "Join Event";
+			sourceTree = "<group>";
+		};
+		32EF04F91629494A0066B852 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				32EF04FB162949590066B852 /* UIImage+Resize.h */,
+				32EF04FC162949590066B852 /* UIImage+Resize.m */,
+				32EF04FE162949E70066B852 /* UIImage+Alpha.h */,
+				32EF04FF162949E70066B852 /* UIImage+Alpha.m */,
+				32EF0500162949E70066B852 /* UIImage+RoundedCorner.h */,
+				32EF0501162949E70066B852 /* UIImage+RoundedCorner.m */,
+			);
+			name = UIImage;
 			sourceTree = "<group>";
 		};
 		32FA0A601625155D00576E5F /* Normal */ = {
@@ -1629,6 +1652,9 @@
 				32FA90551626504500658641 /* AVCamCaptureManager.m in Sources */,
 				32FA9058162650C800658641 /* AVCamUtilities.m in Sources */,
 				325E089F1628FE6D0023713B /* PFLoadMoreCell.m in Sources */,
+				32EF04FD162949590066B852 /* UIImage+Resize.m in Sources */,
+				32EF0502162949E70066B852 /* UIImage+Alpha.m in Sources */,
+				32EF0503162949E70066B852 /* UIImage+RoundedCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

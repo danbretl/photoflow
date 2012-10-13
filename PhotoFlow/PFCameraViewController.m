@@ -12,6 +12,7 @@
 #import "DefaultsManager.h"
 #import <CoreMotion/CoreMotion.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "UIImage+Resize.h"
 
 @interface PFCameraViewController ()
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
@@ -308,7 +309,8 @@
 }
 
 - (void)showImageReview:(UIImage *)image {
-    self.imageOverlay.image = image;
+    self.imageOverlay.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1500.0, 1500.0) interpolationQuality:kCGInterpolationHigh]; // This will only scale down, and should force normal orientation for all images (for ease of display on non-native-apple platforms, such as the web).
+//    NSLog(@"showImageReview:(imageWithSize=%@)", NSStringFromCGSize(self.imageOverlay.image.size));
     self.imageOverlay.hidden = NO;
     self.imageOverlay.userInteractionEnabled = YES;
     self.photoButton.hidden = YES;
