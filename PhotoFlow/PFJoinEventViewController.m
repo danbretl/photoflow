@@ -56,6 +56,8 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     [self.cancelButtonNav setCustomView:cancelButton];
     self.navigationItem.rightBarButtonItem = nil;
     
+    self.navigationItem.hidesBackButton = YES;
+    
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
     
     self.cardBackgroundView.image = [[UIImage imageNamed:@"invite_card_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0)];

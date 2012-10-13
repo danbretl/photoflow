@@ -23,7 +23,7 @@
 - (void) setToggleButtonCustomViewOppositeOfLayout:(UICollectionViewLayout *)layout;
 - (void) pulledToRefresh:(UIRefreshControl *)refreshControl;
 - (void) reloadRecentPhotos;
-- (void) loadMoreRecentPhotos;
+//- (void) loadMoreRecentPhotos;
 - (void) loadMoreOldPhotos;
 - (void) loadMorePhotosAfter:(NSDate *)afterDate before:(NSDate *)beforeDate limit:(NSNumber *)limit successBlockPre:(PFCSuccessBlock)successBlockPre successBlockPost:(PFCSuccessBlock)successBlockPost;
 @property (nonatomic) BOOL isLoadingRecent;
@@ -75,9 +75,6 @@
     [cameraButton addTarget:self.cameraButton.target action:self.cameraButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.cameraButton setCustomView:cameraButton];
     
-    self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
-    [self.collectionView reloadData];
-    
     PFPhotosViewLayoutType layoutType = [DefaultsManager getPhotosViewLayoutPreference];
     if (landscape) layoutType = PFPhotosViewLayoutGrid;
     UICollectionViewFlowLayout * layout = nil;
@@ -119,6 +116,8 @@
     UIButton * cameraButtonCustomView = (UIButton *)self.cameraButton.customView;
     [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? @"btn_camera_landscape.png" : @"btn_camera.png"] forState:UIControlStateNormal];
     [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? @"btn_camera_highlight_landscape.png" : @"btn_camera_highlight.png"] forState:UIControlStateHighlighted];
+    self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
+    [self.collectionView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -152,12 +151,20 @@
     } else {
         PFPhotoCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
         PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
-        [photoCell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:[UIScreen mainScreen].bounds.size.width*2 boundingHeight:2000 quality:70]] placeholderImage:nil]; // The size here is dependent on the fact that banner mode (where images must be largest) only operates when device orientation is portrait.
+        [self loadImageForPhotoCell:photoCell atIndexPath:indexPath fromPhoto:photo];
         cell = photoCell;
     }
     
     return cell;
     
+}
+
+- (void) loadImageForPhotoCell:(PFPhotoCell *)cell atIndexPath:(NSIndexPath *)indexPath fromPhoto:(PFPhoto *)photo {
+//        NSLog(@"about to setImageWithURL...");
+//        [photoCell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:[UIScreen mainScreen].bounds.size.width*2 boundingHeight:2000 quality:70]] placeholderImage:nil]; // The size here is dependent on the fact that banner mode (where images must be largest) only operates when device orientation is portrait. // I think this method is hurting performance. We are going to change and just get the size that fits the current orientation.
+    PFPhotosGridFlowLayout * layout = (PFPhotosGridFlowLayout *)self.collectionView.collectionViewLayout;
+    CGFloat boundingWidth = [layout isKindOfClass:[PFPhotosGridFlowLayout class]] ? (int)floorf(layout.itemSize.height * 3.0 / 2.0 * 2.0) : layout.itemSize.width * 2.0;
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:boundingWidth boundingHeight:2000 quality:60]] placeholderImage:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -173,8 +180,12 @@
     }
 }
 
-- (void)cameraViewControllerFinished {
+- (void)cameraViewController:(PFCameraViewController *)viewController finishedWithPhotoSubmitted:(PFPhoto *)photoSubmitted {
+//    self.photos = [@[photoSubmitted] arrayByAddingObjectsFromArray:self.photos]; // This will happen automatically in viewWillAppear
+//    [self.collectionView reloadData]; // This will happen automatically in viewWillAppear
     [self dismissViewControllerAnimated:NO completion:NULL];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+//    [self reloadRecentPhotos]; // This is dumb... It's only necessary because if we just added the one new photo, then the next load more recent photos request would be looking for photos more recent than that new added one, and it might miss some photos that came before that new added one, but after the previous most recent photo (now the second most recent). If this fails, we're still going to have this trouble. We need to start using an attribute on the event object rather than just using the top photo view in this VC. // Not doing this here anymore because pull to refresh has been changed to a full recent reload rather than a "load more recent".
 }
 
 - (void)toggleViewModeButtonTouched:(UIBarButtonItem *)button {
@@ -191,8 +202,17 @@
     }
     [DefaultsManager setPhotosViewLayoutPreference:layoutTypeNew];
     [self.collectionView setCollectionViewLayout:layoutNew animated:YES];
-    [self.collectionView setContentOffset:CGPointZero animated:NO];
+//    [self.collectionView setContentOffset:CGPointZero animated:NO];
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
+    if (layoutTypeNew == PFPhotosViewLayoutBanner) {
+        for (PFPhotoCell * cell in self.collectionView.visibleCells) {
+            NSIndexPath * indexPath = [self.collectionView indexPathForCell:cell];
+            if (indexPath.row != self.photos.count) {
+                PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
+                [self loadImageForPhotoCell:cell atIndexPath:indexPath fromPhoto:photo];
+            }
+        }
+    }
 }
 
 //- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -277,7 +297,8 @@
 }
 
 - (void)pulledToRefresh:(UIRefreshControl *)refreshControl {
-    [self loadMoreRecentPhotos];
+    [self reloadRecentPhotos];
+//    [self loadMoreRecentPhotos];
 }
 
 - (void)reloadRecentPhotos {
@@ -285,7 +306,7 @@
         NSLog(@"%@", NSStringFromSelector(_cmd));
         self.isLoadingRecent = YES;
         [self.refreshControl beginRefreshing];
-        [self loadMorePhotosAfter:nil before:nil limit:@50 successBlockPre:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadMorePhotosAfter:nil before:nil limit:@30 successBlockPre:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.event.dateReload = [NSDate date];
             [DefaultsManager setAppDidEnterBackgroundSinceEventReload:NO];
             [self.moc deleteAllObjectsForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"event == %@", self.event]];
@@ -295,16 +316,16 @@
     }
 }
 
-- (void)loadMoreRecentPhotos {
-    if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
-        NSLog(@"%@", NSStringFromSelector(_cmd));
-        self.isLoadingRecent = YES;
-        [self.refreshControl beginRefreshing];
-        [self loadMorePhotosAfter:((PFPhoto *)[self.photos objectAtIndex:0]).updatedAt before:nil limit:nil successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //[self.collectionView setContentOffset:CGPointZero animated:YES];
-        }];
-    }
-}
+//- (void)loadMoreRecentPhotos {
+//    if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+//        NSLog(@"%@", NSStringFromSelector(_cmd));
+//        self.isLoadingRecent = YES;
+//        [self.refreshControl beginRefreshing];
+//        [self loadMorePhotosAfter:((PFPhoto *)[self.photos objectAtIndex:0]).updatedAt before:nil limit:nil successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            //[self.collectionView setContentOffset:CGPointZero animated:YES];
+//        }];
+//    }
+//}
 
 - (void)loadMoreOldPhotos {
     if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {

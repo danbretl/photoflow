@@ -22,6 +22,8 @@
 
 - (void)awakeFromNib {
     
+    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
+    
     self.shadowView.image = [[UIImage imageNamed:@"shadow_events_and_grid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
     
     self.imageViewContainer.layer.cornerRadius = 2.0;

@@ -12,13 +12,16 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AVCamCaptureManager.h"
 #import "AFPhotoEditorController.h"
+#import "PFPhotoSubmissionManager.h"
+#import "PFPhoto.h"
 
 @protocol PFCameraViewControllerDelegate;
 
-@interface PFCameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCamCaptureManagerDelegate>
+@interface PFCameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCamCaptureManagerDelegate, PFPhotoSubmissionManagerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;
+@property (nonatomic, strong) PFPhotoSubmissionManager * psm;
 
 // Camera
 // Camera capture
@@ -66,5 +69,5 @@
 @end
 
 @protocol PFCameraViewControllerDelegate <NSObject>
-- (void) cameraViewControllerFinished;
+- (void) cameraViewController:(PFCameraViewController *)viewController finishedWithPhotoSubmitted:(PFPhoto *)photoSubmitted;
 @end

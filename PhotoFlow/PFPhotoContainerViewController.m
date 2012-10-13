@@ -133,8 +133,20 @@
     }
 }
 
-- (void)cameraViewControllerFinished {
+- (void)cameraViewController:(PFCameraViewController *)viewController finishedWithPhotoSubmitted:(PFPhoto *)photoSubmitted {
+    
+    if (photoSubmitted != nil) {
+        NSArray * arrayMod = [@[photoSubmitted] arrayByAddingObjectsFromArray:self.photos];
+        [self setPhotoIndex:0 inPhotos:arrayMod forEvent:self.event];
+        
+        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
+        photoViewController.delegate = self;
+        photoViewController.photo = photoSubmitted;
+        [self.pageViewController setViewControllers:@[photoViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:NULL];
+    }
+    
     [self dismissViewControllerAnimated:NO completion:NULL];
+    
 }
 
 - (void)setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event {

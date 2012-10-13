@@ -32,6 +32,13 @@
 @property (nonatomic, strong) CMMotionManager * focusMotionManager;
 - (void) resetContinuousAutoFocus;
 - (void) takePicture;
+- (void) setViewsForNetworkActivity:(BOOL)isNetworkActive;
+- (void) submitPhotoStart;
+- (void) submitPhotoUploadImage;
+- (void) submitPhotoSavePhoto;
+- (void) submitPhotoFinish;
+- (void) submitPhotoStopWithFailure:(BOOL)didFail;
+@property (nonatomic) BOOL photoSubmissionInProgress;
 @end
 
 @implementation PFCameraViewController
@@ -42,6 +49,11 @@
     if (self) {
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    self.psm = [[PFPhotoSubmissionManager alloc] init];
+    self.psm.delegate = self;
 }
 
 - (void)viewDidLoad
@@ -157,6 +169,11 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)setMoc:(NSManagedObjectContext *)moc {
+    _moc = moc;
+    self.psm.moc = self.moc;
+}
+
 - (void)cameraFlowButtonTouched:(UIButton *)sender {
 //    NSLog(@"cameraFlowButtonTouched");
     
@@ -165,15 +182,12 @@
     if (sender == self.libraryButton) {
         [self showLibraryPicker];
     } else if (sender == self.saveButton) {
-        [self.delegate cameraViewControllerFinished];
-        // ...
-        // ...
-        // ...
+        [self submitPhotoStart];
     } else if (sender == self.cancelButton) {
         if (self.inReview) {
             [self hideImageReview];
         } else {
-            [self.delegate cameraViewControllerFinished];
+            [self.delegate cameraViewController:self finishedWithPhotoSubmitted:nil];
         }
     }
     
@@ -292,7 +306,7 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     if (self.captureManager.cameraCount == 0) {
-        [self.delegate cameraViewControllerFinished];
+        [self.delegate cameraViewController:self finishedWithPhotoSubmitted:nil];
     } else {
         [self dismissViewControllerAnimated:YES completion:^{
             // ...
@@ -316,6 +330,7 @@
     self.photoButton.hidden = YES;
     self.libraryButton.hidden = YES;
     self.saveButton.hidden = NO;
+    [self.psm uploadImage:self.imageOverlay.image];
 }
 
 - (void)hideImageReview {
@@ -326,6 +341,8 @@
     self.libraryButton.hidden = NO;
     self.saveButton.hidden = YES;
     [self resetContinuousAutoFocus];
+    [self.psm cancelFileSaves];
+    [self.psm resetStatusForAll];
 }
 
 - (BOOL)inReview {
@@ -522,6 +539,71 @@
             button.imageView.transform = transform;
         }
     }];
+}
+
+- (void) setViewsForNetworkActivity:(BOOL)isNetworkActive {
+    self.view.userInteractionEnabled = !isNetworkActive;
+    self.cancelButton.enabled = !isNetworkActive;
+    self.saveButton.enabled = !isNetworkActive;
+}
+
+- (void) submitPhotoStart {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    self.photoSubmissionInProgress = YES;
+    [self setViewsForNetworkActivity:YES];
+    [self submitPhotoUploadImage];
+}
+
+- (void) submitPhotoUploadImage {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    if ([self.psm getStatusForStage:StageImageUpload] == StatusComplete) {
+        [self submitPhotoSavePhoto];
+    } else {
+        [self.psm uploadImage:self.imageOverlay.image];
+    }
+}
+
+- (void) submitPhotoSavePhoto {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    if ([self.psm getStatusForStage:StagePhotoSave] == StatusComplete) {
+        [self submitPhotoFinish];
+    } else {
+        [self.psm savePhoto:self.psm.photoEID toEvent:self.event];
+    }
+}
+
+- (void) submitPhotoFinish {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self.delegate cameraViewController:self finishedWithPhotoSubmitted:self.psm.photoSubmitted];
+}
+
+- (void) submitPhotoStopWithFailure:(BOOL)didFail {
+    [self setViewsForNetworkActivity:NO];
+    if (didFail) {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"We had some trouble connecting to PhotoFlow. Check your network settings and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    } else {
+        // ...
+    }
+    self.photoSubmissionInProgress = NO;
+}
+
+- (void)photoSubmissionManager:(PFPhotoSubmissionManager *)manager changedStatus:(PhotoSubmissionStatus)statusNew forStage:(PhotoSubmissionStage)stage photoSubmissionIsComplete:(BOOL)isComplete {
+    NSLog(@"psm:changedStatus:%@ forStage:%@ ...IsComplete:%d", [PFPhotoSubmissionManager stringForStatus:statusNew], [PFPhotoSubmissionManager stringForStage:stage], isComplete);
+    if (self.photoSubmissionInProgress) {
+        if (statusNew == StatusFailure) {
+            [self submitPhotoStopWithFailure:YES];
+        } else if (statusNew == StatusComplete) {
+            if (stage == StageImageUpload) {
+                [self submitPhotoSavePhoto];
+            } else if (stage == StagePhotoSave) {
+                [self submitPhotoFinish];
+            }
+        }
+    }
 }
 
 @end

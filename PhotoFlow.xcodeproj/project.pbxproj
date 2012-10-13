@@ -216,6 +216,7 @@
 		32EF04FD162949590066B852 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF04FC162949590066B852 /* UIImage+Resize.m */; };
 		32EF0502162949E70066B852 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF04FF162949E70066B852 /* UIImage+Alpha.m */; };
 		32EF0503162949E70066B852 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF0501162949E70066B852 /* UIImage+RoundedCorner.m */; };
+		32EF0506162950F90066B852 /* PFPhotoSubmissionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32EF0505162950F90066B852 /* PFPhotoSubmissionManager.m */; };
 		32FA90291626282900658641 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA90281626282900658641 /* AVFoundation.framework */; };
 		32FA902B1626283600658641 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902A1626283600658641 /* QuartzCore.framework */; };
 		32FA902D1626284E00658641 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32FA902C1626284E00658641 /* AssetsLibrary.framework */; };
@@ -506,6 +507,8 @@
 		32EF04FF162949E70066B852 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		32EF0500162949E70066B852 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
 		32EF0501162949E70066B852 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
+		32EF0504162950F90066B852 /* PFPhotoSubmissionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotoSubmissionManager.h; sourceTree = "<group>"; };
+		32EF0505162950F90066B852 /* PFPhotoSubmissionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotoSubmissionManager.m; sourceTree = "<group>"; };
 		32FA90281626282900658641 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		32FA902A1626283600658641 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		32FA902C1626284E00658641 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -585,6 +588,8 @@
 				32FA90541626504500658641 /* AVCamCaptureManager.m */,
 				32FA9056162650C800658641 /* AVCamUtilities.h */,
 				32FA9057162650C800658641 /* AVCamUtilities.m */,
+				32EF0504162950F90066B852 /* PFPhotoSubmissionManager.h */,
+				32EF0505162950F90066B852 /* PFPhotoSubmissionManager.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -1655,6 +1660,7 @@
 				32EF04FD162949590066B852 /* UIImage+Resize.m in Sources */,
 				32EF0502162949E70066B852 /* UIImage+Alpha.m in Sources */,
 				32EF0503162949E70066B852 /* UIImage+RoundedCorner.m in Sources */,
+				32EF0506162950F90066B852 /* PFPhotoSubmissionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
