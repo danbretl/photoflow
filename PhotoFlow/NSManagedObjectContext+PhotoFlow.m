@@ -46,8 +46,8 @@
     return matchingObject;
 }
 
-- (void)deleteAllObjectsForEntityName:(NSString *)entityName {
-    NSArray * allObjects = [self getAllObjectsForEntityName:entityName predicate:nil sortDescriptors:nil];
+- (void)deleteAllObjectsForEntityName:(NSString *)entityName matchingPredicate:(NSPredicate *)predicate {
+    NSArray * allObjects = [self getAllObjectsForEntityName:entityName predicate:predicate sortDescriptors:nil];
     for (id object in allObjects) {
         [self deleteObject:object];
     }
@@ -64,19 +64,31 @@
     return object;
 }
 
-- (PFPhoto *)addOrUpdatePhotoFromAPI:(NSDictionary *)objectFromAPI toEvent:(PFEvent *)event{
-    BOOL newObjectMadeIndicator;
-    PFPhoto * object = (PFPhoto *)[self getFirstObjectForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"eid == %@", objectFromAPI[@"eid"]] usingSortDescriptors:nil shouldMakeObjectIfNoMatch:YES newObjectMadeIndicator:&newObjectMadeIndicator];
-    if (newObjectMadeIndicator) object.eid = objectFromAPI[@"eid"];
+- (PFPhoto *)addOrUpdatePhotoFromAPI:(NSDictionary *)objectFromAPI toEvent:(PFEvent *)event checkIfExists:(BOOL)shouldCheckIfExists {
+    PFPhoto * object = nil;
+    if (shouldCheckIfExists) {
+        BOOL newObjectMadeIndicator;
+        object = (PFPhoto *)[self getFirstObjectForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"eid == %@", objectFromAPI[@"eid"]] usingSortDescriptors:nil shouldMakeObjectIfNoMatch:YES newObjectMadeIndicator:&newObjectMadeIndicator];
+        if (newObjectMadeIndicator) object.eid = objectFromAPI[@"eid"];
+    } else {
+        object = [NSEntityDescription insertNewObjectForEntityForName:@"PFPhoto" inManagedObjectContext:self];
+        object.eid = objectFromAPI[@"eid"];
+    }
     object.createdAt = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"createdAt"]];
     object.updatedAt = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"updatedAt"]];
     object.event = event;
     return object;
 }
 
+- (void)addPhotosFromAPI:(NSArray *)objectsFromAPI toEvent:(PFEvent *)event {
+    for (NSDictionary * objectFromAPI in objectsFromAPI) {
+        [self addOrUpdatePhotoFromAPI:objectFromAPI toEvent:event checkIfExists:NO];
+    }
+}
+
 - (void)devFlushContent {
     // Delete all Events. The Photos should be deleted from cascades.
-    [self deleteAllObjectsForEntityName:@"PFEvent"];
+    [self deleteAllObjectsForEntityName:@"PFEvent" matchingPredicate:nil];
 }
 
 // Event 0 - 6 photos

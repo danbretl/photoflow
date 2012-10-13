@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView * shadowView;
 @property (strong, nonatomic) IBOutlet UIImageView * imageView;
+@property (strong, nonatomic) IBOutlet UIView * imageViewContainer;
 
 @end

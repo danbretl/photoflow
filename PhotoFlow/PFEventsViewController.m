@@ -117,7 +117,7 @@
     cell.dateLabel.text = [self.dateFormatter stringFromDate:event.date].uppercaseString;
     cell.locationLabel.text = event.location.uppercaseString;
     cell.descriptionLabel.text = event.descriptionShort;
-    [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid]]];
+    if (event.photos.count > 0) [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid boundingWidth:[UIScreen mainScreen].bounds.size.height*2 boundingHeight:2000 quality:70]]];
     
     return cell;
 }

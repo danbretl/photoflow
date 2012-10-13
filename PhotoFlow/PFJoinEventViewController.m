@@ -128,7 +128,9 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
         [[PFHTTPClient sharedClient] getEventDetails:self.codeTextField.text successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
             // Update local data
             PFEvent * event = [self.moc addOrUpdateEventFromAPI:responseObject];
-            if (responseObject[@"coverPhoto"] != nil) [self.moc addOrUpdatePhotoFromAPI:responseObject[@"coverPhoto"] toEvent:event];
+            if (![responseObject[@"coverPhoto"] isEqual:[NSNull null]]) {
+                [self.moc addOrUpdatePhotoFromAPI:responseObject[@"coverPhoto"] toEvent:event checkIfExists:YES];
+            }
             [self.moc saveCoreData];
             // Push view controller
             PFEventsViewController * eventsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PFEventsViewController"];

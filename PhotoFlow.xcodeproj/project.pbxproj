@@ -78,6 +78,7 @@
 		325D5D8416111736007ECE05 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8016111736007ECE05 /* Icon-Small@2x.png */; };
 		325D5D8516111736007ECE05 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8116111736007ECE05 /* Icon.png */; };
 		325D5D8616111736007ECE05 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 325D5D8216111736007ECE05 /* Icon@2x.png */; };
+		325E089F1628FE6D0023713B /* PFLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 325E089E1628FE6D0023713B /* PFLoadMoreCell.m */; };
 		325FEC74161A356600268210 /* PFPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 325FEC73161A356600268210 /* PFPhotoViewController.xib */; };
 		3262327A1610E17F00440FE4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326232791610E17F00440FE4 /* UIKit.framework */; };
 		3262327C1610E17F00440FE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3262327B1610E17F00440FE4 /* Foundation.framework */; };
@@ -296,7 +297,7 @@
 		323A0C011627F89500A34879 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		323A0C031627F89A00A34879 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		323A0C051627F93900A34879 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PhotoFlow 003.xcdatamodel"; sourceTree = "<group>"; };
+		323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PhotoFlow 003.xcdatamodel"; sourceTree = "<group>"; };
 		324E08AC1625113B0039486C /* btn_camera_highlight_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_camera_highlight_landscape.png; sourceTree = "<group>"; };
 		324E08AD1625113B0039486C /* btn_camera_highlight_landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_camera_highlight_landscape@2x.png"; sourceTree = "<group>"; };
 		324E08AE1625113B0039486C /* btn_camera_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_camera_landscape.png; sourceTree = "<group>"; };
@@ -317,6 +318,9 @@
 		325D5D8016111736007ECE05 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		325D5D8116111736007ECE05 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		325D5D8216111736007ECE05 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		325E089B162883830023713B /* PhotoFlow 004.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PhotoFlow 004.xcdatamodel"; sourceTree = "<group>"; };
+		325E089D1628FE6D0023713B /* PFLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFLoadMoreCell.h; sourceTree = "<group>"; };
+		325E089E1628FE6D0023713B /* PFLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFLoadMoreCell.m; sourceTree = "<group>"; };
 		325FEC73161A356600268210 /* PFPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFPhotoViewController.xib; sourceTree = "<group>"; };
 		326232751610E17F00440FE4 /* PhotoFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		326232791610E17F00440FE4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1191,6 +1195,8 @@
 				322454C61615528D00EB5269 /* PFPhotosViewConstants.h */,
 				322454B316153ADE00EB5269 /* PFPhotoCell.h */,
 				322454B416153ADE00EB5269 /* PFPhotoCell.m */,
+				325E089D1628FE6D0023713B /* PFLoadMoreCell.h */,
+				325E089E1628FE6D0023713B /* PFLoadMoreCell.m */,
 				322454BC16154D9400EB5269 /* PFPhotosGridFlowLayout.h */,
 				322454BD16154D9400EB5269 /* PFPhotosGridFlowLayout.m */,
 				322454BF16154E1A00EB5269 /* PFPhotosBannerFlowLayout.h */,
@@ -1567,6 +1573,7 @@
 				32D7EBB91623E7F8009DE010 /* PFCameraViewController.m in Sources */,
 				32FA90551626504500658641 /* AVCamCaptureManager.m in Sources */,
 				32FA9058162650C800658641 /* AVCamUtilities.m in Sources */,
+				325E089F1628FE6D0023713B /* PFLoadMoreCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1735,11 +1742,12 @@
 		326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				325E089B162883830023713B /* PhotoFlow 004.xcdatamodel */,
 				323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */,
 				322454B716153CAA00EB5269 /* PhotoFlow 002.xcdatamodel */,
 				326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */,
 			);
-			currentVersion = 323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */;
+			currentVersion = 325E089B162883830023713B /* PhotoFlow 004.xcdatamodel */;
 			path = PhotoFlow.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

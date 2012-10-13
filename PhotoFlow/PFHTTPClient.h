@@ -28,7 +28,8 @@ extern NSString * const PFC_BASE_URL_STRING_SAVED_KEY;
 
 // Get an image for a given photo
 - (NSString *) imageURLStringForPhoto:(NSString *)photoEID;
-- (NSString *) imageURLStringForPhoto:(NSString *)photoEID size:(NSUInteger)size quality:(NSUInteger)quality;
+- (NSString *) imageURLStringForPhoto:(NSString *)photoEID boundingSize:(NSUInteger)size quality:(NSUInteger)quality;
+- (NSString *) imageURLStringForPhoto:(NSString *)photoEID boundingWidth:(NSUInteger)width boundingHeight:(NSUInteger)height quality:(NSUInteger)quality;
 
 // Save image
 // Response: { photo_eid }

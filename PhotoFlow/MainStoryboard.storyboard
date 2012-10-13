@@ -210,7 +210,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OXe-Td-2PI">
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5h-Pu-Dm1">
-                                                    <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.20999999999999999" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RrQ-wS-gsI" userLabel="Date Location Container">
                                                     <subviews>
@@ -330,7 +330,7 @@
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-eo-g55">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="geG-s5-S7b" customClass="PFPhotosGridFlowLayout"/>
+                                <collectionViewLayout key="collectionViewLayout" id="sG2-39-24y"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="yFD-qg-Y5a" customClass="PFPhotoCell">
                                         <rect key="frame" x="0.0" y="0.0" width="104" height="105"/>
@@ -339,28 +339,95 @@
                                             <rect key="frame" x="0.0" y="0.0" width="104" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdh-lw-VlM"/>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWq-VE-zDL"/>
+                                                <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdh-lw-VlM" userLabel="Shadow"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMP-kO-Wsv" userLabel="Image Container">
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWq-VE-zDL" userLabel="Image">
+                                                            <color key="backgroundColor" white="0.20999999999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="WWq-VE-zDL" firstAttribute="top" secondItem="BMP-kO-Wsv" secondAttribute="top" type="user" id="Ls3-Zf-Cus"/>
+                                                        <constraint firstAttribute="bottom" secondItem="WWq-VE-zDL" secondAttribute="bottom" constant="-50" type="user" id="SFR-W6-QBp"/>
+                                                        <constraint firstItem="WWq-VE-zDL" firstAttribute="trailing" secondItem="BMP-kO-Wsv" secondAttribute="trailing" type="default" id="ksr-kL-zSH"/>
+                                                        <constraint firstItem="WWq-VE-zDL" firstAttribute="leading" secondItem="BMP-kO-Wsv" secondAttribute="leading" type="default" id="qdb-th-bWN"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="Qdh-lw-VlM" firstAttribute="centerX" secondItem="BMP-kO-Wsv" secondAttribute="centerX" type="user" id="3gp-L7-ycR"/>
+                                            <constraint firstItem="Qdh-lw-VlM" firstAttribute="centerY" secondItem="BMP-kO-Wsv" secondAttribute="centerY" type="user" id="4QC-11-X3F"/>
                                             <constraint firstItem="Qdh-lw-VlM" firstAttribute="trailing" secondItem="yFD-qg-Y5a" secondAttribute="trailing" type="user" id="6cE-u6-9O9"/>
                                             <constraint firstAttribute="bottom" secondItem="Qdh-lw-VlM" secondAttribute="bottom" constant="1" type="user" id="6e1-FY-AMb"/>
                                             <constraint firstItem="Qdh-lw-VlM" firstAttribute="leading" secondItem="yFD-qg-Y5a" secondAttribute="leading" type="user" id="6pJ-6R-kFa"/>
-                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="leading" secondItem="yFD-qg-Y5a" secondAttribute="leading" constant="2" type="user" id="9BP-Lw-HEM"/>
-                                            <constraint firstAttribute="bottom" secondItem="WWq-VE-zDL" secondAttribute="bottom" constant="3" type="user" id="9G8-p4-Jqf"/>
-                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="centerX" secondItem="Qdh-lw-VlM" secondAttribute="centerX" type="user" id="AXz-Fo-H4j"/>
-                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="centerY" secondItem="Qdh-lw-VlM" secondAttribute="centerY" type="user" id="HOb-Jf-v55"/>
+                                            <constraint firstAttribute="trailing" secondItem="BMP-kO-Wsv" secondAttribute="trailing" constant="2" type="user" id="Rb4-nq-QSg"/>
+                                            <constraint firstItem="BMP-kO-Wsv" firstAttribute="leading" secondItem="yFD-qg-Y5a" secondAttribute="leading" constant="2" type="user" id="WdC-I9-JZG"/>
                                             <constraint firstItem="Qdh-lw-VlM" firstAttribute="top" secondItem="yFD-qg-Y5a" secondAttribute="top" type="user" id="bW7-ja-4aR"/>
-                                            <constraint firstItem="WWq-VE-zDL" firstAttribute="top" secondItem="yFD-qg-Y5a" secondAttribute="top" constant="2" type="user" id="gBd-nq-WPC"/>
-                                            <constraint firstAttribute="trailing" secondItem="WWq-VE-zDL" secondAttribute="trailing" constant="2" type="user" id="gZQ-cA-ZWY"/>
+                                            <constraint firstAttribute="bottom" secondItem="BMP-kO-Wsv" secondAttribute="bottom" constant="3" type="user" id="lZk-LQ-a6e"/>
+                                            <constraint firstItem="BMP-kO-Wsv" firstAttribute="top" secondItem="yFD-qg-Y5a" secondAttribute="top" constant="2" type="user" id="qBr-BG-vAR"/>
                                         </constraints>
                                         <size key="customSize" width="104" height="105"/>
                                         <connections>
                                             <outlet property="imageView" destination="WWq-VE-zDL" id="Yp9-Zb-vFf"/>
+                                            <outlet property="imageViewContainer" destination="BMP-kO-Wsv" id="0FZ-oH-ldf"/>
                                             <outlet property="shadowView" destination="Qdh-lw-VlM" id="Xtp-cz-lrn"/>
                                             <segue destination="apH-Ml-r7e" kind="push" identifier="ViewPhoto" id="6TR-J7-gna"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadMoreCell" id="DnU-NR-H4t" customClass="PFLoadMoreCell">
+                                        <rect key="frame" x="114" y="0.0" width="104" height="104"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ej-jE-NYN">
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LH-TG-9Qi">
+                                                            <color key="backgroundColor" white="0.13" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="54"/>
+                                                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="12"/>
+                                                            <state key="normal" title="+">
+                                                                <color key="titleColor" white="0.20999999999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <state key="highlighted">
+                                                                <color key="titleColor" white="0.13" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="loadOlderPhotosButtonTouched:" destination="Ap9-MO-z3J" eventType="touchUpInside" id="YZK-h6-ZmX"/>
+                                                            </connections>
+                                                        </button>
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9mm-pR-oTP">
+                                                            <color key="color" white="0.20999999999999999" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </activityIndicatorView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="trailing" secondItem="1ej-jE-NYN" secondAttribute="trailing" type="default" id="12R-4D-hsc"/>
+                                                        <constraint firstAttribute="centerY" secondItem="9mm-pR-oTP" secondAttribute="centerY" type="user" id="9Gf-WD-tcU"/>
+                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="bottom" secondItem="1ej-jE-NYN" secondAttribute="bottom" type="default" id="CsJ-X5-G1P"/>
+                                                        <constraint firstAttribute="centerX" secondItem="9mm-pR-oTP" secondAttribute="centerX" type="user" id="nO9-hU-nB3"/>
+                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="leading" secondItem="1ej-jE-NYN" secondAttribute="leading" type="default" id="nf1-6B-FOX"/>
+                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="top" secondItem="1ej-jE-NYN" secondAttribute="top" type="default" id="t7l-AM-6As"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="centerX" secondItem="DnU-NR-H4t" secondAttribute="centerX" type="default" id="ARk-4a-URk"/>
+                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="top" secondItem="DnU-NR-H4t" secondAttribute="top" constant="2" id="IAv-zE-eaD"/>
+                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="leading" secondItem="DnU-NR-H4t" secondAttribute="leading" constant="2" id="R7K-Kv-wqI"/>
+                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="centerY" secondItem="DnU-NR-H4t" secondAttribute="centerY" type="default" id="eaG-ht-xSr"/>
+                                        </constraints>
+                                        <size key="customSize" width="104" height="104"/>
+                                        <connections>
+                                            <outlet property="activityView" destination="9mm-pR-oTP" id="mqe-JH-7Qk"/>
+                                            <outlet property="button" destination="3LH-TG-9Qi" id="gEi-YB-Y59"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -382,7 +449,6 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="PMX-VQ-87I"/>
                         <barButtonItem title="Photo" id="Mrc-WU-aRd">
                             <connections>
-                                <action selector="cameraButtonTouched:" destination="Ap9-MO-z3J" id="9dd-G8-gDP"/>
                                 <segue destination="Sv9-rW-3o8" kind="modal" identifier="ShowCamera" animates="NO" id="g1E-KV-WLI"/>
                             </connections>
                         </barButtonItem>

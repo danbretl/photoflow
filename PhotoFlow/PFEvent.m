@@ -18,5 +18,7 @@
 @dynamic photos;
 @dynamic title;
 @dynamic eid;
+@dynamic dateGetOld;
+@dynamic dateGetRecent;
 
 @end

@@ -19,6 +19,8 @@
 @property (nonatomic, retain) NSSet *photos;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * eid;
+@property (nonatomic, retain) NSDate * dateGetOld;
+@property (nonatomic, retain) NSDate * dateGetRecent;
 
 @end
 

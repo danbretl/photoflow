@@ -15,11 +15,21 @@
 #import "PFPhotoContainerViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PFHTTPClient.h"
+#import "PFLoadMoreCell.h"
 
 @interface PFPhotosViewController ()
 @property (nonatomic, strong) NSArray * photos;
 - (void) backButtonTouched:(id)sender;
 - (void) setToggleButtonCustomViewOppositeOfLayout:(UICollectionViewLayout *)layout;
+- (void) pulledToRefresh:(UIRefreshControl *)refreshControl;
+- (void) reloadRecentPhotos;
+- (void) loadMoreRecentPhotos;
+- (void) loadMoreOldPhotos;
+- (void) loadMorePhotosAfter:(NSDate *)afterDate before:(NSDate *)beforeDate limit:(NSNumber *)limit successBlockPre:(PFCSuccessBlock)successBlockPre successBlockPost:(PFCSuccessBlock)successBlockPost;
+@property (nonatomic) BOOL isLoadingRecent;
+@property (nonatomic) BOOL isLoadingOld;
+@property (nonatomic) BOOL willLoadOld;
+- (void) updateLoadMoreCell;
 @end
 
 @implementation PFPhotosViewController
@@ -86,6 +96,12 @@
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
     self.collectionView.contentOffset = CGPointZero;
     
+    self.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0, -44.0, self.collectionView.bounds.size.width, 44.0)];
+    self.refreshControl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    self.refreshControl.tintColor = [UIColor colorWithWhite:54.0/255.0 alpha:1.0];
+    [self.collectionView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(pulledToRefresh:) forControlEvents:UIControlEventValueChanged];
+    
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
     if (landscape) self.navigationItem.rightBarButtonItem = nil;
     
@@ -112,17 +128,30 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.photos.count;
+    return self.photos.count + 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    PFPhotoCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    UICollectionViewCell * cell = nil;
     
-    PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
-    [photoCell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid]] placeholderImage:nil];
+    if (indexPath.row == self.photos.count) {
+        PFLoadMoreCell * loadMoreCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LoadMoreCell" forIndexPath:indexPath];
+        loadMoreCell.button.hidden = self.isLoadingOld || self.willLoadOld;
+        if (self.isLoadingOld || self.willLoadOld) {
+            if (!loadMoreCell.activityView.isAnimating) [loadMoreCell.activityView startAnimating];
+        } else {
+            if (loadMoreCell.activityView.isAnimating) [loadMoreCell.activityView stopAnimating];
+        }
+        cell = loadMoreCell;
+    } else {
+        PFPhotoCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+        PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
+        [photoCell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:[UIScreen mainScreen].bounds.size.width*2 boundingHeight:2000 quality:70]] placeholderImage:nil]; // The size here is dependent on the fact that banner mode (where images must be largest) only operates when device orientation is portrait.
+        cell = photoCell;
+    }
     
-    return photoCell;
+    return cell;
     
 }
 
@@ -206,8 +235,97 @@
     [customView setImage:toggleImageHighlight forState:UIControlStateHighlighted];
 }
 
-- (void)cameraButtonTouched:(id)sender {
-    
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.collectionView) {
+        if (scrollView.contentSize.height > scrollView.bounds.size.height) {
+            if (scrollView.contentOffset.y + scrollView.bounds.size.height > scrollView.contentSize.height + scrollView.contentInset.bottom &&
+                (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld))) {
+                self.willLoadOld = YES;
+                [self updateLoadMoreCell];
+            } else {
+                if (self.willLoadOld &&
+                    scrollView.isDragging &&
+                    scrollView.contentOffset.y + scrollView.bounds.size.height < scrollView.contentSize.height + scrollView.contentInset.bottom) {
+                    self.willLoadOld = NO;
+                    [self updateLoadMoreCell];
+                }
+            }
+        }
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == self.collectionView) {
+        if (self.willLoadOld) {
+            self.willLoadOld = NO;
+            [self loadMoreOldPhotos];
+        }
+    }
+}
+
+- (void)loadOlderPhotosButtonTouched:(UIButton *)button {
+    [self loadMoreOldPhotos];
+}
+
+- (void)updateLoadMoreCell {
+    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.photos.count inSection:0]]];
+}
+
+- (void)pulledToRefresh:(UIRefreshControl *)refreshControl {
+    [self loadMoreRecentPhotos];
+}
+
+- (void)reloadRecentPhotos {
+    if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+        self.isLoadingRecent = YES;
+        [self.refreshControl beginRefreshing];
+        [self loadMorePhotosAfter:nil before:nil limit:@50 successBlockPre:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.moc deleteAllObjectsForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"event == %@", self.event]];
+        } successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.collectionView setContentOffset:CGPointZero animated:NO];
+        }];
+    }
+}
+
+- (void)loadMoreRecentPhotos {
+    if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+        self.isLoadingRecent = YES;
+        [self.refreshControl beginRefreshing];
+        [self loadMorePhotosAfter:((PFPhoto *)[self.photos objectAtIndex:0]).updatedAt before:nil limit:nil successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.collectionView setContentOffset:CGPointZero animated:YES];
+        }];
+    }
+}
+
+- (void)loadMoreOldPhotos {
+    if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
+        self.isLoadingOld = YES;
+        [self updateLoadMoreCell];
+        [self loadMorePhotosAfter:nil before:((PFPhoto *)self.photos.lastObject).updatedAt limit:@20 successBlockPre:NULL successBlockPost:NULL];
+    }
+}
+
+- (void)loadMorePhotosAfter:(NSDate *)afterDate before:(NSDate *)beforeDate limit:(NSNumber *)limit successBlockPre:(PFCSuccessBlock)successBlockPre successBlockPost:(PFCSuccessBlock)successBlockPost {
+    void(^sharedBlockPost)(void) = ^{
+        self.isLoadingRecent = NO;
+        self.isLoadingOld = NO;
+        self.willLoadOld = NO;
+        [self.refreshControl endRefreshing];
+        [self updateLoadMoreCell];
+    };
+    [[PFHTTPClient sharedClient] getPhotosForEvent:self.event.eid limit:limit updatedAfter:afterDate updatedBefore:beforeDate successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (successBlockPre != NULL) successBlockPre(operation, responseObject);
+        [self.moc addPhotosFromAPI:responseObject[@"photos"] toEvent:self.event];
+        [self.moc saveCoreData];
+        self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
+        [self.collectionView reloadData];
+        if (successBlockPost != NULL) successBlockPost(operation, responseObject);
+        sharedBlockPost();
+    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"We had some trouble connecting to PhotoFlow. Check your network settings and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        sharedBlockPost();
+    }];
 }
 
 @end

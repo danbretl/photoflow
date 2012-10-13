@@ -24,8 +24,8 @@
     
     self.shadowView.image = [[UIImage imageNamed:@"shadow_events_and_grid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
     
-    self.imageView.layer.cornerRadius = 2.0;
-    self.imageView.layer.masksToBounds = YES;
+    self.imageViewContainer.layer.cornerRadius = 2.0;
+    self.imageViewContainer.layer.masksToBounds = YES;
     
 }
 

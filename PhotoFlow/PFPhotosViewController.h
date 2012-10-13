@@ -17,12 +17,13 @@
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;
 
+@property (nonatomic, strong) UIRefreshControl * refreshControl;
 @property (nonatomic, strong) IBOutlet UICollectionView * collectionView;
+- (IBAction)loadOlderPhotosButtonTouched:(UIButton *)button;
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem * toggleViewModeButton;
 - (IBAction)toggleViewModeButtonTouched:(UIBarButtonItem *)button;
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem * cameraButton;
-- (IBAction)cameraButtonTouched:(id)sender;
 
 @end
