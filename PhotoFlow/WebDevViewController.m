@@ -62,7 +62,7 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
     
     self.uploadImageImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.uploadImageImageView.layer.borderWidth = 1.0;
-    self.uploadImageImageView.image = [UIImage imageNamed:@"upload1.jpg"];
+    self.uploadImageImageView.image = [UIImage imageNamed:@"upload0.jpg"];
     
     self.getImageImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.getImageImageView.layer.borderWidth = 1.0;

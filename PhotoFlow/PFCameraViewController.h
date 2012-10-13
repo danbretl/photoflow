@@ -11,6 +11,7 @@
 #import "NSManagedObjectContext+PhotoFlow.h"
 #import <AVFoundation/AVFoundation.h>
 #import "AVCamCaptureManager.h"
+#import "AFPhotoEditorController.h"
 
 @protocol PFCameraViewControllerDelegate;
 

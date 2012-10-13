@@ -30,7 +30,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
         
-    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:self.photo.eid]]];
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:self.photo.eid boundingSize:(int)(floorf([UIScreen mainScreen].bounds.size.height / 2.0 * 3.0 * 2.0)) quality:80]]];
     AFImageRequestOperation * imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:urlRequest success:^(UIImage *image) {
         if (image != nil) {
     //        NSLog(@"got image of size %@", NSStringFromCGSize(image.size));
