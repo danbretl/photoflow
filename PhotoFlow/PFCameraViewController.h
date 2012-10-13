@@ -11,13 +11,13 @@
 #import "NSManagedObjectContext+PhotoFlow.h"
 #import <AVFoundation/AVFoundation.h>
 #import "AVCamCaptureManager.h"
-#import "AFPhotoEditorController.h"
 #import "PFPhotoSubmissionManager.h"
 #import "PFPhoto.h"
+#import "AFPhotoEditorController.h"
 
 @protocol PFCameraViewControllerDelegate;
 
-@interface PFCameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCamCaptureManagerDelegate, PFPhotoSubmissionManagerDelegate>
+@interface PFCameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCamCaptureManagerDelegate, PFPhotoSubmissionManagerDelegate, AFPhotoEditorControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;
@@ -55,11 +55,15 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint * focusBoxY;
 // Camera review
 @property (strong, nonatomic) IBOutlet UIImageView * imageOverlay;
-- (void) showImageReview:(UIImage *)image;
+- (void) showImageReview;
 - (void) hideImageReview;
 @property (nonatomic, readonly) BOOL inReview;
 // Library
 @property (nonatomic, strong) UIImagePickerController * imagePickerLibrary;
+// Photo editing
+@property (nonatomic, strong) AFPhotoEditorController * photoEditorController;
+@property (nonatomic, strong) AFPhotoEditorSession * photoEditorSession;
+@property (nonatomic, strong) UIAlertView * photoEditAlertView;
 
 - (IBAction)cameraControlButtonTouched:(UIButton *)sender;
 - (IBAction)cameraFlowButtonTouched:(UIButton *)sender;

@@ -59,6 +59,7 @@ const int PhotoSubmissionStageMaximumInclusive = 2;
 }
 
 - (void) uploadImage:(UIImage *)imageFull {
+    //NSLog(@"uploadImage:(imageOfSize=%@)", NSStringFromCGSize(imageFull.size));
     
     if ([self getStatusForStage:StageImageUpload] == StatusIncomplete ||
         [self getStatusForStage:StageImageUpload] == StatusFailure) {

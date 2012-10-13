@@ -39,6 +39,8 @@
 - (void) submitPhotoFinish;
 - (void) submitPhotoStopWithFailure:(BOOL)didFail;
 @property (nonatomic) BOOL photoSubmissionInProgress;
+@property (nonatomic) UIImage * imageOriginal;
+@property (nonatomic) UIImage * imageEdited;
 @end
 
 @implementation PFCameraViewController
@@ -147,7 +149,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (self.captureManager.cameraCount == 0 &&
-        self.imageOverlay.image == nil) {
+        self.imageOriginal == nil) {
         [self showLibraryPicker];
         self.photoButton.enabled = NO;
         self.capturePreviewView.userInteractionEnabled = NO;
@@ -182,15 +184,55 @@
     if (sender == self.libraryButton) {
         [self showLibraryPicker];
     } else if (sender == self.saveButton) {
-        [self submitPhotoStart];
+        self.photoEditAlertView = [[UIAlertView alloc] initWithTitle:@"Edit Image?" message:@"Would you like to crop, filter, or enhance your image?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Edit", nil];
+        [self.photoEditAlertView show];
+//        [self submitPhotoStart];
     } else if (sender == self.cancelButton) {
         if (self.inReview) {
+            self.imageOriginal = nil;
+            self.imageEdited = nil;
             [self hideImageReview];
+            [self resetContinuousAutoFocus];
+            [self.psm cancelFileSaves];
+            [self.psm resetStatusForAll];
         } else {
             [self.delegate cameraViewController:self finishedWithPhotoSubmitted:nil];
         }
     }
     
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == self.photoEditAlertView) {
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            self.photoEditorController = [[AFPhotoEditorController alloc] initWithImage:self.imageOriginal options:@{kAFPhotoEditorControllerToolsKey : @[kAFEnhance, kAFEffects, kAFCrop, kAFOrientation, kAFSaturation, kAFBrightness, kAFContrast, kAFSharpness, kAFBlemish, kAFWhiten]}];
+            self.photoEditorController.delegate = self;
+            self.photoEditorSession = self.photoEditorController.session;
+            [self presentViewController:self.photoEditorController animated:NO completion:NULL];
+        } else {
+            [self submitPhotoStart];
+        }
+    }
+}
+
+- (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
+    [self.psm cancelFileSaves];
+    [self.psm resetStatusForAll];
+    [self setViewsForNetworkActivity:YES];
+    [self dismissViewControllerAnimated:NO completion:^{
+        AFPhotoEditorContext * context = [self.photoEditorSession createContext];
+        [context renderInputImage:self.imageOriginal completion:^(UIImage *result) {
+            // `result` will be nil if the session is canceled, or non-nil if the session was closed successfully and rendering completed
+            self.imageEdited = result;
+            [self showImageReview];
+            [self submitPhotoStart];
+            self.photoEditorSession = nil;
+        }];
+    }];
+}
+
+- (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
+    [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
 - (void)cameraControlButtonTouched:(UIButton *)sender {
@@ -219,7 +261,7 @@
 
 - (void) takePicture {
     
-    if (!(self.captureManager.stillImageOutput.isCapturingStillImage || self.photoButton.hidden || self.photoButton.alpha == 0.0 || (self.imageOverlay.image != nil && (!self.imageOverlay.hidden && self.imageOverlay.alpha != 0.0)))) {
+    if (!(self.captureManager.stillImageOutput.isCapturingStillImage || self.photoButton.hidden || self.photoButton.alpha == 0.0 || (self.imageOriginal != nil && (!self.imageOverlay.hidden && self.imageOverlay.alpha != 0.0)))) {
         
         if (self.flashOptionsExpanded) [self setFlashOptionsExpanded:NO focusedOnOptionForButton:self.flashButtonSelected animated:YES];
         
@@ -296,41 +338,39 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [self showImageReview:[info objectForKey:UIImagePickerControllerOriginalImage]];
-    [self dismissViewControllerAnimated:YES completion:^{
-        // ...
-        // ...
-        // ...
-    }];
+    self.imageOriginal = info[UIImagePickerControllerOriginalImage];
+    self.imageEdited = self.imageOriginal;
+    [self showImageReview];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1600.0, 1600.0) interpolationQuality:kCGInterpolationHigh]];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     if (self.captureManager.cameraCount == 0) {
         [self.delegate cameraViewController:self finishedWithPhotoSubmitted:nil];
     } else {
-        [self dismissViewControllerAnimated:YES completion:^{
-            // ...
-            // ...
-            // ...
-        }];
+        [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
 - (void)captureManagerStillImageCaptured:(AVCamCaptureManager *)captureManager {
     CFRunLoopPerformBlock(CFRunLoopGetMain(), kCFRunLoopCommonModes, ^(void) {
-        [self showImageReview:captureManager.imageCaptured];
+        self.imageOriginal = captureManager.imageCaptured;
+        self.imageEdited = self.imageOriginal;
+        [self showImageReview];
+        [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1600.0, 1600.0) interpolationQuality:kCGInterpolationHigh]];
     });
 }
 
-- (void)showImageReview:(UIImage *)image {
-    self.imageOverlay.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1500.0, 1500.0) interpolationQuality:kCGInterpolationHigh]; // This will only scale down, and should force normal orientation for all images (for ease of display on non-native-apple platforms, such as the web).
+- (void)showImageReview {
+    self.imageOverlay.image = self.imageEdited;
+//    self.imageOverlay.image = [image resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1500.0, 1500.0) interpolationQuality:kCGInterpolationHigh]; // This will only scale down, and should force normal orientation for all images (for ease of display on non-native-apple platforms, such as the web).
 //    NSLog(@"showImageReview:(imageWithSize=%@)", NSStringFromCGSize(self.imageOverlay.image.size));
     self.imageOverlay.hidden = NO;
     self.imageOverlay.userInteractionEnabled = YES;
     self.photoButton.hidden = YES;
     self.libraryButton.hidden = YES;
     self.saveButton.hidden = NO;
-    [self.psm uploadImage:self.imageOverlay.image];
 }
 
 - (void)hideImageReview {
@@ -340,9 +380,6 @@
     self.photoButton.hidden = NO;
     self.libraryButton.hidden = NO;
     self.saveButton.hidden = YES;
-    [self resetContinuousAutoFocus];
-    [self.psm cancelFileSaves];
-    [self.psm resetStatusForAll];
 }
 
 - (BOOL)inReview {
@@ -561,7 +598,7 @@
     if ([self.psm getStatusForStage:StageImageUpload] == StatusComplete) {
         [self submitPhotoSavePhoto];
     } else {
-        [self.psm uploadImage:self.imageOverlay.image];
+        [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1600.0, 1600.0) interpolationQuality:kCGInterpolationHigh]];
     }
 }
 
