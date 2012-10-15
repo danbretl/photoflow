@@ -138,7 +138,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 /////////////////////
 
 - (void) deletePhoto:(NSString *)photoEID successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock {
-    [self deletePath:[NSString stringWithFormat:@"/api/v1/photos/"] parameters:@{@"photo_eid" : photoEID} success:successBlock failure:failureBlock];
+    [self deletePath:[NSString stringWithFormat:@"/api/v1/photos/%@", photoEID] parameters:nil success:successBlock failure:failureBlock];
 }
 
 /////////////////////////
