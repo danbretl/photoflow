@@ -17,6 +17,9 @@
 #import "PFHTTPClient.h"
 #import "PFLoadMoreCell.h"
 
+const NSInteger LOAD_PHOTOS_COUNT_RELOAD = 30;
+const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
+
 @interface PFPhotosViewController ()
 @property (nonatomic, strong) NSArray * photos;
 - (void) backButtonTouched:(id)sender;
@@ -306,12 +309,13 @@
         NSLog(@"%@", NSStringFromSelector(_cmd));
         self.isLoadingRecent = YES;
         [self.refreshControl beginRefreshing];
-        [self loadMorePhotosAfter:nil before:nil limit:@30 successBlockPre:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self loadMorePhotosAfter:nil before:nil limit:@(LOAD_PHOTOS_COUNT_RELOAD) successBlockPre:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.event.dateReload = [NSDate date];
             [DefaultsManager setAppDidEnterBackgroundSinceEventReload:NO];
             [self.moc deleteAllObjectsForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"event == %@", self.event]];
         } successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self.collectionView setContentOffset:CGPointZero animated:NO];
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
         }];
     }
 }
@@ -330,9 +334,20 @@
 - (void)loadMoreOldPhotos {
     if (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld)) {
         NSLog(@"%@", NSStringFromSelector(_cmd));
+        int countBefore = self.photos.count;
         self.isLoadingOld = YES;
         [self updateLoadMoreCell];
-        [self loadMorePhotosAfter:nil before:((PFPhoto *)self.photos.lastObject).updatedAt limit:@20 successBlockPre:NULL successBlockPost:NULL];
+        [self loadMorePhotosAfter:nil before:((PFPhoto *)self.photos.lastObject).updatedAt limit:@(LOAD_PHOTOS_COUNT_MORE_OLD) successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSArray * photos = responseObject[@"photos"];
+            NSMutableArray * indexPaths = [NSMutableArray array];
+            int i = countBefore;
+            for (NSDictionary * photo in photos) {
+                [indexPaths addObject:[NSIndexPath indexPathForItem:i++ inSection:0]];
+            }
+            [self.collectionView performBatchUpdates:^{
+                [self.collectionView insertItemsAtIndexPaths:indexPaths];
+            } completion:NULL];
+        }];
     }
 }
 
@@ -343,13 +358,13 @@
         self.willLoadOld = NO;
         [self.refreshControl endRefreshing];
         [self updateLoadMoreCell];
+        
     };
     [[PFHTTPClient sharedClient] getPhotosForEvent:self.event.eid limit:limit updatedAfter:afterDate updatedBefore:beforeDate successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (successBlockPre != NULL) successBlockPre(operation, responseObject);
         [self.moc addPhotosFromAPI:responseObject[@"photos"] toEvent:self.event];
         [self.moc saveCoreData];
         self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
-        [self.collectionView reloadData];
         if (successBlockPost != NULL) successBlockPost(operation, responseObject);
         sharedBlockPost();
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {

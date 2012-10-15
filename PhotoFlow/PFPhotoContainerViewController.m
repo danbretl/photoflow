@@ -97,7 +97,6 @@
     // IN DEVELOPMENT - HIDING SHARE AND DELETE BUTTONS FOR NOW, UNTIL THEIR CORRESPONDING FEATURES GET IMPLEMENTED
     NSMutableArray * toolbarItemsMutable = self.toolbarItems.mutableCopy;
     [toolbarItemsMutable removeObject:self.shareButton];
-    [toolbarItemsMutable removeObject:self.deleteButton];
     self.toolbarItems = toolbarItemsMutable;
     
 }

@@ -21,4 +21,10 @@
     return self;
 }
 
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewLayoutAttributes * attributes = [super layoutAttributesForItemAtIndexPath:indexPath];
+    attributes.zIndex = 10000 - indexPath.row;
+    return attributes;
+}
+
 @end

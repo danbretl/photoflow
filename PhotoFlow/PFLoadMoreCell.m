@@ -20,7 +20,7 @@
 }
 
 - (void)awakeFromNib {
-    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
+//    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
 }
 
 @end
