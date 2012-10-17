@@ -8,6 +8,7 @@
 
 #import "PFHTTPClient.h"
 #import <Parse/Parse.h>
+#import "PFCameraConstants.h"
 
 NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 
@@ -105,7 +106,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 
 - (void) saveImage:(UIImage *)image successBlock:(PFCSuccessBlock)successBlock failureBlock:(PFCFailureBlock)failureBlock {
     
-    CGFloat compressionQuality = /*0.8;*/1.0;
+    CGFloat compressionQuality = IMAGE_SUBMISSION_QUALITY;
     NSData * imageData = UIImageJPEGRepresentation(image, compressionQuality);
     NSString * filename = [NSString stringWithFormat:@"%d.jpg", abs([[NSDate date] timeIntervalSince1970])];
     NSMutableURLRequest * request = [self multipartFormRequestWithMethod:@"POST" path:@"/api/v1/images/" parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {

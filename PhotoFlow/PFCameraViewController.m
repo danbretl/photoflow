@@ -14,6 +14,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "UIImage+Resize.h"
 #import "UIAlertView+PhotoFlow.h"
+#import "PFCameraConstants.h"
 
 @interface PFCameraViewController ()
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
@@ -343,7 +344,7 @@
     self.imageEdited = self.imageOriginal;
     [self showImageReview];
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1600.0, 1600.0) interpolationQuality:kCGInterpolationHigh]];
+    [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(IMAGE_SUBMISSION_BOUNDING_SIZE, IMAGE_SUBMISSION_BOUNDING_SIZE) interpolationQuality:kCGInterpolationHigh]];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -359,7 +360,7 @@
         self.imageOriginal = captureManager.imageCaptured;
         self.imageEdited = self.imageOriginal;
         [self showImageReview];
-        [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1600.0, 1600.0) interpolationQuality:kCGInterpolationHigh]];
+        [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(IMAGE_SUBMISSION_BOUNDING_SIZE, IMAGE_SUBMISSION_BOUNDING_SIZE) interpolationQuality:kCGInterpolationHigh]];
     });
 }
 
@@ -599,7 +600,7 @@
     if ([self.psm getStatusForStage:StageImageUpload] == StatusComplete) {
         [self submitPhotoSavePhoto];
     } else {
-        [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(1600.0, 1600.0) interpolationQuality:kCGInterpolationHigh]];
+        [self.psm uploadImage:[self.imageEdited resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(IMAGE_SUBMISSION_BOUNDING_SIZE, IMAGE_SUBMISSION_BOUNDING_SIZE) interpolationQuality:kCGInterpolationHigh]];
     }
 }
 

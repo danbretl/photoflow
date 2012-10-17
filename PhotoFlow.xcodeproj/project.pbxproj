@@ -490,6 +490,7 @@
 		32B350E11612678F0024AFD2 /* FakeContent.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = FakeContent.rtf; sourceTree = "<group>"; };
 		32B59B52162DF5220051ECBA /* UIAlertView+PhotoFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PhotoFlow.h"; sourceTree = "<group>"; };
 		32B59B53162DF5220051ECBA /* UIAlertView+PhotoFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PhotoFlow.m"; sourceTree = "<group>"; };
+		32B59B56162E6EFC0051ECBA /* PFCameraConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PFCameraConstants.h; sourceTree = "<group>"; };
 		32B6915416277E0A00C0FEA2 /* camera_focus_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_focus_highlight.png; sourceTree = "<group>"; };
 		32B6915516277E0A00C0FEA2 /* camera_focus_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_focus_highlight@2x.png"; sourceTree = "<group>"; };
 		32B6915616277E0A00C0FEA2 /* camera_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_focus.png; sourceTree = "<group>"; };
@@ -586,6 +587,7 @@
 		320FD7251616861600C63957 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				32B59B56162E6EFC0051ECBA /* PFCameraConstants.h */,
 				32D7EBB71623E7F8009DE010 /* PFCameraViewController.h */,
 				32D7EBB81623E7F8009DE010 /* PFCameraViewController.m */,
 				32FA90531626504500658641 /* AVCamCaptureManager.h */,
