@@ -16,5 +16,6 @@
 @dynamic createdAt;
 @dynamic eid;
 @dynamic updatedAt;
+@dynamic user;
 
 @end

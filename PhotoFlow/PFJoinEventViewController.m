@@ -10,6 +10,7 @@
 #import "PFEventsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PFHTTPClient.h"
+#import "UIAlertView+PhotoFlow.h"
 
 NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 
@@ -139,8 +140,9 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
             eventsViewController.moc = self.moc;
             [self.navigationController pushViewController:eventsViewController animated:YES];            
         } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSString * alertTitle = @"Connection Error";
-            NSString * alertMessage = @"We had some trouble connecting to PhotoFlow. Check your network settings and try again.";
+            UIAlertView * connectionErrorAlertView = [UIAlertView connectionErrorAlertView];
+            NSString * alertTitle = connectionErrorAlertView.title;
+            NSString * alertMessage = connectionErrorAlertView.message;
             if (operation.response.statusCode == 404) {
                 alertTitle = @"Event Not Found";
                 alertMessage = @"We couldn't an event for that code. Check your invitation and try again.";

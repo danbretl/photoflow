@@ -12,10 +12,10 @@
 #import "PFPhotosGridFlowLayout.h"
 #import "PFPhotosBannerFlowLayout.h"
 #import "DefaultsManager.h"
-#import "PFPhotoContainerViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PFHTTPClient.h"
 #import "PFLoadMoreCell.h"
+#import "UIAlertView+PhotoFlow.h"
 
 const NSInteger LOAD_PHOTOS_COUNT_RELOAD = 30;
 const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
@@ -174,6 +174,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
     if ([segue.identifier isEqualToString:@"ViewPhoto"]) {
         PFPhotoContainerViewController * viewController = segue.destinationViewController;
         viewController.moc = self.moc;
+        viewController.delegate = self;
         [viewController setPhotoIndex:[self.collectionView indexPathForCell:sender].row inPhotos:self.photos forEvent:self.event];
     } else if ([segue.identifier isEqualToString:@"ShowCamera"]) {
         PFCameraViewController * viewController = segue.destinationViewController;
@@ -368,10 +369,18 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
         if (successBlockPost != NULL) successBlockPost(operation, responseObject);
         sharedBlockPost();
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"We had some trouble connecting to PhotoFlow. Check your network settings and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        [[UIAlertView connectionErrorAlertView] show];
         sharedBlockPost();
     }];
+}
+
+- (void)photoContainerViewControllerDidRequestRefresh:(PFPhotoContainerViewController *)viewController {
+    PFPhotoContainerViewController * viewControllerRefreshed = [self.storyboard instantiateViewControllerWithIdentifier:@"PFPhotoContainerViewController"];
+    viewControllerRefreshed.moc = viewController.moc;
+    viewControllerRefreshed.delegate = self;
+    [viewControllerRefreshed setPhotoIndex:viewController.photoIndex inPhotos:viewController.photos forEvent:viewController.event];
+    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController pushViewController:viewControllerRefreshed animated:NO];
 }
 
 @end

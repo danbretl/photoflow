@@ -201,6 +201,7 @@
 		32B350DC16125C460024AFD2 /* PFJoinEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DB16125C460024AFD2 /* PFJoinEventViewController.m */; };
 		32B350DF16125E5E0024AFD2 /* PFEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B350DE16125E5E0024AFD2 /* PFEventCell.m */; };
 		32B350E21612678F0024AFD2 /* FakeContent.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 32B350E11612678F0024AFD2 /* FakeContent.rtf */; };
+		32B59B54162DF5220051ECBA /* UIAlertView+PhotoFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B59B53162DF5220051ECBA /* UIAlertView+PhotoFlow.m */; };
 		32B6915816277E0A00C0FEA2 /* camera_focus_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6915416277E0A00C0FEA2 /* camera_focus_highlight.png */; };
 		32B6915916277E0A00C0FEA2 /* camera_focus_highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6915516277E0A00C0FEA2 /* camera_focus_highlight@2x.png */; };
 		32B6915A16277E0A00C0FEA2 /* camera_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6915616277E0A00C0FEA2 /* camera_focus.png */; };
@@ -291,6 +292,7 @@
 		322602F516214DC300DD9685 /* btn_camera_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_camera_bg@2x.png"; sourceTree = "<group>"; };
 		322602F8162156EB00DD9685 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		322602F9162156EC00DD9685 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
+		322DBE7B162D1A74007553C2 /* PhotoFlow 006.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "PhotoFlow 006.xcdatamodel"; sourceTree = "<group>"; };
 		322EF73A1616632A00D2F105 /* PFPhotoContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFPhotoContainerViewController.h; sourceTree = "<group>"; };
 		322EF73B1616632A00D2F105 /* PFPhotoContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFPhotoContainerViewController.m; sourceTree = "<group>"; };
 		323A0BEC1627BF6000A34879 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -486,6 +488,8 @@
 		32B350DD16125E5E0024AFD2 /* PFEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEventCell.h; sourceTree = "<group>"; };
 		32B350DE16125E5E0024AFD2 /* PFEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEventCell.m; sourceTree = "<group>"; };
 		32B350E11612678F0024AFD2 /* FakeContent.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = FakeContent.rtf; sourceTree = "<group>"; };
+		32B59B52162DF5220051ECBA /* UIAlertView+PhotoFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PhotoFlow.h"; sourceTree = "<group>"; };
+		32B59B53162DF5220051ECBA /* UIAlertView+PhotoFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PhotoFlow.m"; sourceTree = "<group>"; };
 		32B6915416277E0A00C0FEA2 /* camera_focus_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_focus_highlight.png; sourceTree = "<group>"; };
 		32B6915516277E0A00C0FEA2 /* camera_focus_highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_focus_highlight@2x.png"; sourceTree = "<group>"; };
 		32B6915616277E0A00C0FEA2 /* camera_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_focus.png; sourceTree = "<group>"; };
@@ -1156,6 +1160,8 @@
 				32AF757C16173981004748A1 /* UIView+GetFirstResponder.m */,
 				32716C60161D0B3F003B345A /* UIFont+PhotoFlow.h */,
 				32716C61161D0B3F003B345A /* UIFont+PhotoFlow.m */,
+				32B59B52162DF5220051ECBA /* UIAlertView+PhotoFlow.h */,
+				32B59B53162DF5220051ECBA /* UIAlertView+PhotoFlow.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1661,6 +1667,7 @@
 				32EF0502162949E70066B852 /* UIImage+Alpha.m in Sources */,
 				32EF0503162949E70066B852 /* UIImage+RoundedCorner.m in Sources */,
 				32EF0506162950F90066B852 /* PFPhotoSubmissionManager.m in Sources */,
+				32B59B54162DF5220051ECBA /* UIAlertView+PhotoFlow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1855,13 +1862,14 @@
 		326232931610E17F00440FE4 /* PhotoFlow.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				322DBE7B162D1A74007553C2 /* PhotoFlow 006.xcdatamodel */,
 				32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */,
 				325E089B162883830023713B /* PhotoFlow 004.xcdatamodel */,
 				323A0C0C1627FE8A00A34879 /* PhotoFlow 003.xcdatamodel */,
 				322454B716153CAA00EB5269 /* PhotoFlow 002.xcdatamodel */,
 				326232941610E17F00440FE4 /* PhotoFlow.xcdatamodel */,
 			);
-			currentVersion = 32A94AF7162927230037041F /* PhotoFlow 005.xcdatamodel */;
+			currentVersion = 322DBE7B162D1A74007553C2 /* PhotoFlow 006.xcdatamodel */;
 			path = PhotoFlow.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

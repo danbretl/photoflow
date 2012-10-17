@@ -13,6 +13,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "UIImage+Resize.h"
+#import "UIAlertView+PhotoFlow.h"
 
 @interface PFCameraViewController ()
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
@@ -620,8 +621,7 @@
 - (void) submitPhotoStopWithFailure:(BOOL)didFail {
     [self setViewsForNetworkActivity:NO];
     if (didFail) {
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"We had some trouble connecting to PhotoFlow. Check your network settings and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        [[UIAlertView connectionErrorAlertView] show];
     } else {
         // ...
     }

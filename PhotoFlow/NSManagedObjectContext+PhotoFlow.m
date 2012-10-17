@@ -77,6 +77,9 @@
     object.createdAt = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"createdAt"]];
     object.updatedAt = [[PFHTTPClient sharedClient] dateFromString:objectFromAPI[@"updatedAt"]];
     object.event = event;
+    if (![objectFromAPI[@"user"] isEqual:[NSNull null]]) {
+        object.user = objectFromAPI[@"user"][@"username"];
+    }
     return object;
 }
 

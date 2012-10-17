@@ -743,7 +743,7 @@
         <!--Photo Container View Controller - Photo-->
         <scene sceneID="gCL-aD-INP">
             <objects>
-                <viewController id="apH-Ml-r7e" customClass="PFPhotoContainerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PFPhotoContainerViewController" id="apH-Ml-r7e" customClass="PFPhotoContainerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z4S-2a-Zld">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -791,6 +791,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="blackTranslucent"/>
                     <connections>
                         <outlet property="cameraButton" destination="AqN-KI-D3L" id="VJq-fR-FyH"/>
+                        <outlet property="containerView" destination="Y41-1D-Wnp" id="E6A-dd-4kI"/>
                         <outlet property="deleteButton" destination="rHB-S6-LqU" id="OZU-Do-yhv"/>
                         <outlet property="shareButton" destination="TTy-3p-mGa" id="WGP-bj-zfn"/>
                         <outlet property="tapDoubleGestureRecognizer" destination="FXo-j6-Acv" id="13n-BZ-xAq"/>
@@ -814,7 +815,7 @@
         <!--Page View Controller-->
         <scene sceneID="xUb-z0-WQb">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="xVc-q9-kie" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PhotosPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="xVc-q9-kie" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4NN-HP-jbF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2024" y="-617"/>
@@ -852,6 +853,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="g1E-KV-WLI"/>
+        <segue reference="OUV-z3-61B"/>
     </inferredMetricsTieBreakers>
 </document>

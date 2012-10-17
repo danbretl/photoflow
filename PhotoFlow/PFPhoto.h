@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSDate * createdAt;
 @property (nonatomic, retain) NSString * eid;
 @property (nonatomic, retain) NSDate * updatedAt;
+@property (nonatomic, retain) NSString * user;
 
 @end

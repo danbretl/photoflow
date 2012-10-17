@@ -7,15 +7,20 @@
 //
 
 #import "PFPhotoContainerViewController.h"
+#import "UIAlertView+PhotoFlow.h"
 
 @interface PFPhotoContainerViewController ()
 @property (nonatomic, strong) UIPageViewController * pageViewController;
-@property (nonatomic) NSUInteger photoIndex;
+@property (nonatomic) NSInteger photoIndex;
 @property (nonatomic, strong) NSArray * photos;
 @property (nonatomic, strong) PFEvent * event;
 - (void)setBarsVisible:(BOOL)visible animated:(BOOL)animated;
 - (void) backButtonTouched:(id)sender;
 - (UIImage *) toolbarButtonImageForBase:(NSString *)base highlight:(BOOL)highlight landscape:(BOOL)landscape;
+- (void) updateDeleteButtonVisibleForPhoto:(PFPhoto *)photo;
+@property (nonatomic) UIPageViewControllerNavigationDirection navDirectionMostRecent;
+- (PFPhotoViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerForPhotoIndex:(NSInteger)photoIndex;
+@property (nonatomic, strong) UIActionSheet * deleteActionSheet;
 @end
 
 @implementation PFPhotoContainerViewController
@@ -24,7 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.navDirectionMostRecent = UIPageViewControllerNavigationDirectionForward;
     }
     return self;
 }
@@ -37,13 +42,7 @@
     self.pageViewController.delegate = self;
     self.pageViewController.dataSource = self;
     
-    PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
-    photoViewController.delegate = self;
-    photoViewController.photo = [self.photos objectAtIndex:self.photoIndex];
-    [self.pageViewController setViewControllers:@[photoViewController]
-                                      direction:UIPageViewControllerNavigationDirectionForward
-                                       animated:NO
-                                     completion:NULL];
+    [self.pageViewController setViewControllers:@[[self pageViewController:self.pageViewController viewControllerForPhotoIndex:self.photoIndex]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
     
     [self.tapSingleGestureRecognizer requireGestureRecognizerToFail:self.tapDoubleGestureRecognizer];
     
@@ -94,11 +93,28 @@
     [deleteButton addTarget:self.deleteButton.target action:self.deleteButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.deleteButton setCustomView:deleteButton];
     
-    // IN DEVELOPMENT - HIDING SHARE AND DELETE BUTTONS FOR NOW, UNTIL THEIR CORRESPONDING FEATURES GET IMPLEMENTED
-    NSMutableArray * toolbarItemsMutable = self.toolbarItems.mutableCopy;
-    [toolbarItemsMutable removeObject:self.shareButton];
-    self.toolbarItems = toolbarItemsMutable;
+    [self updateDeleteButtonVisibleForPhoto:self.photos[self.photoIndex]];
     
+}
+
+- (void) updateDeleteButtonVisibleForPhoto:(PFPhoto *)photo {
+//    NSLog(@"updateDeleteButtonVisibleForPhoto");
+    BOOL shouldBeVisible = [photo.user isEqualToString:[PFUser currentUser].objectId];
+//    NSLog(@"shouldBeVisible = %d", shouldBeVisible);
+    NSMutableArray * toolbarItemsMutable = self.toolbarItems.mutableCopy;
+    if (!shouldBeVisible) {
+        [toolbarItemsMutable removeObject:self.deleteButton];
+    } else {
+        BOOL isVisible = NO;
+        for (UIBarButtonItem * item in toolbarItemsMutable) {
+            if (item == self.deleteButton) {
+                isVisible = YES;
+                break;
+            }
+        }
+        if (!isVisible) [toolbarItemsMutable addObject:self.deleteButton];
+    }
+    self.toolbarItems = toolbarItemsMutable;
 }
 
 - (UIImage *) toolbarButtonImageForBase:(NSString *)base highlight:(BOOL)highlight landscape:(BOOL)landscape {
@@ -142,41 +158,55 @@
         photoViewController.delegate = self;
         photoViewController.photo = photoSubmitted;
         [self.pageViewController setViewControllers:@[photoViewController] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:NULL];
+        
+        [self updateDeleteButtonVisibleForPhoto:photoViewController.photo];
     }
     
     [self dismissViewControllerAnimated:NO completion:NULL];
     
 }
 
-- (void)setPhotoIndex:(NSUInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event {
+- (void)setPhotoIndex:(NSInteger)photoIndex inPhotos:(NSArray *)photos forEvent:(PFEvent *)event {
     self.photoIndex = photoIndex;
     self.photos = photos;
     self.event = event;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    if (self.photoIndex > 0) {
-        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
-        photoViewController.delegate = self;
-        photoViewController.photo = [self.photos objectAtIndex:self.photoIndex - 1];
-        return photoViewController;
-    }
-    return nil;
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return [self pageViewController:pageViewController viewControllerForPhotoIndex:self.photoIndex - 1];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    if (self.photoIndex + 1 < self.photos.count) {
-        PFPhotoViewController * photoViewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
-        photoViewController.delegate = self;
-        photoViewController.photo = [self.photos objectAtIndex:self.photoIndex + 1];
-        return photoViewController;
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    return [self pageViewController:pageViewController viewControllerForPhotoIndex:self.photoIndex + 1];
+}
+
+- (PFPhotoViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerForPhotoIndex:(NSInteger)photoIndex {
+    NSLog(@"pageViewController:viewControllerForPhotoIndex:%d", photoIndex);
+    PFPhotoViewController * viewController = nil;
+    if (0 <= photoIndex && photoIndex < self.photos.count) {
+        viewController = [[PFPhotoViewController alloc] initWithNibName:@"PFPhotoViewController" bundle:[NSBundle mainBundle]];
+        viewController.delegate = self;
+        viewController.photo = [self.photos objectAtIndex:photoIndex];
     }
-    return nil;
+    return viewController;
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
-    self.photoIndex = [self.photos indexOfObject:((PFPhotoViewController *)pageViewController.viewControllers[0]).photo];
+    PFPhoto * photo = ((PFPhotoViewController *)pageViewController.viewControllers[0]).photo;
+    NSInteger photoIndexPrevious = self.photoIndex;
+    self.photoIndex = [self.photos indexOfObject:photo];
+    if (photoIndexPrevious != self.photoIndex) {
+        self.navDirectionMostRecent = photoIndexPrevious < self.photoIndex ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
+    }
+    NSLog(@"photoIndex : %d -> %d %@", photoIndexPrevious, self.photoIndex, photoIndexPrevious != self.photoIndex ? (self.navDirectionMostRecent == UIPageViewControllerNavigationDirectionForward ? @"(Forward)" : @"(Reverse)") : @"");
+    [self updateDeleteButtonVisibleForPhoto:photo];
 }
+
+//- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+//    NSLog(@"FOO FOO FOO FOO FOO");
+//}
 
 - (void)photoViewControllerDidZoomOutToNormal:(PFPhotoViewController *)viewController {
     if (self.navigationController.navigationBarHidden) [self setBarsVisible:YES animated:YES];
@@ -234,7 +264,82 @@
 }
 
 - (void)toolbarButtonTouched:(id)sender {
+    if (sender == self.shareButton.customView) {
+        
+    } else if (sender == self.deleteButton.customView) {
+        [self.deleteActionSheet showFromBarButtonItem:self.deleteButton animated:YES];
+    }
+}
+
+- (void) deletePhotoCurrent {
+    NSLog(@"deletePhotoCurrent");
+    NSLog(@"  self.photoIndex = %d", self.photoIndex);
     
+    PFPhoto * photo = self.photos[self.photoIndex];
+    
+    PFCSuccessBlock successBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
+        // Remove from local array
+        NSMutableArray * photosMutable = [NSMutableArray arrayWithArray:self.photos];
+        [photosMutable removeObject:photo];
+        self.photos = photosMutable;
+        
+        // Remove from database
+        [self.moc deleteAllObjectsForEntityName:@"PFPhoto" matchingPredicate:[NSPredicate predicateWithFormat:@"eid == %@", photo.eid]];
+        [self.moc saveCoreData];
+        
+        // Transition can either be: go to previous, go to next, or pop this container VC altogether.
+        if (photosMutable.count == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            // recent direction was forward
+            //   go back 1, direction reverse
+            //   if nothing back there, go forward 1, direction forward
+            // recent direction was backward
+            //   go forward 1, direction forward
+            //   if nothing up there, go backward 1, direction backward
+            UIPageViewControllerNavigationDirection navDirection = self.navDirectionMostRecent == UIPageViewControllerNavigationDirectionForward ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward;
+            if ((navDirection == UIPageViewControllerNavigationDirectionReverse && self.photoIndex != 0) ||
+                (navDirection == UIPageViewControllerNavigationDirectionForward && self.photoIndex > self.photos.count)) {
+                navDirection = UIPageViewControllerNavigationDirectionReverse;
+                self.photoIndex -= 1;
+            } else {
+                navDirection = UIPageViewControllerNavigationDirectionForward;
+            }
+            
+            /* The following is so ugly, but I can't find a way around it currently. The problem is that a UIPageViewController is not used to dealing with the deletion of pages. Well, the REAL problem is that UIPageViewController is very lazy when it comes to loading its view controllers. So, if it already has an "after" view controller, it's not going to load that view controller again until it gets taken out of the Page view controllers altogether (not in before, current, or after slots). This presents a problem when deleting a page and navigating to the previous page, because the after page does not get reloaded. I can't find any way to tell a UIPageViewController to refresh all its pages. A slightly less ugly solution to this problem would be to re-create the UIPageViewController. I have not been able to get this to work cleanly though. There is stutter or a disappearing view. Perhaps if I had stuck with it, I could get that to work. For now, this works fine, and just requires a rather silly delegate pattern. */
+            __block typeof(self) bself = self; // To avoid warnings about retain cycles
+            PFPhotoViewController * viewController = [self pageViewController:self.pageViewController viewControllerForPhotoIndex:self.photoIndex];
+            [self.pageViewController setViewControllers:@[viewController] direction:navDirection animated:YES completion:^(BOOL finished) {
+                [bself updateDeleteButtonVisibleForPhoto:self.photos[self.photoIndex]];
+                [bself.delegate photoContainerViewControllerDidRequestRefresh:bself];
+            }];
+        }
+        
+    };
+    
+    
+    [[PFHTTPClient sharedClient] deletePhoto:photo.eid successBlock:successBlock failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (operation.response.statusCode == 200) {
+            successBlock(operation, nil);
+        } else {
+            [[UIAlertView connectionErrorAlertView] show];
+        }
+    }];
+    
+}
+
+- (UIActionSheet *)deleteActionSheet {
+    if (_deleteActionSheet == nil) {
+        _deleteActionSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to delete this photo? This can't be undone." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Photo" otherButtonTitles:nil];
+    }
+    return _deleteActionSheet;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (actionSheet == self.deleteActionSheet &&
+        buttonIndex != actionSheet.cancelButtonIndex) {
+        [self deletePhotoCurrent];
+    }
 }
 
 @end
