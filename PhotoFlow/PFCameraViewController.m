@@ -71,7 +71,7 @@
     self.bottomBarHeightConstraint.constant = [UIScreen mainScreen].bounds.size.height >= 568.0 ? 96.0 : 53.0;
     
     // Allowing for unclipped unstretched rotation of button images on orientation changes
-    self.buttonsToRotate = @[self.photoButton, self.cancelButton, self.libraryButton, self.saveButton, self.flashButtonAuto, self.flashButtonOn, self.flashButtonOff, self.swapCamerasButton];
+    self.buttonsToRotate = @[self.photoButton, self.cancelButton, self.libraryButton, self.saveButton, self.editButton, self.flashButtonAuto, self.flashButtonOn, self.flashButtonOff, self.swapCamerasButton];
     for (UIButton * button in self.buttonsToRotate) {
         button.imageView.contentMode = UIViewContentModeCenter;
         button.imageView.clipsToBounds = NO;
@@ -85,8 +85,10 @@
     self.photoButton.backgroundColor   = [UIColor clearColor];
     self.libraryButton.backgroundColor = [UIColor clearColor];
     self.saveButton.backgroundColor    = [UIColor clearColor];
+    self.editButton.backgroundColor    = [UIColor clearColor];
     
     self.saveButton.hidden   = YES;
+    self.editButton.hidden   = YES;
     self.imageOverlay.hidden = YES;
     
     self.focusBox.alpha = 0.0;
@@ -185,12 +187,16 @@
     
     if (sender == self.libraryButton) {
         [self showLibraryPicker];
+    } else if (sender == self.editButton) {
+        self.photoEditorController = [[AFPhotoEditorController alloc] initWithImage:self.imageOriginal options:@{kAFPhotoEditorControllerToolsKey : @[kAFEnhance, kAFEffects, kAFCrop, kAFOrientation, kAFSaturation, kAFBrightness, kAFContrast, kAFSharpness, kAFBlemish, kAFWhiten]}];
+        self.photoEditorController.delegate = self;
+        self.photoEditorSession = self.photoEditorController.session;
+        [self presentViewController:self.photoEditorController animated:NO completion:NULL];
     } else if (sender == self.saveButton) {
-        self.photoEditAlertView = [[UIAlertView alloc] initWithTitle:@"Edit Image?" message:@"Would you like to crop, filter, or enhance your image?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Edit", nil];
-        [self.photoEditAlertView show];
-//        [self submitPhotoStart];
+        [self submitPhotoStart];
     } else if (sender == self.cancelButton) {
-        if (self.inReview) {
+        if (self.inReview &&
+            self.captureManager.cameraCount > 0) {
             self.imageOriginal = nil;
             self.imageEdited = nil;
             [self hideImageReview];
@@ -202,19 +208,6 @@
         }
     }
     
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView == self.photoEditAlertView) {
-        if (buttonIndex != alertView.cancelButtonIndex) {
-            self.photoEditorController = [[AFPhotoEditorController alloc] initWithImage:self.imageOriginal options:@{kAFPhotoEditorControllerToolsKey : @[kAFEnhance, kAFEffects, kAFCrop, kAFOrientation, kAFSaturation, kAFBrightness, kAFContrast, kAFSharpness, kAFBlemish, kAFWhiten]}];
-            self.photoEditorController.delegate = self;
-            self.photoEditorSession = self.photoEditorController.session;
-            [self presentViewController:self.photoEditorController animated:NO completion:NULL];
-        } else {
-            [self submitPhotoStart];
-        }
-    }
 }
 
 - (void)photoEditor:(AFPhotoEditorController *)editor finishedWithImage:(UIImage *)image {
@@ -373,6 +366,7 @@
     self.photoButton.hidden = YES;
     self.libraryButton.hidden = YES;
     self.saveButton.hidden = NO;
+    self.editButton.hidden = NO;
 }
 
 - (void)hideImageReview {
@@ -382,6 +376,7 @@
     self.photoButton.hidden = NO;
     self.libraryButton.hidden = NO;
     self.saveButton.hidden = YES;
+    self.editButton.hidden = YES;
 }
 
 - (BOOL)inReview {
@@ -584,6 +579,7 @@
     self.view.userInteractionEnabled = !isNetworkActive;
     self.cancelButton.enabled = !isNetworkActive;
     self.saveButton.enabled = !isNetworkActive;
+    self.editButton.enabled = !isNetworkActive;
 }
 
 - (void) submitPhotoStart {

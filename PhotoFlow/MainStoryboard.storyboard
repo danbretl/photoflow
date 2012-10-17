@@ -604,9 +604,6 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ud1-dU-yBh" userLabel="Photo Button">
                                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="102" id="VIK-Se-3TO"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" image="btn_camera.png">
                                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -617,6 +614,23 @@
                                         </state>
                                         <connections>
                                             <action selector="cameraControlButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="KqH-Hj-upn"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHp-UX-pao" userLabel="Edit Button">
+                                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="4LZ-r2-e2p"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="btn_edit_photos.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" image="btn_edit_photos_highlight.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cameraFlowButtonTouched:" destination="Sv9-rW-3o8" eventType="touchUpInside" id="bPW-8l-Y0z"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnd-HB-eyQ" userLabel="Library Button">
@@ -656,9 +670,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="top" secondItem="Ud1-dU-yBh" secondAttribute="top" type="default" id="08L-MI-Ga8"/>
                                     <constraint firstItem="V5e-2w-gEi" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="user" id="30m-j3-ejO"/>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="leading" secondItem="Ud1-dU-yBh" secondAttribute="leading" type="default" id="9vX-0a-zJ5"/>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="centerX" secondItem="V5e-2w-gEi" secondAttribute="centerX" type="default" id="EVx-uN-76g"/>
                                     <constraint firstItem="V5e-2w-gEi" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="user" id="Hua-Mb-PLK"/>
                                     <constraint firstAttribute="centerX" secondItem="V5e-2w-gEi" secondAttribute="centerX" type="user" id="L1z-cs-kKp"/>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="trailing" secondItem="Ud1-dU-yBh" secondAttribute="trailing" type="default" id="Oz8-f9-jZb"/>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="baseline" secondItem="Ud1-dU-yBh" secondAttribute="baseline" type="default" id="P9k-g5-au5"/>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="default" id="PJy-1Q-i2r"/>
                                     <constraint firstItem="HdX-sf-Tb3" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="user" id="SoO-Hn-Fzh"/>
                                     <constraint firstItem="mwn-Sd-Rzk" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="T2H-eq-cxr"/>
                                     <constraint firstItem="mwn-Sd-Rzk" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="default" id="Tse-BS-tGM"/>
@@ -671,9 +691,8 @@
                                     <constraint firstItem="HdX-sf-Tb3" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="user" id="mGt-4G-1BP"/>
                                     <constraint firstItem="tnd-HB-eyQ" firstAttribute="bottom" secondItem="obC-nC-Fns" secondAttribute="bottom" type="default" id="mYH-ZF-cUq"/>
                                     <constraint firstItem="tnd-HB-eyQ" firstAttribute="trailing" secondItem="obC-nC-Fns" secondAttribute="trailing" type="user" id="miU-4v-GW4"/>
+                                    <constraint firstItem="LHp-UX-pao" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="rb6-u8-2Jj"/>
                                     <constraint firstItem="V5e-2w-gEi" firstAttribute="trailing" secondItem="obC-nC-Fns" secondAttribute="trailing" type="user" id="rwj-29-YGn"/>
-                                    <constraint firstItem="Ud1-dU-yBh" firstAttribute="centerX" secondItem="V5e-2w-gEi" secondAttribute="centerX" type="default" id="wCx-3D-1kM"/>
-                                    <constraint firstItem="Ud1-dU-yBh" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="xL1-5X-PjU"/>
                                     <constraint firstItem="tnd-HB-eyQ" firstAttribute="top" secondItem="obC-nC-Fns" secondAttribute="top" type="default" id="y6w-nK-CkU"/>
                                 </constraints>
                             </view>
@@ -709,6 +728,7 @@
                         <outlet property="bottomBarShadowView" destination="EBt-jH-Gd2" id="Q1P-ke-A23"/>
                         <outlet property="cancelButton" destination="HdX-sf-Tb3" id="iLD-yv-hU1"/>
                         <outlet property="capturePreviewView" destination="AFQ-Fr-JOs" id="47p-VQ-FZB"/>
+                        <outlet property="editButton" destination="LHp-UX-pao" id="FJE-JO-k7v"/>
                         <outlet property="flashButtonAuto" destination="ASZ-Ez-BCH" id="xJf-Pt-via"/>
                         <outlet property="flashButtonOff" destination="D40-NF-HYA" id="wYE-RQ-RJR"/>
                         <outlet property="flashButtonOn" destination="p2T-mF-BIp" id="wgC-Yk-3aP"/>
@@ -827,6 +847,8 @@
         <image name="btn_camera_highlight.png" width="38" height="30"/>
         <image name="btn_cancel_photos.png" width="18" height="18"/>
         <image name="btn_cancel_photos_highlight.png" width="18" height="18"/>
+        <image name="btn_edit_photos.png" width="17" height="17"/>
+        <image name="btn_edit_photos_highlight.png" width="17" height="17"/>
         <image name="btn_flash_auto.png" width="30" height="30"/>
         <image name="btn_flash_auto_highlight.png" width="30" height="30"/>
         <image name="btn_flash_off.png" width="30" height="30"/>

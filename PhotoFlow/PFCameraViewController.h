@@ -17,7 +17,7 @@
 
 @protocol PFCameraViewControllerDelegate;
 
-@interface PFCameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCamCaptureManagerDelegate, PFPhotoSubmissionManagerDelegate, AFPhotoEditorControllerDelegate, UIAlertViewDelegate>
+@interface PFCameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCamCaptureManagerDelegate, PFPhotoSubmissionManagerDelegate, AFPhotoEditorControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext * moc;
 @property (nonatomic, strong) PFEvent * event;
@@ -48,6 +48,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint * bottomBarHeightConstraint;
 @property (strong, nonatomic) IBOutlet UIButton * cancelButton;
 @property (strong, nonatomic) IBOutlet UIButton * photoButton;
+@property (strong, nonatomic) IBOutlet UIButton * editButton;
 @property (strong, nonatomic) IBOutlet UIButton * libraryButton;
 @property (strong, nonatomic) IBOutlet UIButton * saveButton;
 @property (strong, nonatomic) IBOutlet UIImageView * focusBox;
