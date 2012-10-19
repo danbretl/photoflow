@@ -12,6 +12,8 @@
 #import "PFPhotosViewConstants.h"
 #import "PFCameraViewController.h"
 #import "PFPhotoContainerViewController.h"
+#import "PFLoadMoreView.h"
+#import "PFPhotosCollectionView.h"
 
 @interface PFPhotosViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PFCameraViewControllerDelegate, PFPhotoContainerViewControllerDelegate>
 
@@ -19,8 +21,8 @@
 @property (nonatomic, strong) PFEvent * event;
 
 @property (nonatomic, strong) UIRefreshControl * refreshControl;
-@property (nonatomic, strong) IBOutlet UICollectionView * collectionView;
-- (IBAction)loadOlderPhotosButtonTouched:(UIButton *)button;
+@property (nonatomic, strong) IBOutlet PFPhotosCollectionView * collectionView;
+- (void)loadOlderPhotosButtonTouched:(UIButton *)button;
 
 @property (nonatomic, strong) IBOutlet UIBarButtonItem * toggleViewModeButton;
 - (IBAction)toggleViewModeButtonTouched:(UIBarButtonItem *)button;

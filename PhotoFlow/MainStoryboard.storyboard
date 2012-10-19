@@ -328,7 +328,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-eo-g55">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X7y-eo-g55" customClass="PFPhotosCollectionView">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="sG2-39-24y"/>
                                 <cells>
@@ -375,59 +375,6 @@
                                             <outlet property="imageViewContainer" destination="BMP-kO-Wsv" id="0FZ-oH-ldf"/>
                                             <outlet property="shadowView" destination="Qdh-lw-VlM" id="Xtp-cz-lrn"/>
                                             <segue destination="apH-Ml-r7e" kind="push" identifier="ViewPhoto" id="6TR-J7-gna"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadMoreCell" id="DnU-NR-H4t" customClass="PFLoadMoreCell">
-                                        <rect key="frame" x="114" y="0.0" width="104" height="104"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ej-jE-NYN">
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LH-TG-9Qi">
-                                                            <color key="backgroundColor" white="0.13" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="54"/>
-                                                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="12"/>
-                                                            <state key="normal" title="+">
-                                                                <color key="titleColor" white="0.20999999999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <state key="highlighted">
-                                                                <color key="titleColor" white="0.13" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="loadOlderPhotosButtonTouched:" destination="Ap9-MO-z3J" eventType="touchUpInside" id="YZK-h6-ZmX"/>
-                                                            </connections>
-                                                        </button>
-                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9mm-pR-oTP">
-                                                            <color key="color" white="0.20999999999999999" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </activityIndicatorView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="trailing" secondItem="1ej-jE-NYN" secondAttribute="trailing" type="default" id="12R-4D-hsc"/>
-                                                        <constraint firstAttribute="centerY" secondItem="9mm-pR-oTP" secondAttribute="centerY" type="user" id="9Gf-WD-tcU"/>
-                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="bottom" secondItem="1ej-jE-NYN" secondAttribute="bottom" type="default" id="CsJ-X5-G1P"/>
-                                                        <constraint firstAttribute="centerX" secondItem="9mm-pR-oTP" secondAttribute="centerX" type="user" id="nO9-hU-nB3"/>
-                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="leading" secondItem="1ej-jE-NYN" secondAttribute="leading" type="default" id="nf1-6B-FOX"/>
-                                                        <constraint firstItem="3LH-TG-9Qi" firstAttribute="top" secondItem="1ej-jE-NYN" secondAttribute="top" type="default" id="t7l-AM-6As"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="centerX" secondItem="DnU-NR-H4t" secondAttribute="centerX" type="default" id="ARk-4a-URk"/>
-                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="top" secondItem="DnU-NR-H4t" secondAttribute="top" constant="2" id="IAv-zE-eaD"/>
-                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="leading" secondItem="DnU-NR-H4t" secondAttribute="leading" constant="2" id="R7K-Kv-wqI"/>
-                                            <constraint firstItem="1ej-jE-NYN" firstAttribute="centerY" secondItem="DnU-NR-H4t" secondAttribute="centerY" type="default" id="eaG-ht-xSr"/>
-                                        </constraints>
-                                        <size key="customSize" width="104" height="104"/>
-                                        <connections>
-                                            <outlet property="activityView" destination="9mm-pR-oTP" id="mqe-JH-7Qk"/>
-                                            <outlet property="button" destination="3LH-TG-9Qi" id="gEi-YB-Y59"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -875,6 +822,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="OUV-z3-61B"/>
+        <segue reference="g1E-KV-WLI"/>
     </inferredMetricsTieBreakers>
 </document>

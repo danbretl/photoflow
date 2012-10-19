@@ -14,11 +14,10 @@
 #import "DefaultsManager.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PFHTTPClient.h"
-#import "PFLoadMoreCell.h"
 #import "UIAlertView+PhotoFlow.h"
 
-const NSInteger LOAD_PHOTOS_COUNT_RELOAD = 30;
-const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
+const NSInteger LOAD_PHOTOS_COUNT_RELOAD = 24;
+const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 
 @interface PFPhotosViewController ()
 @property (nonatomic, strong) NSArray * photos;
@@ -32,7 +31,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
 @property (nonatomic) BOOL isLoadingRecent;
 @property (nonatomic) BOOL isLoadingOld;
 @property (nonatomic) BOOL willLoadOld;
-- (void) updateLoadMoreCell;
+- (void) updateLoadMoreView;
 @end
 
 @implementation PFPhotosViewController
@@ -101,6 +100,9 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
     self.refreshControl.tintColor = [UIColor colorWithWhite:54.0/255.0 alpha:1.0];
     [self.collectionView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(pulledToRefresh:) forControlEvents:UIControlEventValueChanged];
+
+    self.collectionView.loadMoreViewPaddingBottom = 5.0;
+    [self.collectionView.loadMoreView.button addTarget:self action:@selector(loadOlderPhotosButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
     if (landscape) self.navigationItem.rightBarButtonItem = nil;
@@ -121,6 +123,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
     [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? @"btn_camera_highlight_landscape.png" : @"btn_camera_highlight.png"] forState:UIControlStateHighlighted];
     self.photos = [self.event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]];
     [self.collectionView reloadData];
+    [self updateLoadMoreView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -135,30 +138,16 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.photos.count + 1;
+    return self.photos.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell * cell = nil;
+    PFPhotoCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
+    [self loadImageForPhotoCell:photoCell atIndexPath:indexPath fromPhoto:photo];
     
-    if (indexPath.row == self.photos.count) {
-        PFLoadMoreCell * loadMoreCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LoadMoreCell" forIndexPath:indexPath];
-        loadMoreCell.button.hidden = self.isLoadingOld || self.willLoadOld;
-        if (self.isLoadingOld || self.willLoadOld) {
-            if (!loadMoreCell.activityView.isAnimating) [loadMoreCell.activityView startAnimating];
-        } else {
-            if (loadMoreCell.activityView.isAnimating) [loadMoreCell.activityView stopAnimating];
-        }
-        cell = loadMoreCell;
-    } else {
-        PFPhotoCell * photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-        PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
-        [self loadImageForPhotoCell:photoCell atIndexPath:indexPath fromPhoto:photo];
-        cell = photoCell;
-    }
-    
-    return cell;
+    return photoCell;
     
 }
 
@@ -208,7 +197,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
     [self.collectionView setCollectionViewLayout:layoutNew animated:YES];
 //    [self.collectionView setContentOffset:CGPointZero animated:NO];
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
-    if (layoutTypeNew == PFPhotosViewLayoutBanner) {
+//    if (layoutTypeNew == PFPhotosViewLayoutBanner) {
         for (PFPhotoCell * cell in self.collectionView.visibleCells) {
             NSIndexPath * indexPath = [self.collectionView indexPathForCell:cell];
             if (indexPath.row != self.photos.count) {
@@ -216,7 +205,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
                 [self loadImageForPhotoCell:cell atIndexPath:indexPath fromPhoto:photo];
             }
         }
-    }
+//    }
 }
 
 //- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -266,17 +255,18 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.collectionView) {
-        if (scrollView.contentSize.height > scrollView.bounds.size.height) {
+        NSLog(@"\n%f\n%f\n", scrollView.contentSize.height, scrollView.bounds.size.height - scrollView.contentInset.bottom);
+        if (scrollView.contentSize.height > scrollView.bounds.size.height - scrollView.contentInset.bottom) {
             if (scrollView.contentOffset.y + scrollView.bounds.size.height > scrollView.contentSize.height + scrollView.contentInset.bottom &&
                 (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld))) {
                 self.willLoadOld = YES;
-                [self updateLoadMoreCell];
+                [self updateLoadMoreView];
             } else {
                 if (self.willLoadOld &&
                     scrollView.isDragging &&
                     scrollView.contentOffset.y + scrollView.bounds.size.height < scrollView.contentSize.height + scrollView.contentInset.bottom) {
                     self.willLoadOld = NO;
-                    [self updateLoadMoreCell];
+                    [self updateLoadMoreView];
                 }
             }
         }
@@ -296,8 +286,15 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
     [self loadMoreOldPhotos];
 }
 
-- (void)updateLoadMoreCell {
-    [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.photos.count inSection:0]]];
+- (void)updateLoadMoreView {
+    BOOL notEnoughContent = self.photos.count < LOAD_PHOTOS_COUNT_RELOAD;
+    self.collectionView.loadMoreView.hidden = notEnoughContent;
+    self.collectionView.loadMoreView.button.hidden = self.isLoadingOld || self.willLoadOld;
+    if (self.isLoadingOld || self.willLoadOld) {
+        if (!self.collectionView.loadMoreView.activityView.isAnimating) [self.collectionView.loadMoreView.activityView startAnimating];
+    } else {
+        if (self.collectionView.loadMoreView.activityView.isAnimating) [self.collectionView.loadMoreView.activityView stopAnimating];
+    }
 }
 
 - (void)pulledToRefresh:(UIRefreshControl *)refreshControl {
@@ -337,7 +334,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
         NSLog(@"%@", NSStringFromSelector(_cmd));
         int countBefore = self.photos.count;
         self.isLoadingOld = YES;
-        [self updateLoadMoreCell];
+        [self updateLoadMoreView];
         [self loadMorePhotosAfter:nil before:((PFPhoto *)self.photos.lastObject).updatedAt limit:@(LOAD_PHOTOS_COUNT_MORE_OLD) successBlockPre:NULL successBlockPost:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSArray * photos = responseObject[@"photos"];
             NSMutableArray * indexPaths = [NSMutableArray array];
@@ -358,7 +355,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 20;
         self.isLoadingOld = NO;
         self.willLoadOld = NO;
         [self.refreshControl endRefreshing];
-        [self updateLoadMoreCell];
+        [self updateLoadMoreView];
         
     };
     [[PFHTTPClient sharedClient] getPhotosForEvent:self.event.eid limit:limit updatedAfter:afterDate updatedBefore:beforeDate successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {

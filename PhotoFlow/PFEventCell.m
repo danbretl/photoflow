@@ -25,6 +25,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     
     self.shadowView.image = [[UIImage imageNamed:@"shadow_events_and_grid.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(4.0, 4.0, 4.0, 4.0)];
     

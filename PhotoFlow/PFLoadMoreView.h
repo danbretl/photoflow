@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PFLoadMoreCell : UICollectionViewCell
+@interface PFLoadMoreView : UIView
 
 @property (nonatomic, strong) IBOutlet UIButton * button;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView * activityView;

@@ -56,6 +56,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.psm = [[PFPhotoSubmissionManager alloc] init];
     self.psm.delegate = self;
 }
