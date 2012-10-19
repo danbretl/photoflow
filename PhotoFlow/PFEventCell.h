@@ -17,4 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel * descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView * bannerImageView;
 
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint * shadowTrailingSpace;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint * containerTrailingSpace;
+
 @end

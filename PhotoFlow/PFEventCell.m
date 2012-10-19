@@ -52,6 +52,14 @@
     self.descriptionLabel.shadowColor = [UIColor whiteColor];
     self.descriptionLabel.shadowOffset = CGSizeMake(0, 2.0);
     
+    /* Need to create our own constraint which is effective against the contentView, so the UI elements indent when the cell is put into editing mode */
+    // Remove the IB added horizontal constraint, as that's effective against the cell not the contentView
+    [self removeConstraint:self.shadowTrailingSpace];
+    [self removeConstraint:self.containerTrailingSpace];
+    // Create and add the new constraints
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.shadowView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-self.shadowTrailingSpace.constant]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.containerView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-self.containerTrailingSpace.constant]];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

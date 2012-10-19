@@ -251,19 +251,20 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="top" secondItem="OXe-Td-2PI" secondAttribute="top" type="default" id="296-yJ-QMS"/>
+                                                <constraint firstItem="aJt-Jj-jtK" firstAttribute="centerX" secondItem="Niy-2o-pEk" secondAttribute="centerX" type="user" id="4yS-06-sww"/>
                                                 <constraint firstItem="RrQ-wS-gsI" firstAttribute="top" secondItem="OXe-Td-2PI" secondAttribute="top" type="default" id="5yo-j9-phx"/>
-                                                <constraint firstItem="aJt-Jj-jtK" firstAttribute="trailing" secondItem="Niy-2o-pEk" secondAttribute="trailing" type="user" id="Iaa-sv-o5m"/>
-                                                <constraint firstItem="aJt-Jj-jtK" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="user" id="KtT-VA-KpK"/>
+                                                <constraint firstAttribute="trailing" secondItem="aJt-Jj-jtK" secondAttribute="trailing" constant="10" type="user" id="BT1-Jr-4zu"/>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="bottom" secondItem="OXe-Td-2PI" secondAttribute="bottom" type="default" id="Ngh-Ta-Oqx"/>
                                                 <constraint firstItem="RrQ-wS-gsI" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="user" id="cFN-lw-cUJ"/>
-                                                <constraint firstItem="aJt-Jj-jtK" firstAttribute="leading" secondItem="Niy-2o-pEk" secondAttribute="leading" type="user" id="eDP-lo-w5o"/>
-                                                <constraint firstItem="aJt-Jj-jtK" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="user" id="iEd-Iu-2Su"/>
                                                 <constraint firstItem="RrQ-wS-gsI" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="user" id="ja5-8F-8bk"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="bottom" secondItem="Niy-2o-pEk" secondAttribute="bottom" type="user" id="pHD-F8-g8e"/>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="default" id="sZ9-VX-9Ow"/>
+                                                <constraint firstItem="aJt-Jj-jtK" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" constant="10" type="user" id="uAQ-u8-cM1"/>
                                                 <constraint firstItem="S5h-Pu-Dm1" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="default" id="vCm-Yu-ufs"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="top" secondItem="Niy-2o-pEk" secondAttribute="top" type="user" id="wLb-Nm-iO2"/>
                                                 <constraint firstItem="aJt-Jj-jtK" firstAttribute="bottom" secondItem="OXe-Td-2PI" secondAttribute="bottom" type="user" id="wV0-PN-wXb"/>
+                                                <constraint firstItem="Niy-2o-pEk" firstAttribute="trailing" secondItem="OXe-Td-2PI" secondAttribute="trailing" type="user" id="x52-gY-Lsc"/>
+                                                <constraint firstItem="Niy-2o-pEk" firstAttribute="leading" secondItem="OXe-Td-2PI" secondAttribute="leading" type="user" id="yEs-HB-bj7"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -283,11 +284,13 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="bannerImageView" destination="S5h-Pu-Dm1" id="z8M-Ek-ZQ7"/>
+                                    <outlet property="containerTrailingSpace" destination="y28-h0-hyW" id="TkY-JB-gKZ"/>
                                     <outlet property="containerView" destination="OXe-Td-2PI" id="WdT-mL-oma"/>
                                     <outlet property="dateLabel" destination="IaH-4t-TgT" id="dTo-c3-LGv"/>
                                     <outlet property="descriptionLabel" destination="aJt-Jj-jtK" id="9JQ-Oh-aSq"/>
                                     <outlet property="descriptionLabelBackgroundView" destination="Niy-2o-pEk" id="eaj-Dq-bq9"/>
                                     <outlet property="locationLabel" destination="PJM-VJ-Wfw" id="SWu-gI-KQc"/>
+                                    <outlet property="shadowTrailingSpace" destination="bov-dm-67g" id="t1X-72-E3Z"/>
                                     <outlet property="shadowView" destination="TwK-89-ywG" id="shr-6S-gnc"/>
                                     <segue destination="Ap9-MO-z3J" kind="push" identifier="ViewEventPhotos" id="Z7z-RW-5zD"/>
                                 </connections>
