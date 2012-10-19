@@ -137,9 +137,9 @@
 - (void) loadImageForCell:(PFEventCell *)cell atIndexPath:(NSIndexPath *)indexPath fromEvent:(PFEvent *)event {
     if (event.photos.count > 0) {
         [cell layoutIfNeeded];
-        [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid boundingWidth:cell.bannerImageView.bounds.size.width*2 boundingHeight:cell.bannerImageView.bounds.size.height*2 quality:60 mode:UIViewContentModeScaleAspectFill]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid boundingWidth:cell.bannerImageView.bounds.size.width*2 boundingHeight:cell.bannerImageView.bounds.size.height*2 quality:60 mode:UIViewContentModeScaleAspectFill]] placeholderImage:nil];
     } else {
-        cell.bannerImageView.image = [UIImage imageNamed:@"placeholder.png"];
+        cell.bannerImageView.image = nil;
     }
 }
 
