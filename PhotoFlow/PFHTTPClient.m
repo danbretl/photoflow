@@ -92,12 +92,13 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
     return [NSString stringWithFormat:@"%@/api/v1/images/%@/", self.baseURL.absoluteString, photoEID];
 }
 
-- (NSString *)imageURLStringForPhoto:(NSString *)photoEID boundingSize:(NSUInteger)size quality:(NSUInteger)quality {
-    return [self imageURLStringForPhoto:photoEID boundingWidth:size boundingHeight:size quality:quality];
+- (NSString *)imageURLStringForPhoto:(NSString *)photoEID boundingSize:(NSUInteger)size quality:(NSUInteger)quality mode:(UIViewContentMode)mode {
+    return [self imageURLStringForPhoto:photoEID boundingWidth:size boundingHeight:size quality:quality mode:mode];
 }
 
-- (NSString *) imageURLStringForPhoto:(NSString *)photoEID boundingWidth:(NSUInteger)width boundingHeight:(NSUInteger)height quality:(NSUInteger)quality {
-    return [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/%d/", width, height, quality];
+- (NSString *) imageURLStringForPhoto:(NSString *)photoEID boundingWidth:(NSUInteger)width boundingHeight:(NSUInteger)height quality:(NSUInteger)quality mode:(UIViewContentMode)mode {
+    NSLog(@"%@", [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/%d/?min=%@", width, height, quality, mode == UIViewContentModeScaleAspectFill ? @"true" : @"false"]);
+    return [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/%d/?min=%@", width, height, quality, mode == UIViewContentModeScaleAspectFill ? @"true" : @"false"];
 }
 
 ///////////////////

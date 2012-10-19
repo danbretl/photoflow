@@ -16,17 +16,14 @@
     [self addSubview:self.loadMoreView];
 }
 
-/* THE FOLLOWING CONDITIONAL / VISIBILITY CODE WAS TOTALLY THE RIGHT IDEA FOR WHAT I WAS TRYING TO DO, AND WAS TOTALLY WORKING, BUT IT'S NOT REALLY THE RIGHT LOGIC. VISIBILITY OF THE LOAD MORE BUTTON SHOULD NOT BE DETERMINED BASED ON CONTENT SIZE. */
 - (void)setContentSize:(CGSize)contentSize {
-//    NSLog(@"%@:%@", NSStringFromSelector(_cmd), NSStringFromCGSize(contentSize));
-//    if (contentSize.height > self.bounds.size.height - (self.contentInset.top + self.contentInset.bottom)) {
+    if (!self.loadMoreView.hidden) {
         contentSize.height += 44.0 + self.loadMoreViewPaddingBottom;
-//        self.loadMoreView.hidden = NO;
-//    } else {
-//        self.loadMoreView.hidden = YES;
-//    }
+    }
     [super setContentSize:contentSize];
-    self.loadMoreView.frame = CGRectMake(0, contentSize.height - (44.0 + self.loadMoreViewPaddingBottom), contentSize.width, 44.0);
+    if (!self.loadMoreView.hidden) {
+        self.loadMoreView.frame = CGRectMake(0, contentSize.height - (44.0 + self.loadMoreViewPaddingBottom), contentSize.width, 44.0);
+    }
 }
 
 - (CGSize)contentSizeProper {

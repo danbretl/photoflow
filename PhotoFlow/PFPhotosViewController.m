@@ -32,6 +32,8 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 @property (nonatomic) BOOL isLoadingOld;
 @property (nonatomic) BOOL willLoadOld;
 - (void) updateLoadMoreView;
+- (void) loadImageForPhotoCell:(PFPhotoCell *)cell atIndexPath:(NSIndexPath *)indexPath fromPhoto:(PFPhoto *)photo;
+- (void) loadImagesForVisibleCells;
 @end
 
 @implementation PFPhotosViewController
@@ -117,6 +119,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
     self.navigationController.navigationBar.titleTextAttributes = @{UITextAttributeFont : [UIFont fontWithName:@"HabanoST" size:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? 20.0 : 25.0], UITextAttributeTextColor : [UIColor colorWithRed:206.0/255.0 green:201.0/255.0 blue:201.0/255.0 alpha:1.0], UITextAttributeTextShadowOffset : [NSValue valueWithUIOffset:UIOffsetMake(0.0, 2.0)], UITextAttributeTextShadowColor : [UIColor whiteColor]};
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsLandscapePhone];
+    [self.navigationItem setRightBarButtonItem:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? nil : self.toggleViewModeButton animated:NO];
     self.cameraButton.customView.frame = CGRectMake(0, 0, self.cameraButton.customView.frame.size.width, self.navigationController.toolbar.frame.size.height); // Fixing weird bug that would result in camera button growing in height past the toolbar edge. The way to replicate was switch to banner mode, then rotate horizontal (but this VC won't rotate in banner mode), then push a photo viewer, then rotate a couple times to get the photo viewer truly in horizontal, then come back to this VC.
     UIButton * cameraButtonCustomView = (UIButton *)self.cameraButton.customView;
     [cameraButtonCustomView setImage:[UIImage imageNamed:UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? @"btn_camera_landscape.png" : @"btn_camera.png"] forState:UIControlStateNormal];
@@ -152,11 +155,16 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 }
 
 - (void) loadImageForPhotoCell:(PFPhotoCell *)cell atIndexPath:(NSIndexPath *)indexPath fromPhoto:(PFPhoto *)photo {
-//        NSLog(@"about to setImageWithURL...");
-//        [photoCell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:[UIScreen mainScreen].bounds.size.width*2 boundingHeight:2000 quality:70]] placeholderImage:nil]; // The size here is dependent on the fact that banner mode (where images must be largest) only operates when device orientation is portrait. // I think this method is hurting performance. We are going to change and just get the size that fits the current orientation.
-    PFPhotosGridFlowLayout * layout = (PFPhotosGridFlowLayout *)self.collectionView.collectionViewLayout;
-    CGFloat boundingWidth = [layout isKindOfClass:[PFPhotosGridFlowLayout class]] ? (int)floorf(layout.itemSize.height * 3.0 / 2.0 * 2.0) : layout.itemSize.width * 2.0;
-    [cell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:boundingWidth boundingHeight:2000 quality:60]] placeholderImage:nil];
+    [cell layoutIfNeeded];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:photo.eid boundingWidth:cell.imageView.bounds.size.width*2 boundingHeight:cell.imageView.bounds.size.height*2 quality:60 mode:UIViewContentModeScaleAspectFill]] placeholderImage:nil];
+}
+
+- (void) loadImagesForVisibleCells {
+    for (PFPhotoCell * cell in self.collectionView.visibleCells) {
+        NSIndexPath * indexPath = [self.collectionView indexPathForCell:cell];
+        PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
+        [self loadImageForPhotoCell:cell atIndexPath:indexPath fromPhoto:photo];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -198,13 +206,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 //    [self.collectionView setContentOffset:CGPointZero animated:NO];
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
 //    if (layoutTypeNew == PFPhotosViewLayoutBanner) {
-        for (PFPhotoCell * cell in self.collectionView.visibleCells) {
-            NSIndexPath * indexPath = [self.collectionView indexPathForCell:cell];
-            if (indexPath.row != self.photos.count) {
-                PFPhoto * photo = [self.photos objectAtIndex:indexPath.row];
-                [self loadImageForPhotoCell:cell atIndexPath:indexPath fromPhoto:photo];
-            }
-        }
+        [self loadImagesForVisibleCells];
 //    }
 }
 
@@ -230,6 +232,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     self.collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
     self.collectionView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, self.navigationController.toolbar.bounds.size.height, 0.0);
 }
@@ -255,8 +258,8 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.collectionView) {
-        NSLog(@"\n%f\n%f\n", scrollView.contentSize.height, scrollView.bounds.size.height - scrollView.contentInset.bottom);
-        if (scrollView.contentSize.height > scrollView.bounds.size.height - scrollView.contentInset.bottom) {
+//        NSLog(@"\n%f\n%f\n", scrollView.contentSize.height, scrollView.bounds.size.height - scrollView.contentInset.bottom);
+        if (!self.collectionView.loadMoreView.hidden && scrollView.contentSize.height > scrollView.bounds.size.height - scrollView.contentInset.bottom) {
             if (scrollView.contentOffset.y + scrollView.bounds.size.height > scrollView.contentSize.height + scrollView.contentInset.bottom &&
                 (!(self.isLoadingRecent || self.isLoadingOld || self.willLoadOld))) {
                 self.willLoadOld = YES;

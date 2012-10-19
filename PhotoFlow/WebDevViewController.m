@@ -133,7 +133,7 @@ NSString * const WEB_DEV_DATETIME_UPDATED_BEFORE = @"updatedBefore";
     } else if (sender == self.getImageButton) {
         NSLog(@"Get image");
         
-        NSURLRequest * imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.clientMutable imageURLStringForPhoto:self.getImageTextField.text boundingSize:self.getImageSizeTextField.text.intValue quality:self.getImageQualityTextField.text.intValue]]];
+        NSURLRequest * imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.clientMutable imageURLStringForPhoto:self.getImageTextField.text boundingSize:self.getImageSizeTextField.text.intValue quality:self.getImageQualityTextField.text.intValue mode:UIViewContentModeScaleAspectFit]]];
         [self.getImageImageView setImageWithURLRequest:imageRequest placeholderImage:[UIImage imageNamed:@"placeholder_full.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             [self logSuccess:YES forURL:request.URL];
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {

@@ -13,6 +13,8 @@
 
 @interface PFEventsViewController ()
 @property (nonatomic, strong, readonly) NSDateFormatter * dateFormatter;
+- (void) loadImageForCell:(PFEventCell *)cell atIndexPath:(NSIndexPath *)indexPath fromEvent:(PFEvent *)event;
+- (void) loadImagesForVisibleCells;
 @end
 
 @implementation PFEventsViewController
@@ -120,9 +122,26 @@
     cell.dateLabel.text = [self.dateFormatter stringFromDate:event.date].uppercaseString;
     cell.locationLabel.text = event.location.uppercaseString;
     cell.descriptionLabel.text = event.descriptionShort;
-    if (event.photos.count > 0) [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid boundingWidth:[UIScreen mainScreen].bounds.size.height*2 boundingHeight:2000 quality:70]]];
+    [self loadImageForCell:cell atIndexPath:indexPath fromEvent:event];
     
     return cell;
+}
+
+- (void) loadImagesForVisibleCells {
+    for (PFEventCell * cell in self.tableView.visibleCells) {
+        NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+        PFEvent * event = [self.events objectAtIndex:indexPath.row];
+        [self loadImageForCell:cell atIndexPath:indexPath fromEvent:event];
+    }
+}
+
+- (void) loadImageForCell:(PFEventCell *)cell atIndexPath:(NSIndexPath *)indexPath fromEvent:(PFEvent *)event {
+    if (event.photos.count > 0) {
+        [cell layoutIfNeeded];
+        [cell.bannerImageView setImageWithURL:[NSURL URLWithString:[[PFHTTPClient sharedClient] imageURLStringForPhoto:((PFPhoto *)[[event.photos sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:NO]]] objectAtIndex:0]).eid boundingWidth:cell.bannerImageView.bounds.size.width*2 boundingHeight:cell.bannerImageView.bounds.size.height*2 quality:60 mode:UIViewContentModeScaleAspectFill]] placeholderImage:[UIImage imageNamed:@"placeholder.png"]];
+    } else {
+        cell.bannerImageView.image = [UIImage imageNamed:@"placeholder.png"];
+    }
 }
 
 /*
@@ -185,6 +204,11 @@
 
 - (void)webDevViewControllerDidFinish:(WebDevViewController *)viewController {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self loadImagesForVisibleCells];
 }
 
 @end
