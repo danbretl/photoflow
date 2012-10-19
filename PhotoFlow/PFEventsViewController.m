@@ -57,7 +57,6 @@
     [normalButton addTarget:self.addEventButton.target action:self.addEventButton.action forControlEvents:UIControlEventTouchUpInside];
     [self.addEventButton setCustomView:normalButton];
     
-    self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.hidesBackButton = YES;
     
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
@@ -207,11 +206,11 @@
      */
 //}
 
-- (void)devButtonTouched:(UIButton *)devButton {
-    WebDevViewController * viewController = [[WebDevViewController alloc] initWithNibName:@"WebDevViewController" bundle:[NSBundle mainBundle]];
-    viewController.delegate = self;
-    [self presentViewController:viewController animated:YES completion:NULL];
-}
+//- (void)devButtonTouched:(UIButton *)devButton {
+//    WebDevViewController * viewController = [[WebDevViewController alloc] initWithNibName:@"WebDevViewController" bundle:[NSBundle mainBundle]];
+//    viewController.delegate = self;
+//    [self presentViewController:viewController animated:YES completion:NULL];
+//}
 
 - (void)webDevViewControllerDidFinish:(WebDevViewController *)viewController {
     [self dismissViewControllerAnimated:YES completion:NULL];

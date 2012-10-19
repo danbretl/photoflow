@@ -18,6 +18,6 @@
 @property (nonatomic, strong) UIBarButtonItem * addEventButton;
 - (IBAction)addEventButtonTouched:(id)sender;
 
-- (IBAction)devButtonTouched:(UIBarButtonItem *)devButton;
+//- (IBAction)devButtonTouched:(UIBarButtonItem *)devButton;
 
 @end

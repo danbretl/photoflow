@@ -302,12 +302,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Events" id="Zyh-ow-MRv">
-                        <barButtonItem key="leftBarButtonItem" title="Dev" id="158-Xs-MCC">
-                            <connections>
-                                <action selector="devButtonTouched:" destination="kDV-iN-oVm" id="wIU-SV-MrW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ejq-Ys-12d">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="ejq-Ys-12d">
                             <connections>
                                 <action selector="addEventButtonTouched:" destination="kDV-iN-oVm" id="Md1-0q-gDG"/>
                             </connections>
