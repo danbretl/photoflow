@@ -23,9 +23,12 @@
 @property (nonatomic, strong) IBOutlet UIButton * cancelButton;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem * cancelButtonNav;
 @property (nonatomic, strong) IBOutlet UIButton * goButton;
-@property (nonatomic, strong) IBOutlet UIImageView * photoflowImageView;
+@property (nonatomic, strong) IBOutlet UIView * codeOnlineContainer;
+@property (nonatomic, strong) IBOutlet UIButton * codeOnlineButton;
+@property (nonatomic, strong) IBOutlet UILabel * codeOnlineLabel;
 
 - (IBAction)cancelButtonTouched:(id)button;
 - (IBAction)goButtonTouched:(UIButton *)button;
+- (IBAction)codeOnlineButtonTouched:(UIButton *)button;
 
 @end

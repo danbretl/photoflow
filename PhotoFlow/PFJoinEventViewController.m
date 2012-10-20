@@ -63,13 +63,25 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     
     self.cardBackgroundView.image = [[UIImage imageNamed:@"invite_card_bg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0)];
 
-    self.photoflowImageView.image = [UIImage imageNamed:@"branding_text.png"];
-
     self.promptLabel.font = [UIFont fontWithName:@"Miso" size:21.0];
     self.promptLabel.textColor = [UIColor colorWithWhite:54.0/255.0 alpha:1.0];
     self.promptLabel.shadowColor = [UIColor whiteColor];
     self.promptLabel.shadowOffset = CGSizeMake(0.0, 2.0);
     [self.promptLabel sizeToFit];
+    
+    NSString * lineOne = @"Register for a new code at".uppercaseString;
+    NSString * lineTwo = @"photoflowapp.com".uppercaseString;
+    NSMutableAttributedString * attributedString = self.codeOnlineLabel.attributedText.mutableCopy;
+    [attributedString setAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Miso" size:15.0]} range:NSMakeRange(0, lineOne.length + 1)];
+    [attributedString setAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Miso" size:6.0]} range:NSMakeRange(lineOne.length + 1, 1)];
+    [attributedString setAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Miso" size:21.0]} range:NSMakeRange(lineOne.length + 2, lineTwo.length)];
+//    style.paragraphSpacing = 5.0;
+//    [attributedString setAttributes:@{NSParagraphStyleAttributeName:style} range:NSMakeRange(0, attributedString.length)];
+//    [attributedString setAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Miso" size:15.0]} range:NSMakeRange(0, lineOne.length + 1)];
+//    [attributedString setAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Miso" size:21.0]} range:NSMakeRange(lineOne.length + 1, lineTwo.length)];
+    self.codeOnlineLabel.attributedText = attributedString;
+    self.codeOnlineLabel.textAlignment = NSTextAlignmentCenter;
+    self.codeOnlineLabel.textColor = [UIColor colorWithWhite:99.0/255.0 alpha:1.0];
     
     // text field
     self.codeTextField.font = [UIFont fontWithName:@"Miso" size:25.0];
@@ -153,6 +165,10 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     }
 }
 
+- (void)codeOnlineButtonTouched:(UIButton *)button {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.photoflowapp.com"]];
+}
+
 - (void)cancelButtonTouched:(UIBarButtonItem *)button {
     [self.codeTextField resignFirstResponder];
     NSArray * events = [self.moc getAllObjectsForEntityName:@"PFEvent" predicate:nil sortDescriptors:nil];
@@ -209,23 +225,24 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     double keyboardAnimationDuration = [[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve keyboardAnimationCurve = [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
     CGRect keyboardEndFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, keyboardEndFrame.size.height, 0);
     if ([UIScreen mainScreen].bounds.size.height >= 568.0) {
+        CGFloat specialAdjustment = floorf(keyboardEndFrame.size.height / 2.0);
+        insets.bottom = specialAdjustment;
         [self.view layoutIfNeeded];
         [UIView animateWithDuration:keyboardAnimationDuration delay:0.0 options:keyboardAnimationCurve animations:^{
-            self.scrollViewBottomSpace.constant = -keyboardEndFrame.size.height;
+            self.scrollViewBottomSpace.constant = -specialAdjustment;
             [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            // ...
-        }];
-    } else {
+        } completion:NULL];
+    }/* else {*/
         self.scrollView.scrollEnabled = YES;
-        self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, keyboardEndFrame.size.height, 0);
+        self.scrollView.contentInset = insets;
         [self.scrollView scrollRectToVisible:CGRectInset([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview], 0, -(self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom - self.codeTextField.bounds.size.height) / 2.0) animated:YES];
 //        NSLog(@"codeTextField.frame = %@", NSStringFromCGRect(self.codeTextField.frame));
 //        NSLog(@"codeTextField.frame (in window) = %@", NSStringFromCGRect([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview]));
 //        NSLog(@"self.scrollView.visibleHeight = %f", self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom);
 //        NSLog(@"CGRectInset([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview], 0, (self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom - self.codeTextField.bounds.size.height) / 2.0) = %@", NSStringFromCGRect(CGRectInset([self.scrollView convertRect:self.codeTextField.frame fromView:self.codeTextField.superview], 0, (self.scrollView.bounds.size.height - self.scrollView.contentInset.top - self.scrollView.contentInset.bottom - self.codeTextField.bounds.size.height) / 2.0)));
-    }
+    /*}*/
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -239,10 +256,10 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
         } completion:^(BOOL finished) {
             // ...
         }];
-    } else {
+    }/* else {*/
         self.scrollView.scrollEnabled = NO;
         [self.scrollView setContentOffset:CGPointZero animated:YES];
-    }
+    /*}*/
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
