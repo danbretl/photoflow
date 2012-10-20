@@ -60,6 +60,7 @@
     self.navigationItem.hidesBackButton = YES;
     
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grey_medium_texture.png"]];
+    self.tableView.contentInset = UIEdgeInsetsMake(5.0, 0, 5.0, 0);
     
 }
 
