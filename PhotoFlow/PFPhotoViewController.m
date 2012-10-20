@@ -12,6 +12,7 @@
 
 @interface PFPhotoViewController ()
 @property (nonatomic) float zoomScaleStart;
+@property (nonatomic, strong) UIImage * image;
 @end
 
 @implementation PFPhotoViewController
@@ -34,6 +35,7 @@
     AFImageRequestOperation * imageRequest = [AFImageRequestOperation imageRequestOperationWithRequest:urlRequest success:^(UIImage *image) {
         if (image != nil) {
     //        NSLog(@"got image of size %@", NSStringFromCGSize(image.size));
+            self.image = image;
             self.placeholderImageView.alpha = 0.0;
             [self.scrollView displayImage:image];
         }

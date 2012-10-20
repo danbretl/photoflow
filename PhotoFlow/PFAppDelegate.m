@@ -18,6 +18,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <Parse/Parse.h>
 #import "DefaultsManager.h"
+#import "PFNavigationViewController.h"
 
 @implementation PFAppDelegate
 
@@ -33,8 +34,8 @@
     //////////////////////////////////////
 
     // UINavigationBar - I can't get this stuff to work for me really... Reverting back to changing things more manually per view controller.
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsLandscapePhone];
+    [[UINavigationBar appearanceWhenContainedIn:[PFNavigationViewController class], nil] setBackgroundImage:[[UIImage imageNamed:@"nav_bar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearanceWhenContainedIn:[PFNavigationViewController class], nil] setBackgroundImage:[[UIImage imageNamed:@"nav_bar_landscape.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 7.0, 0, 7.0) resizingMode:UIImageResizingModeStretch] forBarMetrics:UIBarMetricsLandscapePhone];
     
 //    [UIFont logAvailableFonts];
     

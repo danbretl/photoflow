@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *placeholderImageView;
 
 @property (nonatomic, strong) PFPhoto * photo;
+@property (nonatomic, strong, readonly) UIImage * image;
 
 @property (nonatomic, readonly) float zoomScaleStart;
 

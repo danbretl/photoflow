@@ -97,7 +97,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
 }
 
 - (NSString *) imageURLStringForPhoto:(NSString *)photoEID boundingWidth:(NSUInteger)width boundingHeight:(NSUInteger)height quality:(NSUInteger)quality mode:(UIViewContentMode)mode {
-    NSLog(@"%@", [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/%d/?min=%@", width, height, quality, mode == UIViewContentModeScaleAspectFill ? @"true" : @"false"]);
+//    NSLog(@"%@", [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/%d/?min=%@", width, height, quality, mode == UIViewContentModeScaleAspectFill ? @"true" : @"false"]);
     return [[self imageURLStringForPhoto:photoEID] stringByAppendingFormat:@"%d/%d/%d/?min=%@", width, height, quality, mode == UIViewContentModeScaleAspectFill ? @"true" : @"false"];
 }
 

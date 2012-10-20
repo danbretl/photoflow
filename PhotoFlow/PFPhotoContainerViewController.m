@@ -8,6 +8,7 @@
 
 #import "PFPhotoContainerViewController.h"
 #import "UIAlertView+PhotoFlow.h"
+#import <Social/Social.h>
 
 @interface PFPhotoContainerViewController ()
 @property (nonatomic, strong) UIPageViewController * pageViewController;
@@ -21,6 +22,7 @@
 @property (nonatomic) UIPageViewControllerNavigationDirection navDirectionMostRecent;
 - (PFPhotoViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerForPhotoIndex:(NSInteger)photoIndex;
 @property (nonatomic, strong) UIActionSheet * deleteActionSheet;
+- (void) updateFacebookButtonVisible;
 @end
 
 @implementation PFPhotoContainerViewController
@@ -105,14 +107,18 @@
     if (!shouldBeVisible) {
         [toolbarItemsMutable removeObject:self.deleteButton];
     } else {
-        BOOL isVisible = NO;
-        for (UIBarButtonItem * item in toolbarItemsMutable) {
-            if (item == self.deleteButton) {
-                isVisible = YES;
-                break;
-            }
-        }
-        if (!isVisible) [toolbarItemsMutable addObject:self.deleteButton];
+        if (![toolbarItemsMutable containsObject:self.deleteButton]) [toolbarItemsMutable addObject:self.deleteButton];
+    }
+    self.toolbarItems = toolbarItemsMutable;
+}
+
+- (void) updateFacebookButtonVisible {
+    BOOL shouldBeVisible = [SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook];
+    NSMutableArray * toolbarItemsMutable = self.toolbarItems.mutableCopy;
+    if (!shouldBeVisible) {
+        [toolbarItemsMutable removeObject:self.shareButton];
+    } else {
+        if (![toolbarItemsMutable containsObject:self.shareButton]) [toolbarItemsMutable insertObject:self.shareButton atIndex:0];
     }
     self.toolbarItems = toolbarItemsMutable;
 }
@@ -130,6 +136,7 @@
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:2.0 forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleVerticalPositionAdjustment:0.0 forBarMetrics:UIBarMetricsLandscapePhone];
     [self updateToolbarButtonImagesForOrientation:self.interfaceOrientation];
+    [self updateFacebookButtonVisible];
 //    [self setBarsVisible:NO animated:NO];
 }
 
@@ -265,7 +272,25 @@
 
 - (void)toolbarButtonTouched:(id)sender {
     if (sender == self.shareButton.customView) {
-        
+        SLComposeViewController * facebookViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        PFPhotoViewController * photoViewController = (PFPhotoViewController *)self.pageViewController.viewControllers[0];
+        [facebookViewController setInitialText:[photoViewController.photo.event.descriptionShort stringByAppendingString:@" via"]];
+        [facebookViewController addURL:[NSURL URLWithString:@"www.photoflowapp.com"]];
+        [facebookViewController addImage:photoViewController.image];
+        SLComposeViewControllerCompletionHandler __block facebookCompletionHandler = ^(SLComposeViewControllerResult result){
+            [self dismissViewControllerAnimated:YES completion:NULL];
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                    NSLog(@"Facebook post cancelled");
+                    break;
+                case SLComposeViewControllerResultDone:
+                    NSLog(@"Facebook post finished");
+                    break;
+            }
+        };
+        facebookViewController.completionHandler = facebookCompletionHandler;
+        [self presentViewController:facebookViewController animated:YES completion:NULL];
     } else if (sender == self.deleteButton.customView) {
         [self.deleteActionSheet showFromBarButtonItem:self.deleteButton animated:YES];
     }
