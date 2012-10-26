@@ -11,7 +11,7 @@
 @implementation UIAlertView (PhotoFlow)
 
 + (UIAlertView *)connectionErrorAlertView {
-    return [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"We had some trouble connecting to PhotoFlow. Check your network settings and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    return [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"We had some trouble connecting to Photoflow. Check your network settings and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 }
 
 @end
