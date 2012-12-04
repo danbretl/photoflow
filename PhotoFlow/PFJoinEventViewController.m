@@ -12,7 +12,7 @@
 #import "PFHTTPClient.h"
 #import "UIAlertView+PhotoFlow.h"
 
-NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
+NSString * const EVENT_CODE_PLACEHOLDER = @"EventID123";
 
 @interface PFJoinEventViewController ()
 - (void) keyboardWillShow:(NSNotification *)notification;
@@ -69,7 +69,7 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
     self.promptLabel.shadowOffset = CGSizeMake(0.0, 2.0);
     [self.promptLabel sizeToFit];
     
-    NSString * lineOne = @"Register for a new code at".uppercaseString;
+    NSString * lineOne = @"Create a new event at".uppercaseString;
     NSString * lineTwo = @"photoflowapp.com".uppercaseString;
     NSMutableAttributedString * attributedString = self.codeOnlineLabel.attributedText.mutableCopy;
     [attributedString setAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Miso" size:15.0]} range:NSMakeRange(0, lineOne.length + 1)];
@@ -166,7 +166,7 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventCode123";
 }
 
 - (void)codeOnlineButtonTouched:(UIButton *)button {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.photoflowapp.com"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.photoflowapp.com/register.php"]];
 }
 
 - (void)cancelButtonTouched:(UIBarButtonItem *)button {
