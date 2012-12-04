@@ -185,7 +185,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 //    self.photos = [@[photoSubmitted] arrayByAddingObjectsFromArray:self.photos]; // This will happen automatically in viewWillAppear
 //    [self.collectionView reloadData]; // This will happen automatically in viewWillAppear
     [self dismissViewControllerAnimated:NO completion:NULL];
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    if (photoSubmitted) [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
 //    [self reloadRecentPhotos]; // This is dumb... It's only necessary because if we just added the one new photo, then the next load more recent photos request would be looking for photos more recent than that new added one, and it might miss some photos that came before that new added one, but after the previous most recent photo (now the second most recent). If this fails, we're still going to have this trouble. We need to start using an attribute on the event object rather than just using the top photo view in this VC. // Not doing this here anymore because pull to refresh has been changed to a full recent reload rather than a "load more recent".
 }
 
@@ -202,8 +202,22 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
         layoutTypeNew = PFPhotosViewLayoutGrid;
     }
     [DefaultsManager setPhotosViewLayoutPreference:layoutTypeNew];
-    [self.collectionView setCollectionViewLayout:layoutNew animated:YES];
-//    [self.collectionView setContentOffset:CGPointZero animated:NO];
+//    NSLog(@"%@", NSStringFromCGSize(self.collectionView.contentSize));
+    NSIndexPath * shouldScrollToIndexPath = nil;
+    if (self.collectionView.visibleCells.count) {
+        UICollectionViewCell * visibleCellWithLowestIndexPathRow = [self.collectionView.visibleCells sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [[self.collectionView indexPathForCell:obj1] compare:[self.collectionView indexPathForCell:obj2]];
+        }][0];
+//        NSLog(@"%d visible cells", self.collectionView.visibleCells.count);
+//        NSLog(@"visibleCell with lowest index path row has index path of %@", [self.collectionView indexPathForCell:visibleCellWithLowestIndexPathRow]);
+        shouldScrollToIndexPath = [self.collectionView indexPathForCell:visibleCellWithLowestIndexPathRow];
+    }
+    [self.collectionView setCollectionViewLayout:layoutNew animated:NO];
+    if (shouldScrollToIndexPath) {
+        [self.collectionView scrollToItemAtIndexPath:shouldScrollToIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    } else {
+        [self.collectionView setContentOffset:CGPointZero animated:NO];
+    }
     [self setToggleButtonCustomViewOppositeOfLayout:self.collectionView.collectionViewLayout];
 //    if (layoutTypeNew == PFPhotosViewLayoutBanner) {
         [self loadImagesForVisibleCells];
