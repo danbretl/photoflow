@@ -116,7 +116,7 @@ NSString * const PFC_BASE_URL_STRING_SAVED_KEY    = @"devBaseURL" ;
     
     self.uploadImageOperation = [[AFJSONRequestOperation alloc] initWithRequest:request];
     [self.uploadImageOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        NSLog(@"Upload %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+//        NSLog(@"Upload %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
     }];
     [self.uploadImageOperation setCompletionBlockWithSuccess:successBlock failure:failureBlock];
     [self.uploadImageOperation start];
