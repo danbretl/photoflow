@@ -15,6 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PFHTTPClient.h"
 #import "UIAlertView+PhotoFlow.h"
+#import "LocalyticsSession.h"
 
 const NSInteger LOAD_PHOTOS_COUNT_RELOAD = 24;
 const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
@@ -212,6 +213,7 @@ const NSInteger LOAD_PHOTOS_COUNT_MORE_OLD = 12;
 //        NSLog(@"visibleCell with lowest index path row has index path of %@", [self.collectionView indexPathForCell:visibleCellWithLowestIndexPathRow]);
         shouldScrollToIndexPath = [self.collectionView indexPathForCell:visibleCellWithLowestIndexPathRow];
     }
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Photos Mode Toggle" attributes:@{@"Mode":layoutTypeNew == PFPhotosViewLayoutBanner ? @"Banner" : @"Grid"}];
     [self.collectionView setCollectionViewLayout:layoutNew animated:NO];
     if (shouldScrollToIndexPath) {
         [self.collectionView scrollToItemAtIndexPath:shouldScrollToIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
