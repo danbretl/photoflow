@@ -69,7 +69,7 @@
 - (void) autoFocusAtPoint:(CGPoint)point withExposure:(BOOL)shouldAdjustExposure; // shouldAdjustExposure is currently ignored, because exposure it's not adjusting the way i'd expect it to. needs further investigation.
 - (void) continuousFocusAtPoint:(CGPoint)point withExposure:(BOOL)shouldAdjustExposure;
 - (BOOL) setFlashMode:(AVCaptureFlashMode)flashMode;
-@property (nonatomic, readonly) AVCaptureFlashMode flashModePreference
+@property (nonatomic, readonly) AVCaptureFlashMode flashModePreference;
 
 @property (nonatomic, strong) UIImage * imageCaptured;
 
