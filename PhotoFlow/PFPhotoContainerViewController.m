@@ -9,6 +9,7 @@
 #import "PFPhotoContainerViewController.h"
 #import "UIAlertView+PhotoFlow.h"
 #import <Social/Social.h>
+#import "LocalyticsSession.h"
 
 @interface PFPhotoContainerViewController ()
 @property (nonatomic, strong) UIPageViewController * pageViewController;
@@ -286,6 +287,14 @@
                     break;
                 case SLComposeViewControllerResultDone:
                     NSLog(@"Facebook post finished");
+                    NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:@{@"Event ID" : photoViewController.photo.event.eid, @"Event Title" : photoViewController.photo.event.title, @"Photo ID" : photoViewController.photo.eid}];
+                    if ([PFUser currentUser].objectId) {
+                        [attributes setObject:[PFUser currentUser].objectId forKey:@"User ID"];
+                    }
+                    if (photoViewController.photo.user) {
+                        [attributes setObject:photoViewController.photo.user forKey:@"Photo User ID"];
+                    }
+                    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Facebook Share" attributes:attributes];
                     break;
             }
         };
