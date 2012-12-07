@@ -15,6 +15,7 @@
 #import "UIImage+Resize.h"
 #import "UIAlertView+PhotoFlow.h"
 #import "PFCameraConstants.h"
+#import "LocalyticsSession.h"
 
 @interface PFCameraViewController ()
 - (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates;
@@ -193,6 +194,7 @@
         self.photoEditorController.delegate = self;
         self.photoEditorSession = self.photoEditorController.session;
         [self presentViewController:self.photoEditorController animated:NO completion:NULL];
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Photo Edit Started"];
     } else if (sender == self.saveButton) {
         [self submitPhotoStart];
     } else if (sender == self.cancelButton) {
@@ -223,11 +225,13 @@
             [self showImageReview];
             [self submitPhotoStart];
             self.photoEditorSession = nil;
+            [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Photo Edit Finished"];
         }];
     }];
 }
 
 - (void)photoEditorCanceled:(AFPhotoEditorController *)editor {
+    [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Photo Edit Canceled"];
     [self dismissViewControllerAnimated:NO completion:NULL];
 }
 
@@ -268,6 +272,20 @@
         [flashView setBackgroundColor:[UIColor whiteColor]];
         [self.view.window addSubview:flashView];
         [UIView animateWithDuration:.4 animations:^{ [flashView setAlpha:0.f]; } completion:^(BOOL finished){ [flashView removeFromSuperview]; }];
+        
+        NSString * cameraString = @"Unknown";
+        switch (self.captureManager.videoInput.device.position) {
+            case AVCaptureDevicePositionBack:  cameraString = @"Back";  break;
+            case AVCaptureDevicePositionFront: cameraString = @"Front"; break;
+            default: break;
+        }
+        NSString * flashString = @"Auto";
+        switch (self.captureManager.flashModePreference) {
+            case AVCaptureFlashModeOn:  flashString = @"On";  break;
+            case AVCaptureFlashModeOff: flashString = @"Off"; break;
+            default: break;
+        }
+        [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Photo Capture" attributes:@{@"Camera" : cameraString, @"Flash" : flashString}];
         
         [self.focusMotionManager stopDeviceMotionUpdates];
         
