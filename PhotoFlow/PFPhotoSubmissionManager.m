@@ -7,6 +7,8 @@
 //
 
 #import "PFPhotoSubmissionManager.h"
+#import "LocalyticsSession.h"
+#import <Parse/Parse.h>
 
 const int PhotoSubmissionStageMinimumInclusive = 0;
 const int PhotoSubmissionStageMaximumInclusive = 2;
@@ -94,6 +96,11 @@ const int PhotoSubmissionStageMaximumInclusive = 2;
         
         [[PFHTTPClient sharedClient] savePhoto:photoEID toEvent:event.eid successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject != nil) {
+                NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:@{@"Event ID" : event.eid, @"Event Title" : event.title}];
+                if ([PFUser currentUser].objectId) {
+                    [attributes setObject:[PFUser currentUser].objectId forKey:@"User ID"];
+                }
+                [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Photo Post" attributes:attributes];
                 self.photoSubmitted = [self.moc addOrUpdatePhotoFromAPI:responseObject toEvent:event checkIfExists:NO];
                 [self.moc saveCoreData];
                 [self setStatus:StatusComplete forStage:StagePhotoSave];

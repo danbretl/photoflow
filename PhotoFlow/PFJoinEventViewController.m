@@ -11,6 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PFHTTPClient.h"
 #import "UIAlertView+PhotoFlow.h"
+#import "LocalyticsSession.h"
+#import <Parse/Parse.h>
 
 NSString * const EVENT_CODE_PLACEHOLDER = @"EventID123";
 
@@ -143,6 +145,11 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventID123";
         [[PFHTTPClient sharedClient] getEventDetails:self.codeTextField.text successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
             // Update local data
             PFEvent * event = [self.moc addOrUpdateEventFromAPI:responseObject];
+            NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithDictionary:@{@"Event ID" : event.eid, @"Event Title" : event.title}];
+            if ([PFUser currentUser].objectId) {
+                [attributes setObject:[PFUser currentUser].objectId forKey:@"User ID"];
+            }
+            [[LocalyticsSession sharedLocalyticsSession] tagEvent:@"Event Add" attributes:attributes];
             if (![responseObject[@"coverPhoto"] isEqual:[NSNull null]]) {
                 [self.moc addOrUpdatePhotoFromAPI:responseObject[@"coverPhoto"] toEvent:event checkIfExists:YES];
             }
@@ -157,7 +164,7 @@ NSString * const EVENT_CODE_PLACEHOLDER = @"EventID123";
             NSString * alertMessage = connectionErrorAlertView.message;
             if (operation.response.statusCode == 404) {
                 alertTitle = @"Event Not Found";
-                alertMessage = @"We couldn't an event for that code. Check your invitation and try again.";
+                alertMessage = @"We couldn't find an event for that code. Check your invitation and try again.";
             }
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
